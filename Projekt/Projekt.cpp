@@ -72,45 +72,61 @@ public:
 };
 class Worm {
 public:
-    int x, y, age, maxAge, direction, m;
-    int mv[4] = { 0, 1, 0, -1 };
+    int maxAge = 25;
+    int age = 0;
+    int m = 0;
+    int coords[2] = { 4, 4 };
+    
+
     float hunger;
-    void move(Board plansza) {
-        direction = rand() % 3;
-        switch (direction) {
-        case 0:
-            m += 0;
-            break;
-        case 1:
-            m += -1;
-            break;
-        case 2:
-            m += 1;
-            break;
+    void move(Board &board) {
+        int dx[4] = { 0, -1, 0, 1 };
+        int dy[4] = { 1, 0, -1, 0 };
+
+        int direction = rand() % 4;
+        
+        int newX = coords[0] + dx[direction];
+        int newY = coords[1] + dy[direction];
+
+        if (newX >= 0 && newX < board.getX() && newY >= 0 && newY < board.getY()) {
+            coords[0] = newX;
+            coords[1] = newY;
         }
-        if (x + m > 0 && x + m < plansza.x || y + m > 0 || y + m < plansza.y) {
-            x += mv[m];
-            y += mv[m + 1];
+        cout << "Jestem w x: " << coords[0] << " y: " << coords[1] << "\n";
+        }
+    void ageUp() {
+        if (age < maxAge) {
+            age += 1;
+            cout << "Mam " << age << " lat, maksymalnie przezyje " << maxAge;
+        }if (age > 3) {
+            //rozmnazanie
         }
     }
 };
 int main(){
     srand(time(0));
     int stop;
+    int days = 0;
     Board plansza;
+    Worm worm;
     plansza.x = 10;
     plansza.y = 10;
     plansza.initializeBoard();
     plansza.printBoard();
-    plansza.startWormColony();
+    //plansza.startWormColony();
     while (true) {
+        //plansza.printBoard();
+        //plansza.wormDistribution();
+        cout << "Uplynelo: " << days << " tur\n";
+        days += 1;
         plansza.printBoard();
-        plansza.wormDistribution();
-        plansza.printBoard();
+        worm.move(plansza);
+        worm.ageUp();
         cin >> stop;
-        if (stop == 1) {
+        if (stop == 111) {
             break;
         }
+        cout << endl;
     }
     return 0;
 }
