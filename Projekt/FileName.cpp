@@ -1,13 +1,9 @@
-﻿using namespace std;
-#include <iostream>
-#include <vector>
-
 class Board {
 public:
     int x, y;
-    vector<vector<int>> board;
+    vector<vector<char>> board;
     void initializeBoard() {
-        board = vector<vector<int>>(x, vector<int>(y, 1));
+        board = vector<vector<char>>(x, vector<char>(y, ' '));
     }
     void printBoard() {
         cout << "Hodowla robakow o wielkosci " << x << "x" << y << "\n";
@@ -31,10 +27,12 @@ public:
                     cin >> wormAmount;
                     board[sx][sy] = wormAmount;
                     break;
-                }else {
+                }
+                else {
                     cout << "Wspolrzedna y powinna miescic sie w zakresie 0 - " << y << "\n";
                 }
-            }else {
+            }
+            else {
                 cout << "Wspolrzedna x powinna miescic sie w zakresie 0 - " << x << "\n";
             }
         }
@@ -59,13 +57,13 @@ public:
                     }
                 }
             }
-            
+
         }
-        
+
     }
     // Setter
     void setWorm(int x, int y) {
-        board[x][y] = 8;
+        board[x][y] = '8';
     }
     int getX() {
         return this->x;
@@ -79,9 +77,9 @@ public:
     int maxAge = 25;
     int age = 0;
     int m = 0;
-    int coords[2] = { 4, 4 };
+    int coords[2] = { 10, 20 };
 
-    int hunger = 1000;
+    int hunger = 50;
     int bodySegments = 5;
     vector<vector<int>> bodyCoords;
 
@@ -89,12 +87,12 @@ public:
         bodyCoords.push_back({ coords[0], coords[1] });
     }
 
-    void moveHead(Board &board) {
+    void moveHead(Board& board) {
         int dx[4] = { 0, -1, 0, 1 };
         int dy[4] = { 1, 0, -1, 0 };
 
         int direction = rand() % 4;
-        
+
         int newX = coords[0] + dx[direction];
         int newY = coords[1] + dy[direction];
         if (hunger > 0) {
@@ -108,7 +106,8 @@ public:
             }
             drawWorm(board);
             cout << "Jestem w x: " << coords[0] << " y: " << coords[1] << "\n";
-        }else {
+        }
+        else {
             cout << "Zmarlem z glodu :( \n";
         }
     }
@@ -127,7 +126,7 @@ public:
     //    cout << "Koordynaty glowy - x: " << coords[0] << " y: " << coords[1] << endl;
     //    cout << "Koordynaty 1. segmentu - x: " << bodyCoords[0][0] << " y: " << bodyCoords[0][1] << endl;
     //}
-    void moveBody(Board &board) {
+    void moveBody(Board& board) {
         if (bodyCoords.size() < bodySegments) {
             vector<int> last = bodyCoords.back();
             while (bodyCoords.size() < bodySegments) {
@@ -137,7 +136,7 @@ public:
         for (int i = bodySegments - 1; i > 0; i--) {
             bodyCoords[i] = bodyCoords[i - 1];
         }
-        bodyCoords[0] = { coords[0], coords[1] }; // głowa sprzed ruchu
+        bodyCoords[0] = { coords[0], coords[1] }; // g�owa sprzed ruchu
         cout << "Koordynaty 1. segmentu - x: " << bodyCoords[0][0] << " y: " << bodyCoords[0][1] << endl;
     }
     void ageUp() {
@@ -157,36 +156,10 @@ public:
         }
         return true;
     }
-    void drawWorm(Board &board) {
+    void drawWorm(Board& board) {
         board.setWorm(coords[0], coords[1]);
         for (int i = bodySegments - 1; i >= 0; i--) {
             board.setWorm(bodyCoords[i][0], bodyCoords[i][1]);
         }
     }
 };
-int main(){
-    srand(time(0));
-    int stop;
-    int days = 0;
-    Board plansza;
-    Worm worm;
-    plansza.x = 20;
-    plansza.y = 40;
-    plansza.initializeBoard();
-    //plansza.printBoard();
-    //plansza.startWormColony();
-    while (true) {
-        //plansza.printBoard();
-        //plansza.wormDistribution();
-        cout << "Uplynelo: " << days << " tur\n";
-        days += 1;
-        worm.moveHead(plansza);
-        plansza.printBoard();
-        plansza.initializeBoard();
-        worm.ageUp();
-        cout << endl;
-        system("pause");
-        system("cls");
-    }
-    return 0;
-}
