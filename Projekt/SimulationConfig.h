@@ -3,6 +3,7 @@ class SimulationConfig{
 	int maxAge, maxHunger, maxSize;
 public:
 	
+	void printConfig() const;
 
 	void setMaxAge(int newMaxAge);
 	int getMaxAge() const;

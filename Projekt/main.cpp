@@ -1,12 +1,10 @@
-﻿#include "Board.h"
-#include "Worm.h"
-#include "SimulationConfig.h"
-#include "Simulation.h"
+﻿#include "Simulation.h"
 #include <iostream>
 
 int main(){
     Simulation simulation;
-    simulation.start();
+    simulation.setup();
+    //simulation.printConfig();
     while (true) {
         simulation.step();
         system("pause");
