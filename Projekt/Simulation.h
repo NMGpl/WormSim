@@ -14,5 +14,7 @@ public:
 	void step();
 	void printConfig() const;
 	void addWorm(int wormsAmount);
+	void ageWorm();
+	void killWorm();
 };
 

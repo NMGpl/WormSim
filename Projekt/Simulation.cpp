@@ -32,23 +32,49 @@ void Simulation::printConfig() const {
 	config.printConfig();
 }
 
+//void Simulation::step() {
+//	std::cout << worms.size() << " robaczkow\n";
+//	for (int i = 0; i < worms.size(); i++) {
+//		worms[i]->ageUp();
+//		std::cout << "Robaczek " << i << " martwy?" << worms[i]->isDead() << "\n";
+//		/*std::cout << "Jestem robak " << i << " mam " << worms[i]->getAge() << std::endl;*/
+//	}
+//	/*for (auto i : worms) {
+//		std::cout << i;
+//	}*/
+//	auto newEnd = std::remove_if(worms.begin(), worms.end(), [](Worm* worm) {
+//		return worm->isDead();
+//	});
+//	worms.erase(newEnd, worms.end());
+//}
+
 void Simulation::step() {
-	for (int i = 0; i < worms.size(); i++) {
-		worms[i]->ageUp();
-		std::cout << "Jestem robak " << i << " mam " << worms[i]->getAge() << std::endl;
-	}
-	/*for (auto i : worms) {
-		std::cout << i;
-	}*/
-	auto newEnd = std::remove_if(worms.begin(), worms.end(), [](const Worm* worm) {
+	std::cout << "Symulacja " << worms.size() << " robaczkow\n";
+	ageWorm();
+	killWorm();
+	addWorm(1);
+}
+
+void Simulation::killWorm() {
+	auto newEnd = std::remove_if(worms.begin(), worms.end(), [](Worm* worm) {
 		return worm->isDead();
 	});
 	worms.erase(newEnd, worms.end());
 }
 
+void Simulation::ageWorm() {
+	for (int i = 0; i < worms.size(); i++) {
+		worms[i]->ageUp();
+	}
+	killWorm();
+}
+
 void Simulation::addWorm(int wormsAmount) {
 	for (int i = 0; i < wormsAmount; i++) {
-		worms.push_back(new Worm);
-		std:: cout << "Siema jestem robak " << i << std::endl;
+		Worm* pWorm = new Worm;
+		pWorm->setMaxAge(config.getMaxAge()+i);
+		pWorm->setMaxHunger(config.getMaxHunger());
+		pWorm->setMaxSize(config.getMaxSize());
+		worms.push_back(pWorm);
 	}
 }
