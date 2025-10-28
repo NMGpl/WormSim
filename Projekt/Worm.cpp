@@ -19,7 +19,9 @@ void Worm::initializeWorm() {
 }
 
 bool Worm::isDead() const{
-    return age > maxAge;
+    if (age > maxAge) return true;
+    if (hunger > maxHunger) return true;
+    return false;
 }
 
 void Worm::ageUp() {

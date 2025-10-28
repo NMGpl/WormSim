@@ -14,7 +14,11 @@ public:
 	void setAge(int age);
 	int getMaxHunger() const;
 	void setMaxHunger(int maxHunger);
+	int getHunger() const;
+	void setHunger(int hunger);
 	int getMaxSize() const;
 	void setMaxSize(int maxSize);
+	int getSize() const;
+	void setSize(int size);
 };
 
