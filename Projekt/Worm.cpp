@@ -8,6 +8,8 @@ Worm::Worm() {
     maxAge = 0;
     maxHunger = 0;
     maxSize = 0;
+    headX = 0;
+    headY = 0;
 }
 
 Worm::~Worm() {
@@ -16,6 +18,14 @@ Worm::~Worm() {
 
 void Worm::initializeWorm() {
 
+}
+
+int Worm::getHeadX() const {
+    return headX;
+}
+
+int Worm::getHeadY() const {
+    return headY;
 }
 
 bool Worm::isDead() const{
@@ -50,6 +60,14 @@ int Worm::getMaxHunger() const {
 
 void Worm::setMaxHunger(int maxHunger) {
     this->maxHunger = maxHunger;
+}
+
+int Worm::getHunger() const {
+    return hunger;
+}
+
+void Worm::setHunger(int hunger) {
+    this->hunger = hunger;
 }
 
 int Worm::getMaxSize() const {

@@ -2,10 +2,13 @@
 class Worm {
 	int age, hunger, size;
 	int maxAge, maxHunger, maxSize;
+	int headX, headY;
 public:
 	Worm();
 	~Worm();
 	void initializeWorm();
+	int getHeadX() const;
+	int getHeadY() const;
 	bool isDead() const;
 	void ageUp();
 	int getMaxAge() const;

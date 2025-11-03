@@ -8,15 +8,17 @@ class Simulation{
 	SimulationConfig config;
 	std::vector<Worm*> worms;
 	std::vector<std::vector <Tile*>> tiles;
+	int boardWidth, boardHeight;
 public:
 	void setup();
 	void step();
 	void printConfig() const;
 	void addWorm(int wormsAmount);
-	void prepareBoard(int boardWidth, int boardHeight);
+	void prepareBoard();
 	void ageWorm();
-	//void starveWorm();
+	void starveWorm();
 	void killWorm();
-	//int checkGround();
+	int checkGround(int wormHeadX, int wormHeadY);
+	void printBoard() const;
 };
 

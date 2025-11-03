@@ -7,6 +7,7 @@ int main(){
     while (true) {
         simulation.step();
         system("pause");
+        system("cls");
     }
     return 0;
 }
