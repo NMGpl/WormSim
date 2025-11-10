@@ -2,29 +2,10 @@
 #include "Worm.h"
 #include "SimulationConfig.h"
 #include <iostream>
+#include <ctime>
 
 void Simulation::setup() {
 	int maxAge, maxHunger, maxSize, wormsAmount;
-	do {
-		std::cout << "Podaj maksymalny wiek robaczka: ";
-		std::cin >> maxAge;
-	} while (maxAge <= 0);
-	config.setMaxAge(maxAge);
-	do {
-		std::cout << "Podaj tolerancje na glod robaczka: ";
-		std::cin >> maxHunger;
-	} while (maxHunger <= 0);
-	config.setMaxHunger(maxHunger);
-	do {
-		std::cout << "Podaj maksymalna wielkosc robaczka: ";
-		std::cin >> maxSize;
-	} while (maxSize < 0);
-	config.setMaxSize(maxSize);
-	do {
-		std::cout << "Podaj startowa ilosc robaczkow: ";
-		std::cin >> wormsAmount;
-	} while (wormsAmount < 0);
-	addWorm(wormsAmount);
 	do {
 		std::cout << "Podaj szerokosc planszy: ";
 		std::cin >> boardWidth;
@@ -35,7 +16,30 @@ void Simulation::setup() {
 		std::cin >> boardHeight;
 	} while (boardHeight < 0);
 	prepareBoard();
-	
+
+	do {
+		std::cout << "Podaj maksymalny wiek robaczka: ";
+		std::cin >> maxAge;
+	} while (maxAge <= 0);
+	config.setMaxAge(maxAge);
+
+	do {
+		std::cout << "Podaj tolerancje na glod robaczka: ";
+		std::cin >> maxHunger;
+	} while (maxHunger <= 0);
+	config.setMaxHunger(maxHunger);
+
+	do {
+		std::cout << "Podaj maksymalna wielkosc robaczka: ";
+		std::cin >> maxSize;
+	} while (maxSize < 0);
+	config.setMaxSize(maxSize);
+
+	do {
+		std::cout << "Podaj startowa ilosc robaczkow: ";
+		std::cin >> wormsAmount;
+	} while (wormsAmount < 0);
+	addWorm(wormsAmount);
 }
 
 void Simulation::printConfig() const {
@@ -59,9 +63,9 @@ void Simulation::printConfig() const {
 //}
 
 void Simulation::step() {
+	addWorm(1);
 	ageWorm();
 	starveWorm();
-	//addWorm(10);
 	killWorm();
 	std::cout << "Symulacja " << worms.size() << " robaczkow\n";
 	printBoard();
@@ -71,15 +75,14 @@ void Simulation::starveWorm() {
 	for (int i = 0; i < worms.size(); i++) {
 		int x = worms[i]->getHeadX();
 		int y = worms[i]->getHeadY();
-		if (checkGround(x, y) > 0) {
+		if (checkGround(y, x) > 0) {
 			if (worms[i]->getHunger() > 0) {
 				worms[i]->setHunger(worms[i]->getHunger() - 1);
 			}
-			tiles[x][y]->setFoodAmount(tiles[x][y]->getFoodAmount() - 1);
+			tiles[y][x]->setFoodAmount(tiles[y][x]->getFoodAmount() - 1);
 		} else {
 			worms[i]->setHunger(worms[i]->getHunger() + 1);
 		}
-		std::cout << "Glod robaka " << i << ": " << worms[i]->getHunger() << "\n";
 	}
 }
 
@@ -101,11 +104,13 @@ void Simulation::ageWorm() {
 }
 
 void Simulation::addWorm(int wormsAmount) {
+	srand(time(0));
 	for (int i = 0; i < wormsAmount; i++) {
-		Worm* pWorm = new Worm;
+		Worm* pWorm = new Worm(rand() % boardWidth, rand() % boardHeight);
 		pWorm->setMaxAge(config.getMaxAge());
 		pWorm->setMaxHunger(config.getMaxHunger());
 		pWorm->setMaxSize(config.getMaxSize());
+		//pWorm->setHeadCords(rand() % boardWidth, rand() % boardHeight);
 		worms.push_back(pWorm);
 	}
 }

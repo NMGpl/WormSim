@@ -1,19 +1,19 @@
 #include "Worm.h"
 #include <iostream>
 
-Worm::Worm() {
+Worm::Worm(int headX, int headY) {
     age = 0;
     hunger = 0;
     size = 0;
     maxAge = 0;
     maxHunger = 0;
     maxSize = 0;
-    headX = 0;
-    headY = 0;
+    this->headX = headX;
+    this->headY = headY;
 }
 
 Worm::~Worm() {
-    std::cout << "What the sigma?";
+
 }
 
 void Worm::initializeWorm() {
@@ -26,6 +26,11 @@ int Worm::getHeadX() const {
 
 int Worm::getHeadY() const {
     return headY;
+}
+
+void Worm::setHeadCords(int headX, int headY) {
+    this->headX = headX;
+    this->headY = headY;
 }
 
 bool Worm::isDead() const{
