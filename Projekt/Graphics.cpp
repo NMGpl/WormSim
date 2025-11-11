@@ -2,6 +2,7 @@
 #include "Button.h"
 #include "raylib.h"
 #include <vector>
+#include <iostream>
 
 Graphics::Graphics(int x, int y) {
 	this->x = x;
@@ -20,9 +21,11 @@ void Graphics::begin() const {
 void Graphics::draw() const {
 	ClearBackground(BLACK);
 	DrawText("WormSim", x / 2 - 50, 10, 20, WHITE);
+	//int i = MeasureText("Siz", 20);
 	//DrawRectangleLines(10, 40, x - 20, y - 50, WHITE); //width = 1260; height = 670
 	drawMenu();
 	drawWormBox();
+	//std::cout << i;
 }
 
 void Graphics::drawMenu() const {
@@ -30,7 +33,10 @@ void Graphics::drawMenu() const {
 	DrawRectangleLines(975, 40, 275, y - 50, WHITE);					//Prawe menu
 	
 	//Draw buttons
-
+	/*bHunger.draw();
+	bRegen.draw();
+	bSize.draw();
+	bLifespan.draw();*/
 }
 
 void Graphics::drawWormBox() const {
