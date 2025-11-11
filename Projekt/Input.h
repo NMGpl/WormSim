@@ -5,7 +5,14 @@
 class Input {
 	int x, y;
 	int width, height;
+	Color color;
 public:
-	void draw(int x, int y, int width, int height, Color color) const;
+	Input(int x, int y, int width, int height);
+	void draw() const;
+	int getX() const;
+	int getY() const;
+	int getWidth() const;
+	int getHeight() const;
+	void setColor(Color color);
 };
 

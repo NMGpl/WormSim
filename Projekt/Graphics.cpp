@@ -9,6 +9,8 @@
 Graphics::Graphics(int x, int y) {
 	this->x = x;
 	this->y = y;
+	prepareButtons(985, 50, 170, 30);
+	prepareInputs(1165, 50, 95, 30);
 	// Tell the window to use vsync and work on high DPI displays
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
@@ -33,38 +35,63 @@ void Graphics::draw() const {
 void Graphics::drawMenu() const {
 	DrawRectangleLines(10, 40, 275, y - 50, WHITE);						//Lewe menu ?????
 	DrawRectangleLines(975, 40, 295, y - 50, WHITE);					//Prawe menu
-	drawInputs(1165, 50, 95, 30, WHITE);
-	drawButtons(985, 50, 170, 30, WHITE);
+	drawInputs(manager);
+	drawButtons(manager);
 }
 
-//void Graphics::prepareButtons() {
-//
-//}
-
-void Graphics::drawButtons(int startX, int startY, int width, int height, Color color) const {
-	bRegen.draw(startX, startY, width, height, color, "Reg. podloza");
-	bHunger.draw(startX, startY + 40, width, height, color, "Odpornosc na glod");
-	bSize.draw(startX, startY + 80, width, height, color, "Maks. wielkosc");
-	bLifespan.draw(startX, startY + 120, width, height, color, "Sr. czas zycia");
-	bChildren.draw(startX, startY + 160, width, height, color, "Ilosc mlodych");
-	bProductivity.draw(startX, startY + 200, width, height, color, "Sr. czas prod.");
+void Graphics::prepareButtons(int startX, int startY, int width, int height) {
+	Button bRegen(startX, startY, width, height, "Reg. podloza");
+	buttons.push_back(bRegen);
+	Button bHunger(startX, startY + 40, width, height, "Odpornosc na glod");
+	buttons.push_back(bHunger);
+	Button bSize(startX, startY + 80, width, height, "Maks. wielkosc");
+	buttons.push_back(bSize);
+	Button bLifespan(startX, startY + 120, width, height, "Sr. czas zycia");
+	buttons.push_back(bLifespan);
+	Button bChildren(startX, startY + 160, width, height, "Ilosc mlodych");
+	buttons.push_back(bChildren);
+	Button bProductivity(startX, startY + 200, width, height, "Sr. czas prod.");
+	buttons.push_back(bProductivity);
 }
 
-void Graphics::drawInputs(int startX, int startY, int width, int height, Color color) const {
-	for (Input input : inputs) {
-		input.draw(startX, startY, width, height, color);
+void Graphics::prepareInputs(int startX, int startY, int width, int height) {
+	for (int i = 0; i < 6; i++) {
+		Input input(startX, startY, width, height);
+		inputs.push_back(input);
 		startY += 40;
 	}
 }
 
-void Graphics::drawWormBox() const {
-	DrawRectangleLines(295, 40, y - 50, y - 50, RED);
+void Graphics::drawButtons(InputManager manager) const {
+	for (Button button : buttons) {
+		int x = button.getX();
+		int y = button.getY();
+		int width = button.getWidth();
+		int height = button.getHeight();
+		if (manager.isMouseOver(x, y, width, height)) {
+			button.setColor(RED);
+			std::cout << "X: " << GetMouseX() << "Y: " << GetMouseY() << "\n";
+		}
+		button.draw();
+	}
 }
 
-void Graphics::checkInput() {
-	//bRegen
-	//if(manager.isMouseOver())
-	//
+void Graphics::drawInputs(InputManager manager) const {
+	for (Input input : inputs) {
+		int x = input.getX();
+		int y = input.getY();
+		int width = input.getWidth();
+		int height = input.getHeight();
+		if (manager.isMouseOver(x, y, width, height)) {
+			input.setColor(RED);
+			std::cout << "X: " << GetMouseX() << "Y: " << GetMouseY() << "\n";
+		}
+		input.draw();
+	}
+}
+
+void Graphics::drawWormBox() const {
+	DrawRectangleLines(295, 40, y - 50, y - 50, WHITE);
 }
 
 void Graphics::end() const {
