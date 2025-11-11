@@ -126,6 +126,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="SimulationConfig.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="resource_dir.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="SimulationConfig.h" />

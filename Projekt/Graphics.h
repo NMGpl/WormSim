@@ -1,6 +1,7 @@
 #pragma once
 #include "Button.h"
 #include "Input.h"
+#include "InputManager.h"
 #include <vector>
 #include <string>
 
@@ -8,6 +9,7 @@ class Graphics {
 	int x, y;
 	Button bRegen, bHunger, bSize, bLifespan, bChildren, bProductivity;
 	Input iRegen, iHunger, iSize, iLifespan, iChildren, iProductivity;
+	InputManager manager;
 	std::vector<Button> buttons = {bRegen, bHunger, bSize, bLifespan, bChildren, bProductivity};
 	std::vector<Input> inputs = {iRegen, iHunger, iSize, iLifespan, iChildren, iProductivity};
 	void drawMenu() const;
@@ -19,5 +21,6 @@ public:
 	void begin() const;
 	void end() const;
 	void draw() const;
+	void checkInput();
 };
 
