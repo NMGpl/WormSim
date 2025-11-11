@@ -1,5 +1,6 @@
 #include "Graphics.h"
 #include "Button.h"
+#include "Input.h"
 #include "raylib.h"
 #include <vector>
 #include <iostream>
@@ -30,13 +31,25 @@ void Graphics::draw() const {
 
 void Graphics::drawMenu() const {
 	DrawRectangleLines(10, 40, 275, y - 50, WHITE);						//Lewe menu ?????
-	DrawRectangleLines(975, 40, 275, y - 50, WHITE);					//Prawe menu
-	
-	//Draw buttons
-	/*bHunger.draw();
-	bRegen.draw();
-	bSize.draw();
-	bLifespan.draw();*/
+	DrawRectangleLines(975, 40, 295, y - 50, WHITE);					//Prawe menu
+	drawInputs(1165, 50, 95, 30, WHITE);
+	drawButtons(985, 50, 170, 30, WHITE);
+}
+
+void Graphics::drawButtons(int startX, int startY, int width, int height, Color color) const {
+	bRegen.draw(startX, startY + 40, width, height, color, "Reg. podloza");
+	bHunger.draw(startX, startY, width, height, color, "Odpornosc na glod");
+	bSize.draw(startX, startY + 80, width, height, color, "Maks. wielkosc");
+	bLifespan.draw(startX, startY + 120, width, height, color, "Sr. cz. zycia");
+	bChildren.draw(startX, startY + 160, width, height, color, "Ilosc mlodych");
+	bProductivity.draw(startX, startY + 200, width, height, color, "Sr. cz. prod.");
+}
+
+void Graphics::drawInputs(int startX, int startY, int width, int height, Color color) const {
+	for (Input input : inputs) {
+		input.draw(startX, startY, width, height, color);
+		startY += 40;
+	}
 }
 
 void Graphics::drawWormBox() const {
