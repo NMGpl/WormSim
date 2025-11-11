@@ -70,7 +70,6 @@ void Graphics::drawButtons(InputManager manager) const {
 		int height = button.getHeight();
 		if (manager.isMouseOver(x, y, width, height)) {
 			button.setColor(RED);
-			std::cout << "X: " << GetMouseX() << "Y: " << GetMouseY() << "\n";
 		}
 		button.draw();
 	}
@@ -84,13 +83,17 @@ void Graphics::drawInputs(InputManager manager) const {
 		int height = input.getHeight();
 		if (manager.isMouseOver(x, y, width, height)) {
 			input.setColor(RED);
-			std::cout << "X: " << GetMouseX() << "Y: " << GetMouseY() << "\n";
 		}
 		input.draw();
 	}
 }
 
 void Graphics::drawWormBox() const {
+	for (int i = 0; i < 670; i += 2) {
+		for (int j = 0; j < 670; j += 2) {
+			DrawRectangle(295 + i, 40 + j, 2, 2, GREEN);
+		}
+	}
 	DrawRectangleLines(295, 40, y - 50, y - 50, WHITE);
 }
 
