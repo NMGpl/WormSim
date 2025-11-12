@@ -12,10 +12,11 @@ class Graphics {
 	Simulation simulation;
 	std::vector<Button> buttons;
 	std::vector<Input> inputs;
-	std::vector<std::vector<Tile>> tiles;
+	std::vector<std::vector<int>> tiles;
 	void drawMenu() const;
 	void drawWormBox() const;
 	void generateWormBox();
+	void drawTiles(int width, int height, int size) const;
 	void prepareButtons(int startX, int startY, int width, int height);
 	void prepareInputs(int startX, int startY, int width, int height);
 	void drawButtons(InputManager manager) const;

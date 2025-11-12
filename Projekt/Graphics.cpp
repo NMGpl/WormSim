@@ -95,20 +95,24 @@ void Graphics::generateWormBox() {
 }
 
 void Graphics::drawWormBox() const {
-	for (int i = 0; i < 670; i += 2) {
-		for (int j = 0; j < 670; j += 2) {
-			int tileFood = tiles[i / 2][j / 2].getFoodAmount();
-			if (tileFood >= 7) DrawRectangle(295 + i, 40 + j, 2, 2, GREEN);
-			else if (tileFood >= 3) DrawRectangle(295 + i, 40 + j, 2, 2, ORANGE);
-			else if (tileFood == 0) DrawRectangle(295 + i, 40 + j, 2, 2, BLACK);
-			else DrawRectangle(295 + i, 40 + j, 2, 2, RED);
-		}
-	}
+	drawTiles(670, 670, 10);
 	DrawRectangleLines(295, 40, y - 50, y - 50, WHITE);
 }
 
-
+void Graphics::drawTiles(int width, int height, int size) const{
+	for (int i = 0; i < width / size; i++) {
+		for (int j = 0; j < height / size; j++) {
+			int tileFood = tiles[i][j];
+			if (tileFood == 3) DrawRectangle(295 + (i * size), 40 + (j * size), size, size, GREEN);
+			else if (tileFood == 2) DrawRectangle(295 + (i * size), 40 + (j * size), size, size, ORANGE);
+			else if (tileFood == 1) DrawRectangle(295 + (i * size), 40 + (j * size), size, size, RED);
+			else DrawRectangle(295 + (i * size), 40 + (j * size), size, size, BLACK);
+		}
+	}
+}
 
 void Graphics::end() const {
+	std::cout << GetFrameTime() << "\n";
+	std::cout << GetFPS() << "\n";
 	EndDrawing();
 }

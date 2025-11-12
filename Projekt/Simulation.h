@@ -6,22 +6,23 @@
 
 class Simulation{
 	SimulationConfig config;
-	std::vector<Worm*> worms;
-	std::vector<std::vector <Tile*>> tiles;
+	std::vector<int*> worms;
+	std::vector<std::vector <int*>> tiles;
 	int boardWidth, boardHeight;
 public:
-	void setup();
-	void step();
+	//void setup();
+	//void step();
 	void printConfig() const;
-	void addWorm(int wormsAmount);
+	//void addWorm(int wormsAmount);
 	//void prepareBoard(int width, int height);
-	Tile prepareTile();
-	void ageWorm();
-	void starveWorm();
-	void killWorm();
-	int checkGround(int wormHeadX, int wormHeadY);
-	void printBoard() const;
+	int prepareTile();
+	//void ageWorm();
+	//void starveWorm();
+	//void killWorm();
+	//int checkGround(int wormHeadX, int wormHeadY);
+	//void printBoard() const;
 
-	std::vector <std::vector <Tile>> generateBoard(int width, int height);
+	//std::vector <std::vector <Tile>> generateBoard(int width, int height);
+	std::vector <std::vector <int>> generateBoard(int width, int height);
 };
 
