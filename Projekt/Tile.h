@@ -3,7 +3,7 @@ class Tile {
 	int pos[2];
 	int foodAmount;
 public:
-	Tile();
+	Tile(int foodAmount);
 	int getX() const;
 	int getY() const;
 	void setPos(int x, int y);

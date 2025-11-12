@@ -2,6 +2,7 @@
 #include "Button.h"
 #include "Input.h"
 #include "InputManager.h"
+#include "Simulation.h"
 #include "raylib.h"
 #include <vector>
 #include <iostream>
@@ -11,6 +12,7 @@ Graphics::Graphics(int x, int y) {
 	this->y = y;
 	prepareButtons(985, 50, 170, 30);
 	prepareInputs(1165, 50, 95, 30);
+	generateWormBox();
 	// Tell the window to use vsync and work on high DPI displays
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
@@ -88,14 +90,24 @@ void Graphics::drawInputs(InputManager manager) const {
 	}
 }
 
+void Graphics::generateWormBox() {
+	this->tiles = simulation.generateBoard(670, 670);
+}
+
 void Graphics::drawWormBox() const {
 	for (int i = 0; i < 670; i += 2) {
 		for (int j = 0; j < 670; j += 2) {
-			DrawRectangle(295 + i, 40 + j, 2, 2, GREEN);
+			int tileFood = tiles[i / 2][j / 2].getFoodAmount();
+			if (tileFood >= 7) DrawRectangle(295 + i, 40 + j, 2, 2, GREEN);
+			else if (tileFood >= 3) DrawRectangle(295 + i, 40 + j, 2, 2, ORANGE);
+			else if (tileFood == 0) DrawRectangle(295 + i, 40 + j, 2, 2, BLACK);
+			else DrawRectangle(295 + i, 40 + j, 2, 2, RED);
 		}
 	}
 	DrawRectangleLines(295, 40, y - 50, y - 50, WHITE);
 }
+
+
 
 void Graphics::end() const {
 	EndDrawing();

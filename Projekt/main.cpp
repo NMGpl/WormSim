@@ -2,8 +2,10 @@
 #include "Simulation.h"
 #include "raylib.h"
 #include "resource_dir.h"
+#include <ctime>
 
 int main(){
+    srand(time(0));
     Simulation simulation;
     Graphics g;
     //simulation.setup();

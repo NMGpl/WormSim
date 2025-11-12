@@ -1,9 +1,9 @@
 #include "Tile.h"
 
-Tile::Tile() {
-	pos[0] = {5};
-	pos[1] = {10};
-	foodAmount = 0;
+Tile::Tile(int foodAmount = 0) {
+	//pos[0] = {5};
+	//pos[1] = {10};
+	this->foodAmount = foodAmount;
 }
 
 int Tile::getX() const {

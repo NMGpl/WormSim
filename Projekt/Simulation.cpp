@@ -3,6 +3,7 @@
 #include "SimulationConfig.h"
 #include <iostream>
 #include <ctime>
+#include <vector>
 
 void Simulation::setup() {
 	int maxAge, maxHunger, maxSize, wormsAmount;
@@ -15,7 +16,7 @@ void Simulation::setup() {
 		std::cout << "Podaj wysokosc planszy: ";
 		std::cin >> boardHeight;
 	} while (boardHeight < 0);
-	prepareBoard();
+	//prepareBoard();
 
 	do {
 		std::cout << "Podaj maksymalny wiek robaczka: ";
@@ -115,19 +116,51 @@ void Simulation::addWorm(int wormsAmount) {
 	}
 }
 
-void Simulation::prepareBoard() {
-	for (int i = 0; i < boardHeight; i++) {
-		std::vector<Tile*> row;
-		for (int j = 0; j < boardWidth; j++) {
-			Tile* pTile = new Tile;
-			pTile->setPos(j, i);
-			pTile->setFoodAmount(10);
-			row.push_back(pTile);
+//void Simulation::prepareBoard(int width, int height) {
+//	for (int i = 0; i < height; i++) {
+//		std::vector<Tile*> row;
+//		for (int j = 0; j < width; j++) {
+//			Tile* pTile = new Tile;
+//			pTile->setPos(j, i);
+//			pTile->setFoodAmount(10);
+//			row.push_back(pTile);
+//		}
+//		tiles.push_back(row);
+//	}
+//}
+
+////////////////////////////////////////////////////////////////////////////////////////
+std::vector <std::vector <Tile>> Simulation::generateBoard(int width, int height) {
+	std::vector <std::vector <Tile>> tiles;
+	for (int i = 0; i < width / 2; i ++) {
+		std::vector<Tile> row;
+		for (int j = 0; j < height / 2; j ++) {
+			Tile tile = prepareTile();
+			int tileFood = tile.getFoodAmount();
+			row.push_back(tile);
 		}
 		tiles.push_back(row);
 	}
+	return tiles;
 }
 
+Tile Simulation::prepareTile() {
+	int r = rand() % 12;
+	if (r <= 8) {
+		Tile t(0);
+		return t;
+	} else if (r == 9){
+		Tile t(1);
+		return t;
+	} else if (r == 10){
+		Tile t(4);
+		return t;
+	} else {
+		Tile t(r);
+		return t;
+	}
+}
+/// ///////////////////////////////////////////////////////////////////////////////////
 void Simulation::printBoard() const {
 	for (int i = 0; i < boardHeight; i++) {
 		for (int j = 0; j < boardWidth; j++) {
