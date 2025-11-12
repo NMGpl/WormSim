@@ -91,7 +91,7 @@ void Graphics::drawInputs(InputManager manager) const {
 }
 
 void Graphics::generateWormBox() {
-	this->tiles = simulation.generateBoard(670, 670);
+	this->tiles = simulation.generateBoardRandom(670, 670);
 }
 
 void Graphics::drawWormBox() const {

@@ -144,7 +144,7 @@
 //	return tiles;
 //}
 
-std::vector <std::vector <int>> Simulation::generateBoard(int width, int height) {
+std::vector <std::vector <int>> Simulation::generateBoardRandom(int width, int height) {
 	std::vector <std::vector <int>> tiles;
 	for (int i = 0; i < width / 10; i++) {
 		std::vector<int> row;

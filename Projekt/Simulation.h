@@ -23,6 +23,6 @@ public:
 	//void printBoard() const;
 
 	//std::vector <std::vector <Tile>> generateBoard(int width, int height);
-	std::vector <std::vector <int>> generateBoard(int width, int height);
+	std::vector <std::vector <int>> generateBoardRandom(int width, int height);
 };
 
