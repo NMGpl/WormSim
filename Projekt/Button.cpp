@@ -8,12 +8,12 @@ Button::Button(int x, int y, int width, int height, std::string str, Color color
 	this->height = height;
 	this->buttonName = str;
 	this->color = color;
+	this->id = id;
 }
 
 void Button::draw() const {
-	//DrawRectangle(x, y, width, height, color);
+	int size = 30;
 	DrawRectangleLines(x, y, width, height, color);
-	int size = 20;
 	for (size; MeasureText(buttonName.c_str(), size) >= width; size--);
 	DrawText(buttonName.c_str(), x + (width / 2) - (MeasureText(buttonName.c_str(), size) / 2), y, size, WHITE);
 }

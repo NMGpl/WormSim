@@ -5,8 +5,9 @@
 class Button {
 	int x, y;
 	int width, height;
-	Color color;
-	std::string buttonName;
+	bool state;
+	Color color, bgColor;
+	std::string buttonName, id;
 public:
 	Button(int x, int y, int width, int height, std::string str, Color color = WHITE);
 	void draw() const;
@@ -15,5 +16,6 @@ public:
 	int getWidth() const;
 	int getHeight() const;
 	void setColor(Color color);
+	std::string getID();
 };
 
