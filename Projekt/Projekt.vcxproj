@@ -138,7 +138,6 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="resource_dir.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="SimulationConfig.h" />
     <ClInclude Include="Tile.h" />

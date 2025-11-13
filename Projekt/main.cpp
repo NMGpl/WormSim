@@ -1,7 +1,6 @@
 ﻿#include "Graphics.h"
 #include "Simulation.h"
 #include "raylib.h"
-#include "resource_dir.h"
 #include <ctime>
 
 int main(){

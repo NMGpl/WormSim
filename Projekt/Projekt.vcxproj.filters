@@ -56,9 +56,6 @@
     <ClInclude Include="Tile.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="resource_dir.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
