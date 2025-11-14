@@ -98,7 +98,8 @@ void Graphics::drawButtons(InputManager manager) {
 					generateWormBoxRandom();
 					break;
 				case 7:
-					//hotspot wormbox
+					//TODO
+					generateWormBoxHotspot();
 					break;
 				}
 			}
@@ -130,6 +131,10 @@ void Graphics::drawInputs(InputManager manager) {
 
 void Graphics::generateWormBoxRandom() {
 	this->tiles = simulation.generateBoardRandom(670, 670);
+}
+
+void Graphics::generateWormBoxHotspot() {
+	this->tiles = simulation.generateBoardHotspot(670, 670, 15);
 }
 
 void Graphics::drawWormBox() const {

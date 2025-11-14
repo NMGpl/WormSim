@@ -16,6 +16,7 @@ public:
 	//void addWorm(int wormsAmount);
 	//void prepareBoard(int width, int height);
 	int prepareTile();
+	int prepareTile(int k, int i, int j, std::vector <std::vector <int>> hotspots);
 	//void ageWorm();
 	//void starveWorm();
 	//void killWorm();
@@ -24,5 +25,6 @@ public:
 
 	//std::vector <std::vector <Tile>> generateBoard(int width, int height);
 	std::vector <std::vector <int>> generateBoardRandom(int width, int height);
+	std::vector <std::vector <int>> generateBoardHotspot(int width, int height, int hotspotAmount);
 };
 

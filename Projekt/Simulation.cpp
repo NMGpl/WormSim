@@ -157,20 +157,62 @@ std::vector <std::vector <int>> Simulation::generateBoardRandom(int width, int h
 	return tiles;
 }
 
+std::vector <std::vector <int>> Simulation::generateBoardHotspot(int width, int height, int hotspotAmount) {
+	std::vector <std::vector <int>> tiles;
+	for (int i = 0; i < width / 10; i++) {
+		std::vector <int> row;
+		for (int j = 0; j < height / 10; j++) {
+			int tileFood = 0;
+			row.push_back(tileFood);
+		}
+		tiles.push_back(row);
+	}
+	std::vector <std::vector <int>> hotspots;
+	for (int i = 0; i < hotspotAmount; i++) {
+		std::vector <int> hotspot;
+		hotspot.push_back(rand() % (width / 10));
+		hotspot.push_back(rand() % (height / 10));
+		hotspots.push_back(hotspot);
+	}
+	for (int i = 0; i < width / 10; i++) {
+		for (int j = 0; j < height / 10; j++) {
+			int hotspotFood = 0;
+			int tileFood = 0;
+			for (int k = 0; k < hotspotAmount; k++) {
+				hotspotFood = prepareTile(k, i, j, hotspots);
+				if (hotspotFood > tileFood) {
+					tileFood = hotspotFood;
+				}
+			}
+			tiles[i][j] = tileFood;
+		}
+	}
+	return tiles;
+}
+
 int Simulation::prepareTile() {
 	int r = rand() % 100;
 	if (r <= 75) {
-		int food = 0;
-		return food;
+		return 0;
 	} else if (r <= 85){
-		int food = 1;
-		return food;
+		return 1;
 	} else if (r <= 95){
-		int food = 2;
-		return food;
+		return 2;
 	} else {
-		int food = 3;
-		return food;
+		return 3;
+	}
+}
+
+int Simulation::prepareTile(int k, int i, int j, std::vector <std::vector <int>> hotspots) {
+	int kolo = (i - hotspots[k][0]) * (i - hotspots[k][0]) + (j - hotspots[k][1]) * (j - hotspots[k][1]);
+	if (kolo <= 40) {
+		return 3;
+	} else if (kolo <= 70 && kolo > 40) {
+		return 2;
+	} else if (kolo <= 88 && kolo > 70) {
+		return 1;
+	} else {
+		return 0;
 	}
 }
 /// ///////////////////////////////////////////////////////////////////////////////////
