@@ -16,6 +16,7 @@ class Graphics {
 	void drawMenu();
 	void drawWormBox() const;
 	void generateWormBoxRandom();
+	void generateWormBoxHotspot();
 	void drawTiles(int width, int height, int size) const;
 	void prepareButtons(int startX, int startY, int width, int height);
 	void prepareInputs(int startX, int startY, int width, int height);
