@@ -215,6 +215,19 @@ int Simulation::prepareTile(int k, int i, int j, std::vector <std::vector <int>>
 		return 0;
 	}
 }
+
+int Simulation::prepareTile(int k, int i, int j, std::vector <std::vector <int>> hotspots) {
+	int kolo = (i - hotspots[k][0]) * (i - hotspots[k][0]) + (j - hotspots[k][1]) * (j - hotspots[k][1]);
+	if (kolo <= 40) {
+		return 3;
+	} else if (kolo <= 70 && kolo > 40) {
+		return 2;
+	} else if (kolo <= 88 && kolo > 70) {
+		return 1;
+	} else {
+		return 0;
+	}
+}
 /// ///////////////////////////////////////////////////////////////////////////////////
 //void Simulation::printBoard() const {
 //	for (int i = 0; i < boardHeight; i++) {
