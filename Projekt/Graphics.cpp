@@ -4,12 +4,14 @@
 #include "InputManager.h"
 #include "Simulation.h"
 #include "raylib.h"
+#include "Worm.h"
 #include <vector>
 #include <iostream>
 
-Graphics::Graphics(int x, int y) {
+Graphics::Graphics(Simulation& simulation, int x, int y) {
 	this->x = x;
 	this->y = y;
+	this->simulation = simulation;
 	prepareButtons(985, 50, 170, 30);
 	prepareInputs(1165, 50, 95, 30);
 	generateWormBoxRandom();
@@ -29,13 +31,14 @@ void Graphics::draw() {
 	DrawText("WormSim", x / 2 - 50, 10, 20, WHITE);
 	drawMenu();
 	drawWormBox();
+	drawWorm();
 }
 
 void Graphics::drawMenu() {
 	DrawRectangleLines(10, 40, 275, y - 50, WHITE);						//Lewe menu ?????
 	DrawRectangleLines(975, 40, 295, y - 50, WHITE);					//Prawe menu
-	drawInputs(manager);
-	drawButtons(manager);
+	drawInputs();
+	drawButtons();
 }
 
 void Graphics::prepareButtons(int startX, int startY, int width, int height) {
@@ -55,6 +58,8 @@ void Graphics::prepareButtons(int startX, int startY, int width, int height) {
 	buttons.push_back(bGenerateRandom);
 	Button bGenerateHotspot(985 + 143, y - 50, 132, 30, "Strefy");
 	buttons.push_back(bGenerateHotspot);
+	Button bAddWorm(startX, startY + 240, width, height, "Dodaj robaka");
+	buttons.push_back(bAddWorm);
 }
 
 void Graphics::prepareInputs(int startX, int startY, int width, int height) {
@@ -65,7 +70,7 @@ void Graphics::prepareInputs(int startX, int startY, int width, int height) {
 	}
 }
 
-void Graphics::drawButtons(InputManager manager) {
+void Graphics::drawButtons() {
 	int i = 0;
 	for (Button& button : buttons) {
 		int x = button.getX();
@@ -98,8 +103,10 @@ void Graphics::drawButtons(InputManager manager) {
 					generateWormBoxRandom();
 					break;
 				case 7:
-					//TODO
 					generateWormBoxHotspot();
+					break;
+				case 8:
+					simulation.addWorm(1);
 					break;
 				}
 			}
@@ -109,7 +116,7 @@ void Graphics::drawButtons(InputManager manager) {
 	}
 }
 
-void Graphics::drawInputs(InputManager manager) {
+void Graphics::drawInputs() {
 	for (Input& input : inputs) {
 		int x = input.getX();
 		int y = input.getY();
@@ -142,7 +149,20 @@ void Graphics::drawWormBox() const {
 	DrawRectangleLines(295, 40, y - 50, y - 50, WHITE);
 }
 
-void Graphics::drawTiles(int width, int height, int size) const{
+void Graphics::drawWorm() {
+	for (Worm& worm : simulation.getWorms()) {
+		int x = worm.getHeadX();
+		int y = worm.getHeadY();
+		//DrawRectangle(x, y, 5, 5, YELLOW);
+		drawWorm(x, y, 6);
+	}
+}
+
+void Graphics::drawWorm(int x, int y, int size) const {
+	DrawRectangle(297 + x * 10, 42 + y * 10, size, size, WHITE);
+}
+
+void Graphics::drawTiles(int width, int height, int size) const {
 	for (int i = 0; i < width / size; i++) {
 		for (int j = 0; j < height / size; j++) {
 			int tileFood = tiles[i][j];

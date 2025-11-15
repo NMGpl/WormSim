@@ -6,14 +6,15 @@
 
 class Simulation{
 	SimulationConfig config;
-	std::vector<int*> worms;
-	std::vector<std::vector <int*>> tiles;
+	std::vector <Worm> worms;
+	std::vector <std::vector <int*>> tiles;
 	int boardWidth, boardHeight;
 public:
 	//void setup();
 	//void step();
-	void printConfig() const;
-	//void addWorm(int wormsAmount);
+	//void printConfig() const;
+	void addWorm(int wormsAmount);
+	std::vector <Worm> getWorms();
 	//void prepareBoard(int width, int height);
 	int prepareTile();
 	int prepareTile(int k, int i, int j, std::vector <std::vector <int>> hotspots);

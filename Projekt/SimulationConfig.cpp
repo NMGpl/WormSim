@@ -1,11 +1,11 @@
 #include "SimulationConfig.h"
 #include <iostream>
 
-void SimulationConfig::printConfig() const {
-	std::cout << "Max age: " << maxAge << std::endl;
-	std::cout << "Max hunger: " << maxHunger << std::endl;
-	std::cout << "Max size: " << maxSize << std::endl;
-}
+//void SimulationConfig::printConfig() const {
+//	std::cout << "Max age: " << maxAge << std::endl;
+//	std::cout << "Max hunger: " << maxHunger << std::endl;
+//	std::cout << "Max size: " << maxSize << std::endl;
+//}
 
 void SimulationConfig::setMaxAge(int maxAge) {
 	this->maxAge = maxAge;

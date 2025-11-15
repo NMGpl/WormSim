@@ -1,23 +1,15 @@
 #include "Worm.h"
 #include <iostream>
 
-Worm::Worm(int headX, int headY) {
+Worm::Worm(int headX, int headY, int maxAge, int maxHunger, int maxSize) {
     age = 0;
     hunger = 0;
     size = 0;
-    maxAge = 0;
-    maxHunger = 0;
-    maxSize = 0;
+    this->maxAge = maxAge;
+    this->maxHunger = maxHunger;
+    this->maxSize = maxSize;
     this->headX = headX;
     this->headY = headY;
-}
-
-Worm::~Worm() {
-
-}
-
-void Worm::initializeWorm() {
-
 }
 
 int Worm::getHeadX() const {

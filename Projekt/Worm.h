@@ -4,9 +4,7 @@ class Worm {
 	int maxAge, maxHunger, maxSize;
 	int headX, headY;
 public:
-	Worm(int headX, int headY);
-	~Worm();
-	void initializeWorm();
+	Worm(int headX, int headY, int maxAge = 10, int maxHunger = 10, int maxSize = 2);
 	int getHeadX() const;
 	int getHeadY() const;
 	void setHeadCords(int headX, int headY);

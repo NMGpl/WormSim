@@ -6,7 +6,7 @@
 int main(){
     srand(time(0));
     Simulation simulation;
-    Graphics g;
+    Graphics g(simulation);
     //simulation.setup();
     while (!WindowShouldClose()) {
         // simulation.step();

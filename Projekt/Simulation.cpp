@@ -104,17 +104,17 @@
 //	}
 //}
 
-//void Simulation::addWorm(int wormsAmount) {
-//	srand(time(0));
-//	for (int i = 0; i < wormsAmount; i++) {
-//		Worm* pWorm = new Worm(rand() % boardWidth, rand() % boardHeight);
-//		pWorm->setMaxAge(config.getMaxAge());
-//		pWorm->setMaxHunger(config.getMaxHunger());
-//		pWorm->setMaxSize(config.getMaxSize());
-//		//pWorm->setHeadCords(rand() % boardWidth, rand() % boardHeight);
-//		worms.push_back(pWorm);
-//	}
-//}
+void Simulation::addWorm(int wormsAmount) {
+	for (int i = 0; i < wormsAmount; i++) {
+		std::vector <int> headXY = { rand() % (670 / 10), rand() % (670 / 10) };
+		Worm worm(headXY[0], headXY[1]);
+		worms.push_back(worm);
+	}
+}
+
+std::vector <Worm> Simulation::getWorms() {
+	return worms;
+}
 
 //void Simulation::prepareBoard(int width, int height) {
 //	for (int i = 0; i < height; i++) {
@@ -200,19 +200,6 @@ int Simulation::prepareTile() {
 		return 2;
 	} else {
 		return 3;
-	}
-}
-
-int Simulation::prepareTile(int k, int i, int j, std::vector <std::vector <int>> hotspots) {
-	int kolo = (i - hotspots[k][0]) * (i - hotspots[k][0]) + (j - hotspots[k][1]) * (j - hotspots[k][1]);
-	if (kolo <= 40) {
-		return 3;
-	} else if (kolo <= 70 && kolo > 40) {
-		return 2;
-	} else if (kolo <= 88 && kolo > 70) {
-		return 1;
-	} else {
-		return 0;
 	}
 }
 
