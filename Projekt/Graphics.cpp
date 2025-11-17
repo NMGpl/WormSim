@@ -60,6 +60,8 @@ void Graphics::prepareButtons(int startX, int startY, int width, int height) {
 	buttons.push_back(bGenerateHotspot);
 	Button bAddWorm(startX, startY + 240, width, height, "Dodaj robaka");
 	buttons.push_back(bAddWorm);
+	Button bDeleteWorms(startX + 180, startY + 240, 95, height, "Wyczysc");
+	buttons.push_back(bDeleteWorms);
 }
 
 void Graphics::prepareInputs(int startX, int startY, int width, int height) {
@@ -107,6 +109,9 @@ void Graphics::drawButtons() {
 					break;
 				case 8:
 					simulation.addWorm(1);
+					break;
+				case 9:
+					simulation.deleteWorms();
 					break;
 				}
 			}

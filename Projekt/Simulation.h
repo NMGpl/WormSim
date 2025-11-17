@@ -14,6 +14,7 @@ public:
 	//void step();
 	//void printConfig() const;
 	void addWorm(int wormsAmount);
+	void deleteWorms();
 	std::vector <Worm> getWorms();
 	//void prepareBoard(int width, int height);
 	int prepareTile();

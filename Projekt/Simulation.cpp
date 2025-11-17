@@ -111,6 +111,9 @@ void Simulation::addWorm(int wormsAmount) {
 		worms.push_back(worm);
 	}
 }
+void Simulation::deleteWorms() {
+	worms.clear();
+}
 
 std::vector <Worm> Simulation::getWorms() {
 	return worms;
