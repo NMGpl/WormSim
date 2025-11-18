@@ -13,9 +13,12 @@ public:
 	//void setup();
 	//void step();
 	//void printConfig() const;
+	void simulate();
 	void addWorm(int wormsAmount);
 	void deleteWorms();
 	std::vector <Worm> getWorms();
+	std::vector <std::vector <int>> searchFood(int headX, int headY, int distance, std::vector<std::vector<int>>& tiles);
+	void wormsPathfind(int distance);
 	//void prepareBoard(int width, int height);
 	int prepareTile();
 	int prepareTile(int k, int i, int j, std::vector <std::vector <int>> hotspots);

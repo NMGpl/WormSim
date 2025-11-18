@@ -104,6 +104,10 @@
 //	}
 //}
 
+void Simulation::simulate() {
+
+}
+
 void Simulation::addWorm(int wormsAmount) {
 	for (int i = 0; i < wormsAmount; i++) {
 		std::vector <int> headXY = { rand() % (670 / 10), rand() % (670 / 10) };
@@ -119,6 +123,116 @@ std::vector <Worm> Simulation::getWorms() {
 	return worms;
 }
 
+std::vector <std::vector <int>> Simulation::searchFood(int headX, int headY, int distance, std::vector<std::vector<int>>& tiles) {
+	//????? TODO: generowanie pierscienia od wewnatrz
+	std::vector <int> foodTile;
+	std::vector <std::vector <int>> temp;
+	int food = 0;
+	bool found = false;
+	for (int i = 0; i < distance; i++) {
+		int nHeadY = headY - i;
+		int nHeadX = headX + i;
+		temp.push_back({ headX, nHeadY });
+		if (tiles[temp.back()[0]][temp.back()[1]] > food) {
+			food = tiles[temp.back()[0]][temp.back()[1]];
+			foodTile = temp.back();
+		}
+		//prawo gora
+		for (int j = i - 1; j > 0; j--) {
+			temp.push_back({ headX + (i - j), nHeadY + (i - j) });
+			if (tiles[temp.back()[0]][temp.back()[1]] > food) {
+				food = tiles[temp.back()[0]][temp.back()[1]];
+				foodTile = temp.back();
+			}
+		}
+		temp.push_back({ nHeadX, headY });
+		if (tiles[temp.back()[0]][temp.back()[1]] > food) {
+			food = tiles[temp.back()[0]][temp.back()[1]];
+			foodTile = temp.back();
+		}
+		//prawo dol
+		for (int j = i - 1; j > 0; j--) {
+			temp.push_back({ nHeadX - (i - j), headY + (i - j) });
+			if (tiles[temp.back()[0]][temp.back()[1]] > food) {
+				food = tiles[temp.back()[0]][temp.back()[1]];
+				foodTile = temp.back();
+			}
+		}
+		nHeadY = headY + i;
+		nHeadX = headX - i;
+		temp.push_back({ headX, nHeadY });
+		if (tiles[temp.back()[0]][temp.back()[1]] > food) {
+			food = tiles[temp.back()[0]][temp.back()[1]];
+			foodTile = temp.back();
+		}
+		//lewo dol
+		for (int j = i - 1; j > 0; j--) {
+			temp.push_back({ headX - (i - j), nHeadY - (i - j) });
+			if (tiles[temp.back()[0]][temp.back()[1]] > food) {
+				food = tiles[temp.back()[0]][temp.back()[1]];
+				foodTile = temp.back();
+			}
+		}
+		temp.push_back({ nHeadX, headY });
+		if (tiles[temp.back()[0]][temp.back()[1]] > food) {
+			food = tiles[temp.back()[0]][temp.back()[1]];
+			foodTile = temp.back();
+		}
+		//lewo gora
+		for (int j = i - 1; j > 0; j--) {
+			temp.push_back({ nHeadX + (i - j), headY - (i - j) });
+			if (tiles[temp.back()[0]][temp.back()[1]] > food) {
+				food = tiles[temp.back()[0]][temp.back()[1]];
+				foodTile = temp.back();
+			}
+		}
+		if (food > 0) {
+			break;
+		}
+	}
+	return { foodTile };
+}
+
+//std::vector<std::vector<int>> Simulation::searchPath(int headX, int headY, int distance)
+//{
+//	int bestX = headX;
+//	int bestY = headY;
+//	int bestVal = *tiles[headX][headY];
+//
+//	auto check = [&](int x, int y) {
+//		int val = *tiles[x][y];
+//		if (val > bestVal) {
+//			bestVal = val;
+//			bestX = x;
+//			bestY = y;
+//		}
+//		};
+//
+//	for (int r = 1; r <= distance; r++) {
+//
+//		// 4 wierzcho³ki
+//		check(headX, headY - r); // góra
+//		check(headX + r, headY);     // prawo
+//		check(headX, headY + r); // dó³
+//		check(headX - r, headY);     // lewo
+//
+//		// 4 przek¹tne wype³niaj¹ce romb
+//		for (int j = 1; j < r; j++) {
+//			check(headX + j, headY - (r - j)); // prawa-góra
+//			check(headX + (r - j), headY + j); // prawa-dó³
+//			check(headX - j, headY + (r - j)); // lewa-dó³
+//			check(headX - (r - j), headY - j); // lewa-góra
+//		}
+//	}
+//
+//	return { {bestX, bestY} };
+//}
+
+//void Simulation::wormsPathfind(int distance) {
+//	for (Worm& worm : worms) {
+//		searchPath(worm.getHeadX(), worm.getHeadY(), distance);
+//	}
+//}
 //void Simulation::prepareBoard(int width, int height) {
 //	for (int i = 0; i < height; i++) {
 //		std::vector<Tile*> row;

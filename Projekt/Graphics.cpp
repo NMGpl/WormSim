@@ -32,6 +32,11 @@ void Graphics::draw() {
 	drawMenu();
 	drawWormBox();
 	drawWorm();
+	auto availableTiles = simulation.searchFood(20, 20, 10, tiles);
+	DrawRectangleLines(295 + 20 * 10, 40 + 20 * 10, 10, 10, BLUE);
+	if (!availableTiles[0].empty()) {
+		DrawRectangleLines(295 + availableTiles[0][0] * 10, 40 + availableTiles[0][1] * 10, 10, 10, WHITE);
+	}
 }
 
 void Graphics::drawMenu() {
@@ -159,12 +164,12 @@ void Graphics::drawWorm() {
 		int x = worm.getHeadX();
 		int y = worm.getHeadY();
 		//DrawRectangle(x, y, 5, 5, YELLOW);
-		drawWorm(x, y, 6);
+		drawWorm(x, y, 10);
 	}
 }
 
 void Graphics::drawWorm(int x, int y, int size) const {
-	DrawRectangle(297 + x * 10, 42 + y * 10, size, size, WHITE);
+	DrawRectangle(295 + x * 10, 40 + y * 10, size, size, WHITE);
 }
 
 void Graphics::drawTiles(int width, int height, int size) const {
