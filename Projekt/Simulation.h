@@ -7,7 +7,7 @@
 class Simulation{
 	SimulationConfig config;
 	std::vector <Worm> worms;
-	std::vector <std::vector <int*>> tiles;
+	std::vector <std::vector <int>> tiles;
 	int boardWidth, boardHeight;
 public:
 	//void setup();
@@ -17,11 +17,13 @@ public:
 	void addWorm(int wormsAmount);
 	void deleteWorms();
 	std::vector <Worm> getWorms();
-	std::vector <std::vector <int>> searchFood(int headX, int headY, int distance, std::vector<std::vector<int>>& tiles);
+	std::vector <int> searchFood(int headX, int headY, int distance);
+	std::vector <int> searchClosestFood(std::vector <std::vector <int>> foodTiles, int distance, int headX, int headY);
 	void wormsPathfind(int distance);
 	//void prepareBoard(int width, int height);
 	int prepareTile();
 	int prepareTile(int k, int i, int j, std::vector <std::vector <int>> hotspots);
+	std::vector <std::vector <int>> findMovement(std::vector <int> headPos, std::vector <int> foodTile);
 	//void ageWorm();
 	//void starveWorm();
 	//void killWorm();

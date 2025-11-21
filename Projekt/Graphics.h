@@ -10,7 +10,7 @@
 class Graphics {
 	int x, y;
 	InputManager manager;
-	Simulation simulation;
+	Simulation& simulation;
 	std::vector<Button> buttons;
 	std::vector<Input> inputs;
 	std::vector<std::vector<int>> tiles;

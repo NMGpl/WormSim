@@ -8,10 +8,9 @@
 #include <vector>
 #include <iostream>
 
-Graphics::Graphics(Simulation& simulation, int x, int y) {
+Graphics::Graphics(Simulation& simulation, int x, int y) : simulation(simulation) {
 	this->x = x;
 	this->y = y;
-	this->simulation = simulation;
 	prepareButtons(985, 50, 170, 30);
 	prepareInputs(1165, 50, 95, 30);
 	generateWormBoxRandom();
@@ -32,10 +31,12 @@ void Graphics::draw() {
 	drawMenu();
 	drawWormBox();
 	drawWorm();
-	auto availableTiles = simulation.searchFood(20, 20, 10, tiles);
-	DrawRectangleLines(295 + 20 * 10, 40 + 20 * 10, 10, 10, BLUE);
-	if (!availableTiles[0].empty()) {
-		DrawRectangleLines(295 + availableTiles[0][0] * 10, 40 + availableTiles[0][1] * 10, 10, 10, WHITE);
+	for (Worm& worm : simulation.getWorms()) {
+		auto availableTiles = simulation.searchFood(worm.getHeadX(), worm.getHeadY(), 5);
+		DrawRectangleLines(295 + worm.getHeadX() * 10, 40 + worm.getHeadY() * 10, 10, 10, BLUE);
+		if (!availableTiles.empty()) {
+			DrawRectangleLines(295 + availableTiles[0] * 10, 40 + availableTiles[1] * 10, 10, 10, PINK);
+		}
 	}
 }
 
@@ -151,7 +152,7 @@ void Graphics::generateWormBoxRandom() {
 }
 
 void Graphics::generateWormBoxHotspot() {
-	this->tiles = simulation.generateBoardHotspot(670, 670, 15);
+	this->tiles = simulation.generateBoardHotspot(670, 670, 12);
 }
 
 void Graphics::drawWormBox() const {

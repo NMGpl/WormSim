@@ -15,6 +15,7 @@ int main(){
         g.begin();
         g.draw();
         g.end();
+		simulation.simulate();
     }
     // destroy the window and cleanup the OpenGL context
     CloseWindow();

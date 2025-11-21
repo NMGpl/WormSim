@@ -105,7 +105,7 @@
 //}
 
 void Simulation::simulate() {
-
+	wormsPathfind(5);
 }
 
 void Simulation::addWorm(int wormsAmount) {
@@ -115,6 +115,7 @@ void Simulation::addWorm(int wormsAmount) {
 		worms.push_back(worm);
 	}
 }
+
 void Simulation::deleteWorms() {
 	worms.clear();
 }
@@ -123,74 +124,136 @@ std::vector <Worm> Simulation::getWorms() {
 	return worms;
 }
 
-std::vector <std::vector <int>> Simulation::searchFood(int headX, int headY, int distance, std::vector<std::vector<int>>& tiles) {
-	//????? TODO: generowanie pierscienia od wewnatrz
+//std::vector <int> Simulation::searchFood(int headX, int headY, int distance) {
+//	//????? TODO: generowanie od wewnatrz
+//	std::vector <int> foodTile;
+//	std::vector <std::vector <int>> temp;
+//	int food = 0;
+//	bool found = false;
+//	for (int i = 0; i < distance; i++) {
+//		int nHeadY = headY - i;
+//		int nHeadX = headX + i;
+//
+//		if (nHeadX < 0 || nHeadX >= tiles.size())
+//			continue;
+//
+//		if (nHeadY < 0 || nHeadY >= tiles[0].size())
+//			continue;
+//
+//		temp.push_back({ headX, nHeadY });
+//		if (tiles[temp.back()[0]][temp.back()[1]] > food) {
+//			food = tiles[temp.back()[0]][temp.back()[1]];
+//			foodTile = temp.back();
+//		}
+//		//prawo gora
+//		for (int j = i - 1; j > 0; j--) {
+//			temp.push_back({ headX + (i - j), nHeadY + (i - j) });
+//			if (tiles[temp.back()[0]][temp.back()[1]] > food) {
+//				food = tiles[temp.back()[0]][temp.back()[1]];
+//				foodTile = temp.back();
+//			}
+//		}
+//		temp.push_back({ nHeadX, headY });
+//		if (tiles[temp.back()[0]][temp.back()[1]] > food) {
+//			food = tiles[temp.back()[0]][temp.back()[1]];
+//			foodTile = temp.back();
+//		}
+//		//prawo dol
+//		for (int j = i - 1; j > 0; j--) {
+//			temp.push_back({ nHeadX - (i - j), headY + (i - j) });
+//			if (tiles[temp.back()[0]][temp.back()[1]] > food) {
+//				food = tiles[temp.back()[0]][temp.back()[1]];
+//				foodTile = temp.back();
+//			}
+//		}
+//		nHeadY = headY + i;
+//		nHeadX = headX - i;
+//
+//		if (nHeadX < 0 || nHeadX >= tiles.size())
+//			continue;
+//
+//		if (nHeadY < 0 || nHeadY >= tiles[0].size())
+//			continue;
+//
+//		temp.push_back({ headX, nHeadY });
+//		if (tiles[temp.back()[0]][temp.back()[1]] > food) {
+//			food = tiles[temp.back()[0]][temp.back()[1]];
+//			foodTile = temp.back();
+//		}
+//		//lewo dol
+//		for (int j = i - 1; j > 0; j--) {
+//			temp.push_back({ headX - (i - j), nHeadY - (i - j) });
+//			if (tiles[temp.back()[0]][temp.back()[1]] > food) {
+//				food = tiles[temp.back()[0]][temp.back()[1]];
+//				foodTile = temp.back();
+//			}
+//		}
+//		temp.push_back({ nHeadX, headY });
+//		if (tiles[temp.back()[0]][temp.back()[1]] > food) {
+//			food = tiles[temp.back()[0]][temp.back()[1]];
+//			foodTile = temp.back();
+//		}
+//		//lewo gora
+//		for (int j = i - 1; j > 0; j--) {
+//			temp.push_back({ nHeadX + (i - j), headY - (i - j) });
+//			if (tiles[temp.back()[0]][temp.back()[1]] > food) {
+//				food = tiles[temp.back()[0]][temp.back()[1]];
+//				foodTile = temp.back();
+//			}
+//		}
+//		if (food > 0) {
+//			break;
+//		}
+//	}
+//	
+//
+//	return foodTile;
+//}
+
+std::vector <int> Simulation::searchFood(int headX, int headY, int distance) {
 	std::vector <int> foodTile;
-	std::vector <std::vector <int>> temp;
-	int food = 0;
-	bool found = false;
-	for (int i = 0; i < distance; i++) {
-		int nHeadY = headY - i;
-		int nHeadX = headX + i;
-		temp.push_back({ headX, nHeadY });
-		if (tiles[temp.back()[0]][temp.back()[1]] > food) {
-			food = tiles[temp.back()[0]][temp.back()[1]];
-			foodTile = temp.back();
-		}
-		//prawo gora
-		for (int j = i - 1; j > 0; j--) {
-			temp.push_back({ headX + (i - j), nHeadY + (i - j) });
-			if (tiles[temp.back()[0]][temp.back()[1]] > food) {
-				food = tiles[temp.back()[0]][temp.back()[1]];
-				foodTile = temp.back();
+	std::vector <std::vector <int>> foodTiles;
+	int food;
+	for (int i = headX - distance; i < headX + distance; i++) {
+		for (int j = headY - distance; j < headY + distance; j++) {
+			if (i < 0 || j < 0 || i >= tiles.size() || j >= tiles[0].size()) continue;
+			int kolo = (i - headX) * (i - headX) + (j - headY) * (j - headY);
+			if (kolo < distance * distance + distance / 10) {
+				food = tiles[i][j];
+				if (food > 0) {
+					foodTiles.push_back({ i, j, food });
+				}
 			}
-		}
-		temp.push_back({ nHeadX, headY });
-		if (tiles[temp.back()[0]][temp.back()[1]] > food) {
-			food = tiles[temp.back()[0]][temp.back()[1]];
-			foodTile = temp.back();
-		}
-		//prawo dol
-		for (int j = i - 1; j > 0; j--) {
-			temp.push_back({ nHeadX - (i - j), headY + (i - j) });
-			if (tiles[temp.back()[0]][temp.back()[1]] > food) {
-				food = tiles[temp.back()[0]][temp.back()[1]];
-				foodTile = temp.back();
-			}
-		}
-		nHeadY = headY + i;
-		nHeadX = headX - i;
-		temp.push_back({ headX, nHeadY });
-		if (tiles[temp.back()[0]][temp.back()[1]] > food) {
-			food = tiles[temp.back()[0]][temp.back()[1]];
-			foodTile = temp.back();
-		}
-		//lewo dol
-		for (int j = i - 1; j > 0; j--) {
-			temp.push_back({ headX - (i - j), nHeadY - (i - j) });
-			if (tiles[temp.back()[0]][temp.back()[1]] > food) {
-				food = tiles[temp.back()[0]][temp.back()[1]];
-				foodTile = temp.back();
-			}
-		}
-		temp.push_back({ nHeadX, headY });
-		if (tiles[temp.back()[0]][temp.back()[1]] > food) {
-			food = tiles[temp.back()[0]][temp.back()[1]];
-			foodTile = temp.back();
-		}
-		//lewo gora
-		for (int j = i - 1; j > 0; j--) {
-			temp.push_back({ nHeadX + (i - j), headY - (i - j) });
-			if (tiles[temp.back()[0]][temp.back()[1]] > food) {
-				food = tiles[temp.back()[0]][temp.back()[1]];
-				foodTile = temp.back();
-			}
-		}
-		if (food > 0) {
-			break;
 		}
 	}
-	return { foodTile };
+	if (food == 0) {
+		//foodTile = 
+	}
+	foodTile = searchClosestFood(foodTiles, distance, headX, headY);
+	return foodTile;
+}
+
+std::vector <int> Simulation::searchClosestFood(std::vector <std::vector <int>> foodTiles, int distance, int headX, int headY) {
+	int food = 0;
+	int foodDistance = distance;
+	std::vector <int> foodTile;
+	for (int i = 0; i < foodTiles.size(); i++) {
+		foodDistance = abs(foodTiles[i][0] - headX) + abs(foodTiles[i][1] - headY);
+		if (foodDistance < distance || (foodDistance == distance && food < foodTiles[i][2])) {
+			foodTile = foodTiles[i];
+			food = foodTile[2];
+			distance = foodDistance;
+		}
+	}
+	foodTile.push_back(distance);
+	return foodTile;
+}
+
+std::vector <std::vector <int>> Simulation::findMovement(std::vector <int> wormPos, std::vector <int> foodTile) {
+	std::vector <std::vector <int>> movement;
+	//std::cout << wormPos[0] << " " << wormPos[1] << "\n";
+	std::cout << foodTile[0] << " " << foodTile[1] << "\n";
+	return movement;
 }
 
 //std::vector<std::vector<int>> Simulation::searchPath(int headX, int headY, int distance)
@@ -228,11 +291,13 @@ std::vector <std::vector <int>> Simulation::searchFood(int headX, int headY, int
 //	return { {bestX, bestY} };
 //}
 
-//void Simulation::wormsPathfind(int distance) {
-//	for (Worm& worm : worms) {
-//		searchPath(worm.getHeadX(), worm.getHeadY(), distance);
-//	}
-//}
+void Simulation::wormsPathfind(int distance) {
+	for (Worm& worm : worms) {
+		std::vector <int> foodTile = searchFood(worm.getHeadX(), worm.getHeadY(), distance);
+		std::vector <int> wormPos = { worm.getHeadX(), worm.getHeadY()};
+		findMovement(wormPos, foodTile);
+	}
+}
 //void Simulation::prepareBoard(int width, int height) {
 //	for (int i = 0; i < height; i++) {
 //		std::vector<Tile*> row;
@@ -271,6 +336,7 @@ std::vector <std::vector <int>> Simulation::generateBoardRandom(int width, int h
 		}
 		tiles.push_back(row);
 	}
+	this->tiles = tiles;
 	return tiles;
 }
 
@@ -304,6 +370,7 @@ std::vector <std::vector <int>> Simulation::generateBoardHotspot(int width, int 
 			tiles[i][j] = tileFood;
 		}
 	}
+	this->tiles = tiles;
 	return tiles;
 }
 
@@ -322,11 +389,11 @@ int Simulation::prepareTile() {
 
 int Simulation::prepareTile(int k, int i, int j, std::vector <std::vector <int>> hotspots) {
 	int kolo = (i - hotspots[k][0]) * (i - hotspots[k][0]) + (j - hotspots[k][1]) * (j - hotspots[k][1]);
-	if (kolo <= 40) {
+	if (kolo <= 48) {
 		return 3;
-	} else if (kolo <= 70 && kolo > 40) {
+	} else if (kolo <= 80 && kolo > 48) {
 		return 2;
-	} else if (kolo <= 88 && kolo > 70) {
+	} else if (kolo <= 99 && kolo > 80) {
 		return 1;
 	} else {
 		return 0;
