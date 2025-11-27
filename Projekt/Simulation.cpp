@@ -213,7 +213,8 @@ std::vector <Worm> Simulation::getWorms() {
 std::vector <int> Simulation::searchFood(int headX, int headY, int distance) {
 	std::vector <int> foodTile;
 	std::vector <std::vector <int>> foodTiles;
-	int food;
+	int food = 0;
+	int maxFood = 0;
 	for (int i = headX - distance; i < headX + distance; i++) {
 		for (int j = headY - distance; j < headY + distance; j++) {
 			if (i < 0 || j < 0 || i >= tiles.size() || j >= tiles[0].size()) continue;
@@ -222,14 +223,29 @@ std::vector <int> Simulation::searchFood(int headX, int headY, int distance) {
 				food = tiles[i][j];
 				if (food > 0) {
 					foodTiles.push_back({ i, j, food });
+					maxFood = food;
 				}
 			}
 		}
 	}
-	if (food == 0) {
-		//foodTile = 
-	}
+	//if (maxFood == 0) robi blad w 1% przypadkow???????????????
 	foodTile = searchClosestFood(foodTiles, distance, headX, headY);
+	if (foodTile.empty()) {
+		int x, y;
+		int kolo;
+		do {
+			do {
+				x = headX - distance + (rand() % (2 * distance + 1));
+			} while (x < 0 || x >= tiles.size());
+			do {
+				y = headY - distance + (rand() % (2 * distance + 1));
+			} while (y < 0 || y >= tiles[0].size());
+			kolo = (x - headX) * (x - headX) + (y - headY) * (y - headY);
+		} while (!(kolo < distance * distance + distance / 10));
+		
+		foodTile = { x, y, 0 };
+		return foodTile;
+	}
 	return foodTile;
 }
 
@@ -245,14 +261,47 @@ std::vector <int> Simulation::searchClosestFood(std::vector <std::vector <int>> 
 			distance = foodDistance;
 		}
 	}
-	foodTile.push_back(distance);
 	return foodTile;
 }
 
 std::vector <std::vector <int>> Simulation::findMovement(std::vector <int> wormPos, std::vector <int> foodTile) {
-	std::vector <std::vector <int>> movement;
-	//std::cout << wormPos[0] << " " << wormPos[1] << "\n";
-	std::cout << foodTile[0] << " " << foodTile[1] << "\n";
+	std::vector <std::vector <int>> movement = {foodTile};
+	//bresenham
+	std::cout << "\n\nWorm x: " << wormPos[0] << "\nWorm y: " << wormPos[1]; /*<< "\nFood x: " << foodTile[0] << "\nFood y: " << foodTile[1];*/
+	std::vector <int> diff = { abs(wormPos[0] - foodTile[0]), abs(wormPos[1] - foodTile[1]) };
+	int moveX, moveY;
+	if (foodTile[0] > wormPos[0]) {
+		moveX = 1;
+	}
+	else {
+		moveX = -1;
+	}
+	if (foodTile[1] > wormPos[1]) {
+		moveY = 1;
+	}
+	else {
+		moveY = -1;
+	}
+	int error = diff[0] - diff[1];
+	while (true) {
+		//movement.push_back({ wormPos[0], wormPos[1] });
+		if (wormPos[0] == foodTile[0] && wormPos[1] == foodTile[1]) {
+			break;
+		}
+
+		int errorMult = 2 * error;
+
+		if (errorMult > -diff[1]) {
+			error -= diff[1];
+			wormPos[0] += moveX;
+			movement.push_back({ wormPos[0], wormPos[1] });
+		}
+		if (errorMult < diff[0]) {
+			error += diff[0];
+			wormPos[1] += moveY;
+			movement.push_back({ wormPos[0], wormPos[1] });
+		}
+	}
 	return movement;
 }
 
@@ -293,9 +342,13 @@ std::vector <std::vector <int>> Simulation::findMovement(std::vector <int> wormP
 
 void Simulation::wormsPathfind(int distance) {
 	for (Worm& worm : worms) {
-		std::vector <int> foodTile = searchFood(worm.getHeadX(), worm.getHeadY(), distance);
-		std::vector <int> wormPos = { worm.getHeadX(), worm.getHeadY()};
-		findMovement(wormPos, foodTile);
+		if (worm.getMovement().empty()) {
+			std::vector <int> foodTile = searchFood(worm.getHeadX(), worm.getHeadY(), distance);
+			std::vector <int> wormPos = { worm.getHeadX(), worm.getHeadY() };
+
+			worm.setMovement(findMovement(wormPos, foodTile));
+			//std::cout << worm.getMovement()[0][0] << " " << worm.getMovement()[0][1] << "\n";
+		}
 	}
 }
 //void Simulation::prepareBoard(int width, int height) {

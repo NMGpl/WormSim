@@ -10,6 +10,14 @@ Worm::Worm(int headX, int headY, int maxAge, int maxHunger, int maxSize) {
     this->maxSize = maxSize;
     this->headX = headX;
     this->headY = headY;
+    this->movement = {};
+}
+std::vector <std::vector <int>> Worm::getMovement() const {
+    return movement;
+}
+
+void Worm::setMovement(std::vector <std::vector <int>> movement) {
+    this->movement = movement;
 }
 
 int Worm::getHeadX() const {

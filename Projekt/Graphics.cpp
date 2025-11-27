@@ -32,10 +32,17 @@ void Graphics::draw() {
 	drawWormBox();
 	drawWorm();
 	for (Worm& worm : simulation.getWorms()) {
-		auto availableTiles = simulation.searchFood(worm.getHeadX(), worm.getHeadY(), 5);
+		std::vector <std::vector <int>> availableTiles;
+		if (worm.getMovement().empty()) {
+			availableTiles = { simulation.searchFood(worm.getHeadX(), worm.getHeadY(), 5) };
+		}else {
+			availableTiles = worm.getMovement();
+		}
 		DrawRectangleLines(295 + worm.getHeadX() * 10, 40 + worm.getHeadY() * 10, 10, 10, BLUE);
-		if (!availableTiles.empty()) {
-			DrawRectangleLines(295 + availableTiles[0] * 10, 40 + availableTiles[1] * 10, 10, 10, PINK);
+		for (int i = 0; i < availableTiles.size(); i++) {
+			if (!availableTiles[i].empty()) {
+				DrawRectangleLines(295 + availableTiles[i][0] * 10, 40 + availableTiles[i][1] * 10, 10, 10, PINK);
+			}
 		}
 	}
 }
@@ -152,7 +159,7 @@ void Graphics::generateWormBoxRandom() {
 }
 
 void Graphics::generateWormBoxHotspot() {
-	this->tiles = simulation.generateBoardHotspot(670, 670, 12);
+	this->tiles = simulation.generateBoardHotspot(670, 670, 5);
 }
 
 void Graphics::drawWormBox() const {
