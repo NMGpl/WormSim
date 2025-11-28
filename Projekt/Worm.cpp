@@ -12,6 +12,15 @@ Worm::Worm(int headX, int headY, int maxAge, int maxHunger, int maxSize) {
     this->headY = headY;
     this->movement = {};
 }
+
+void Worm::move() {
+    
+    std::vector <int> newPos = movement.back();
+    this->headX = newPos[0];
+    this->headY = newPos[1];
+    movement.pop_back();
+}
+
 std::vector <std::vector <int>> Worm::getMovement() const {
     return movement;
 }

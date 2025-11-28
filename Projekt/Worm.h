@@ -9,6 +9,7 @@ class Worm {
 public:
 	Worm(int headX, int headY, int maxAge = 10, int maxHunger = 10, int maxSize = 2);
 	std::vector <std::vector <int>> getMovement() const;
+	void move();
 	void setMovement(std::vector <std::vector <int>> movement);
 	int getHeadX() const;
 	int getHeadY() const;

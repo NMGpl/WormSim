@@ -106,6 +106,7 @@
 
 void Simulation::simulate() {
 	wormsPathfind(5);
+	wormsMove();
 }
 
 void Simulation::addWorm(int wormsAmount) {
@@ -345,10 +346,17 @@ void Simulation::wormsPathfind(int distance) {
 		if (worm.getMovement().empty()) {
 			std::vector <int> foodTile = searchFood(worm.getHeadX(), worm.getHeadY(), distance);
 			std::vector <int> wormPos = { worm.getHeadX(), worm.getHeadY() };
-
-			worm.setMovement(findMovement(wormPos, foodTile));
+			std::vector <std::vector <int>> movement = findMovement(wormPos, foodTile);
+			std::reverse(movement.begin(), movement.end());
+			worm.setMovement(movement);
 			//std::cout << worm.getMovement()[0][0] << " " << worm.getMovement()[0][1] << "\n";
 		}
+	}
+}
+
+void Simulation::wormsMove() {
+	for (Worm& worm : worms) {
+		worm.move();
 	}
 }
 //void Simulation::prepareBoard(int width, int height) {
