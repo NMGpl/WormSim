@@ -33,9 +33,7 @@ void Graphics::draw() {
 	drawWorm();
 	for (Worm& worm : simulation.getWorms()) {
 		std::vector <std::vector <int>> availableTiles;
-		if (worm.getMovement().empty()) {
-			availableTiles = { simulation.searchFood(worm.getHeadX(), worm.getHeadY(), 5) };
-		}else {
+		if (!worm.getMovement().empty()) {
 			availableTiles = worm.getMovement();
 		}
 		DrawRectangleLines(295 + worm.getHeadX() * 10, 40 + worm.getHeadY() * 10, 10, 10, BLUE);
@@ -75,6 +73,14 @@ void Graphics::prepareButtons(int startX, int startY, int width, int height) {
 	buttons.push_back(bAddWorm);
 	Button bDeleteWorms(startX + 180, startY + 240, 95, height, "Wyczysc");
 	buttons.push_back(bDeleteWorms);
+	Button bSimStop(startX, startY + 280, height, height, "0");
+	buttons.push_back(bSimStop);
+	Button bSimSpeed1(startX + height + 10, startY + 280, height, height, ">");
+	buttons.push_back(bSimSpeed1);
+	Button bSimSpeed2(startX + 2 * height + 20, startY + 280, height, height, ">>");
+	buttons.push_back(bSimSpeed2);
+	Button bSimSpeed3(startX + 3 * height + 30, startY + 280, height, height, ">>>");
+	buttons.push_back(bSimSpeed3);
 }
 
 void Graphics::prepareInputs(int startX, int startY, int width, int height) {
@@ -125,6 +131,18 @@ void Graphics::drawButtons() {
 					break;
 				case 9:
 					simulation.deleteWorms();
+					break;
+				case 10:
+					simulation.setTickTime(0);
+					break;
+				case 11:
+					simulation.setTickTime(1);
+					break;
+				case 12:
+					simulation.setTickTime(5);
+					break;
+				case 13:
+					simulation.setTickTime(10);
 					break;
 				}
 			}

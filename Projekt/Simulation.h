@@ -9,10 +9,12 @@ class Simulation{
 	std::vector <Worm> worms;
 	std::vector <std::vector <int>> tiles;
 	int boardWidth, boardHeight;
+	long long tickTime;
 public:
 	//void setup();
 	//void step();
 	//void printConfig() const;
+	Simulation(int tps = 1);
 	void simulate();
 	void addWorm(int wormsAmount);
 	void deleteWorms();
@@ -21,6 +23,8 @@ public:
 	std::vector <int> searchClosestFood(std::vector <std::vector <int>> foodTiles, int distance, int headX, int headY);
 	void wormsPathfind(int distance);
 	void wormsMove();
+	void setTickTime(int tps);
+	int getSimSpeed();
 	//void prepareBoard(int width, int height);
 	int prepareTile();
 	int prepareTile(int k, int i, int j, std::vector <std::vector <int>> hotspots);

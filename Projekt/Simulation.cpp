@@ -104,8 +104,12 @@
 //	}
 //}
 
+Simulation::Simulation(int tps) {
+	setTickTime(tps);
+}
+
 void Simulation::simulate() {
-	wormsPathfind(5);
+	wormsPathfind(10);
 	wormsMove();
 }
 
@@ -125,6 +129,17 @@ std::vector <Worm> Simulation::getWorms() {
 	return worms;
 }
 
+void Simulation::setTickTime(int tps) {
+	if (tps != 0) {
+		tickTime = 1000000000 / tps;
+	} else {
+		tickTime = tps;
+	}
+}
+
+int Simulation::getSimSpeed() {
+	return tickTime;
+}
 //std::vector <int> Simulation::searchFood(int headX, int headY, int distance) {
 //	//????? TODO: generowanie od wewnatrz
 //	std::vector <int> foodTile;
@@ -347,7 +362,11 @@ void Simulation::wormsPathfind(int distance) {
 			std::vector <int> foodTile = searchFood(worm.getHeadX(), worm.getHeadY(), distance);
 			std::vector <int> wormPos = { worm.getHeadX(), worm.getHeadY() };
 			std::vector <std::vector <int>> movement = findMovement(wormPos, foodTile);
+			//movement.pop_back();
 			std::reverse(movement.begin(), movement.end());
+			if (movement.size() != 1) {
+				movement.pop_back();
+			}
 			worm.setMovement(movement);
 			//std::cout << worm.getMovement()[0][0] << " " << worm.getMovement()[0][1] << "\n";
 		}
