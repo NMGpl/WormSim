@@ -28,6 +28,7 @@ public:
 	void setHunger(int hunger);
 	void modifyHunger(int hungerChange);
 	void modifyAge(int ageChange);
+	void modifySize(int sizeChange);
 	int getMaxSize() const;
 	void setMaxSize(int maxSize);
 	int getSize() const;

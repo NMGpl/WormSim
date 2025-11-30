@@ -113,6 +113,7 @@ void Simulation::wormsSystems() {
 	for (Worm& worm : worms) {
 		ageWorm(worm);
 		starveWorm(worm);
+		growWorm(worm);
 	}
 	killWorms();
 }
@@ -145,9 +146,20 @@ void Simulation::starveWorm(Worm& worm) {
 				worm.modifyHunger(1);
 				break;
 		}
+		if (worm.getHunger() > worm.getMaxHunger()) {
+			worm.setHunger(worm.getMaxHunger());
+		}
 	}
 	std::cout << "\nHunger: " << worm.getHunger() << "\n";
 	worm.modifyHunger(-1);
+}
+
+void Simulation::growWorm(Worm& worm) {
+	if (worm.getSize() < worm.getMaxSize() && worm.getHunger() >= 15 && !worm.isDead()) {
+		worm.modifySize(1);
+		worm.modifyHunger(-10);
+	}
+	std::cout << "\nSize: " << worm.getSize() << "\n";
 }
 
 void Simulation::ageWorm(Worm& worm) {

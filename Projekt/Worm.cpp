@@ -96,10 +96,18 @@ void Worm::modifyAge(int ageChange) {
     this->age += ageChange;
 }
 
+void Worm::modifySize(int sizeChange) {
+    this->size += sizeChange;
+}
+
 int Worm::getMaxSize() const {
     return maxSize;
 }
 
 void Worm::setMaxSize(int maxSize) {
     this->maxSize = maxSize;
+}
+
+int Worm::getSize() const {
+    return this->size;
 }

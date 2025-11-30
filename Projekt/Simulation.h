@@ -20,6 +20,7 @@ public:
 	void deleteWorms();
 	void starveWorm(Worm& worm);
 	void ageWorm(Worm& worm);
+	void growWorm(Worm& worm);
 	void killWorms();
 	std::vector <std::vector <int>>& getTilesRef();
 	std::vector <Worm> getWorms();
