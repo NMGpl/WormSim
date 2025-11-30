@@ -8,7 +8,7 @@
 #include <vector>
 #include <iostream>
 
-Graphics::Graphics(Simulation& simulation, int x, int y) : simulation(simulation) {
+Graphics::Graphics(Simulation& simulation, int x, int y) : simulation(simulation), tiles(simulation.getTilesRef()) {
 	this->x = x;
 	this->y = y;
 	prepareButtons(985, 50, 170, 30);
@@ -173,11 +173,11 @@ void Graphics::drawInputs() {
 }
 
 void Graphics::generateWormBoxRandom() {
-	this->tiles = simulation.generateBoardRandom(670, 670);
+	simulation.generateBoardRandom(670, 670);
 }
 
 void Graphics::generateWormBoxHotspot() {
-	this->tiles = simulation.generateBoardHotspot(670, 670, 5);
+	simulation.generateBoardHotspot(670, 670, 5);
 }
 
 void Graphics::drawWormBox() const {

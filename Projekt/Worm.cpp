@@ -3,14 +3,16 @@
 
 Worm::Worm(int headX, int headY, int maxAge, int maxHunger, int maxSize) {
     age = 0;
-    hunger = 0;
+    hunger = 10;
     size = 0;
+    dead = false;
     this->maxAge = maxAge;
     this->maxHunger = maxHunger;
     this->maxSize = maxSize;
     this->headX = headX;
     this->headY = headY;
     this->movement = {};
+
 }
 
 void Worm::move() {
@@ -42,10 +44,12 @@ void Worm::setHeadCords(int headX, int headY) {
     this->headY = headY;
 }
 
+void Worm::die() {
+    this->dead = true;
+}
+
 bool Worm::isDead() const{
-    if (age > maxAge) return true;
-    if (hunger > maxHunger) return true;
-    return false;
+    return dead;
 }
 
 void Worm::ageUp() {
@@ -82,6 +86,14 @@ int Worm::getHunger() const {
 
 void Worm::setHunger(int hunger) {
     this->hunger = hunger;
+}
+
+void Worm::modifyHunger(int hungerChange) {
+    this->hunger += hungerChange;
+}
+
+void Worm::modifyAge(int ageChange) {
+    this->age += ageChange;
 }
 
 int Worm::getMaxSize() const {

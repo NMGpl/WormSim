@@ -18,11 +18,16 @@ public:
 	void simulate();
 	void addWorm(int wormsAmount);
 	void deleteWorms();
+	void starveWorm(Worm& worm);
+	void ageWorm(Worm& worm);
+	void killWorms();
+	std::vector <std::vector <int>>& getTilesRef();
 	std::vector <Worm> getWorms();
 	std::vector <int> searchFood(int headX, int headY, int distance);
 	std::vector <int> searchClosestFood(std::vector <std::vector <int>> foodTiles, int distance, int headX, int headY);
 	void wormsPathfind(int distance);
 	void wormsMove();
+	void wormsSystems();
 	void setTickTime(int tps);
 	int getSimSpeed();
 	//void prepareBoard(int width, int height);
@@ -36,7 +41,7 @@ public:
 	//void printBoard() const;
 
 	//std::vector <std::vector <Tile>> generateBoard(int width, int height);
-	std::vector <std::vector <int>> generateBoardRandom(int width, int height);
-	std::vector <std::vector <int>> generateBoardHotspot(int width, int height, int hotspotAmount);
+	void generateBoardRandom(int width, int height);
+	void generateBoardHotspot(int width, int height, int hotspotAmount);
 };
 

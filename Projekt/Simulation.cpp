@@ -91,12 +91,7 @@
 //	return tiles[wormHeadX][wormHeadY]->getFoodAmount();
 //}
 
-//void Simulation::killWorm() {
-//	auto newEnd = std::remove_if(worms.begin(), worms.end(), [](Worm* worm) {
-//		return worm->isDead();
-//	});
-//	worms.erase(newEnd, worms.end());
-//}
+
 
 //void Simulation::ageWorm() {
 //	for (int i = 0; i < worms.size(); i++) {
@@ -111,6 +106,57 @@ Simulation::Simulation(int tps) {
 void Simulation::simulate() {
 	wormsPathfind(10);
 	wormsMove();
+	wormsSystems();
+}
+
+void Simulation::wormsSystems() {
+	for (Worm& worm : worms) {
+		ageWorm(worm);
+		starveWorm(worm);
+	}
+	killWorms();
+}
+
+void Simulation::killWorms() {
+	auto newEnd = std::remove_if(worms.begin(), worms.end(), [](Worm worm) {
+		return worm.isDead();
+	});
+	worms.erase(newEnd, worms.end());
+}
+
+void Simulation::starveWorm(Worm& worm) {
+	if (worm.getHunger() <= 0 || worm.isDead()) {
+		worm.die();
+	} else {
+		int headX = worm.getHeadX();
+		int headY = worm.getHeadY();
+		int tileFood = tiles[headX][headY];
+		switch (tileFood) {
+			case 3:
+				tiles[headX][headY] -= 3;
+				worm.modifyHunger(3);
+				break;
+			case 2:
+				tiles[headX][headY] -= 2;
+				worm.modifyHunger(2);
+				break;
+			case 1:
+				tiles[headX][headY] -= 1;
+				worm.modifyHunger(1);
+				break;
+		}
+	}
+	std::cout << "\nHunger: " << worm.getHunger() << "\n";
+	worm.modifyHunger(-1);
+}
+
+void Simulation::ageWorm(Worm& worm) {
+	if (worm.getAge() >= worm.getMaxAge()) {
+		worm.die();
+	} else {
+		worm.modifyAge(1);
+	}
+	std::cout << "\nAge: " << worm.getAge() << "\n";
 }
 
 void Simulation::addWorm(int wormsAmount) {
@@ -283,7 +329,6 @@ std::vector <int> Simulation::searchClosestFood(std::vector <std::vector <int>> 
 std::vector <std::vector <int>> Simulation::findMovement(std::vector <int> wormPos, std::vector <int> foodTile) {
 	std::vector <std::vector <int>> movement = {foodTile};
 	//bresenham
-	std::cout << "\n\nWorm x: " << wormPos[0] << "\nWorm y: " << wormPos[1]; /*<< "\nFood x: " << foodTile[0] << "\nFood y: " << foodTile[1];*/
 	std::vector <int> diff = { abs(wormPos[0] - foodTile[0]), abs(wormPos[1] - foodTile[1]) };
 	int moveX, moveY;
 	if (foodTile[0] > wormPos[0]) {
@@ -406,7 +451,7 @@ void Simulation::wormsMove() {
 //	return tiles;
 //}
 
-std::vector <std::vector <int>> Simulation::generateBoardRandom(int width, int height) {
+void Simulation::generateBoardRandom(int width, int height) {
 	std::vector <std::vector <int>> tiles;
 	for (int i = 0; i < width / 10; i++) {
 		std::vector<int> row;
@@ -417,10 +462,9 @@ std::vector <std::vector <int>> Simulation::generateBoardRandom(int width, int h
 		tiles.push_back(row);
 	}
 	this->tiles = tiles;
-	return tiles;
 }
 
-std::vector <std::vector <int>> Simulation::generateBoardHotspot(int width, int height, int hotspotAmount) {
+void Simulation::generateBoardHotspot(int width, int height, int hotspotAmount) {
 	std::vector <std::vector <int>> tiles;
 	for (int i = 0; i < width / 10; i++) {
 		std::vector <int> row;
@@ -451,6 +495,9 @@ std::vector <std::vector <int>> Simulation::generateBoardHotspot(int width, int 
 		}
 	}
 	this->tiles = tiles;
+}
+
+std::vector <std::vector <int>>& Simulation::getTilesRef() {
 	return tiles;
 }
 
