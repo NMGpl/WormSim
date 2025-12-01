@@ -157,7 +157,6 @@ void Simulation::growWorm(Worm& worm) {
 	if (worm.getSize() < worm.getMaxSize() && worm.getHunger() >= 15 && !worm.isDead()) {
 		worm.grow();
 		worm.modifyHunger(-10);
-		std::cout << worm.getSize();
 	}
 }
 

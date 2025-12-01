@@ -203,7 +203,7 @@ void Graphics::generateWormBoxRandom() {
 }
 
 void Graphics::generateWormBoxHotspot() {
-	simulation.generateBoardHotspot(670, 670, 5);
+	simulation.generateBoardHotspot(670, 670, 15);
 }
 
 void Graphics::drawWormBox() const {

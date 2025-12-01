@@ -29,7 +29,6 @@ void Worm::moveSegments() {
     for (int i = size - 1; i > 0; i--) {
         segments[i][0] = segments[i - 1][0];
         segments[i][1] = segments[i - 1][1];
-        std::cout << i << ") " << segments[i][0] << " " << segments[i][1] << "\n";
     }
     segments[0][0] = headX;
     segments[0][1] = headY;
