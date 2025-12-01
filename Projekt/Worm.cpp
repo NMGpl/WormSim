@@ -2,17 +2,16 @@
 #include <iostream>
 
 Worm::Worm(int headX, int headY, int maxAge, int maxHunger, int maxSize) {
-    age = 0;
-    hunger = 10;
-    size = 0;
-    dead = false;
     this->maxAge = maxAge;
     this->maxHunger = maxHunger;
     this->maxSize = maxSize;
     this->headX = headX;
     this->headY = headY;
     this->movement = {};
-
+    age = 0;
+    hunger = maxHunger / 2;
+    size = 0;
+    dead = false;
 }
 
 void Worm::move() {

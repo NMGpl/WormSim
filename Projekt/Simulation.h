@@ -8,6 +8,7 @@ class Simulation{
 	SimulationConfig config;
 	std::vector <Worm> worms;
 	std::vector <std::vector <int>> tiles;
+	int maxHunger = 20, maxAge = 100, maxSize = 2;
 	int boardWidth, boardHeight;
 	long long tickTime;
 public:
@@ -23,6 +24,7 @@ public:
 	void growWorm(Worm& worm);
 	void killWorms();
 	std::vector <std::vector <int>>& getTilesRef();
+	SimulationConfig& getConfigRef();
 	std::vector <Worm> getWorms();
 	std::vector <int> searchFood(int headX, int headY, int distance);
 	std::vector <int> searchClosestFood(std::vector <std::vector <int>> foodTiles, int distance, int headX, int headY);

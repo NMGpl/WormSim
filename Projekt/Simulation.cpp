@@ -150,7 +150,6 @@ void Simulation::starveWorm(Worm& worm) {
 			worm.setHunger(worm.getMaxHunger());
 		}
 	}
-	std::cout << "\nHunger: " << worm.getHunger() << "\n";
 	worm.modifyHunger(-1);
 }
 
@@ -159,7 +158,6 @@ void Simulation::growWorm(Worm& worm) {
 		worm.modifySize(1);
 		worm.modifyHunger(-10);
 	}
-	std::cout << "\nSize: " << worm.getSize() << "\n";
 }
 
 void Simulation::ageWorm(Worm& worm) {
@@ -168,13 +166,12 @@ void Simulation::ageWorm(Worm& worm) {
 	} else {
 		worm.modifyAge(1);
 	}
-	std::cout << "\nAge: " << worm.getAge() << "\n";
 }
 
 void Simulation::addWorm(int wormsAmount) {
 	for (int i = 0; i < wormsAmount; i++) {
 		std::vector <int> headXY = { rand() % (670 / 10), rand() % (670 / 10) };
-		Worm worm(headXY[0], headXY[1]);
+		Worm worm(headXY[0], headXY[1], config.getMaxAge(), config.getMaxHunger(), config.getMaxSize());
 		worms.push_back(worm);
 	}
 }
@@ -511,6 +508,10 @@ void Simulation::generateBoardHotspot(int width, int height, int hotspotAmount) 
 
 std::vector <std::vector <int>>& Simulation::getTilesRef() {
 	return tiles;
+}
+
+SimulationConfig& Simulation::getConfigRef() {
+	return config;
 }
 
 int Simulation::prepareTile() {

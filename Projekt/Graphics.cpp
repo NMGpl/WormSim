@@ -8,7 +8,7 @@
 #include <vector>
 #include <iostream>
 
-Graphics::Graphics(Simulation& simulation, int x, int y) : simulation(simulation), tiles(simulation.getTilesRef()) {
+Graphics::Graphics(Simulation& simulation, int x, int y) : simulation(simulation), tiles(simulation.getTilesRef()), config(simulation.getConfigRef()) {
 	this->x = x;
 	this->y = y;
 	prepareButtons(985, 50, 170, 30);
@@ -50,6 +50,7 @@ void Graphics::drawMenu() {
 	DrawRectangleLines(975, 40, 295, y - 50, WHITE);					//Prawe menu
 	drawInputs();
 	drawButtons();
+	drawInfo();
 }
 
 void Graphics::prepareButtons(int startX, int startY, int width, int height) {
@@ -98,21 +99,25 @@ void Graphics::drawButtons() {
 		int y = button.getY();
 		int width = button.getWidth();
 		int height = button.getHeight();
+		int value;
 		if (manager.isMouseOver(x, y, width, height)) {
 			button.setColor(RED);
 			if (manager.isLMouseClicked()) {
 				switch (i) {
 				case 0:
-
+					
 					break;
 				case 1:
-
+					value = inputs[1].getValue();
+					config.setMaxHunger(value);
 					break;
 				case 2:
-
+					value = inputs[2].getValue();
+					config.setMaxSize(value);
 					break;
 				case 3:
-
+					value = inputs[3].getValue();
+					config.setMaxAge(value);
 					break;
 				case 4:
 
@@ -162,14 +167,47 @@ void Graphics::drawInputs() {
 		if (manager.isMouseOver(x, y, width, height)) {
 			input.setColor(RED);
 			if (manager.isLMouseClicked()) {
-				input.setValue(value + 1);
+				input.setValue(value + 5);
 			}
 			else if (manager.isRMouseClicked()) {
-				input.setValue(value - 1);
+				input.setValue(value - 5);
 			}
 		} else input.setColor(WHITE);
 		input.draw();
 	}
+}
+
+void Graphics::drawInfo() {
+	//DrawRectangleLines(975, 40, 295, y - 50, WHITE);					//Prawe menu
+	DrawRectangleLines(985, 400, 275, 260, WHITE);
+
+	DrawText("Ilosc robakow: ", 990, 405, 15, WHITE);
+	std::string val = std::to_string(simulation.getWorms().size());
+	DrawText(val.c_str(), 1200, 405, 15, WHITE);
+
+	DrawText("Regeneracja podloza: ", 990, 405 + 15, 15, WHITE);
+	//val = std::to_string(simulation.getWorms().size());
+	DrawText("0", 1200, 405 + 15, 15, WHITE);
+
+	DrawText("Odpornosc na glod: ", 990, 405 + 30, 15, WHITE);
+	val = std::to_string(config.getMaxHunger());
+	DrawText(val.c_str(), 1200, 405 + 30, 15, WHITE);
+
+	DrawText("Maksymalna wielkosc: ", 990, 405 + 45, 15, WHITE);
+	val = std::to_string(config.getMaxSize());
+	DrawText(val.c_str(), 1200, 405 + 45, 15, WHITE);
+
+	DrawText("Sredni czas zycia: ", 990, 405 + 60, 15, WHITE);
+	val = std::to_string(config.getMaxAge());
+	DrawText(val.c_str(), 1200, 405 + 60, 15, WHITE);
+
+	DrawText("Ilosc mlodych: ", 990, 405 + 75, 15, WHITE);
+	//val = std::to_string(config.getMaxSize());
+	DrawText("0", 1200, 405 + 75, 15, WHITE);
+
+	DrawText("Sr. cz. produktywnosci: ", 990, 405 + 90, 15, WHITE);
+	//val = std::to_string(config.getMaxSize());
+	DrawText("0", 1200, 405 + 90, 15, WHITE);
 }
 
 void Graphics::generateWormBoxRandom() {

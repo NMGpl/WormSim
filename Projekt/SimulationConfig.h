@@ -2,13 +2,12 @@
 class SimulationConfig{
 	int maxAge, maxHunger, maxSize;
 public:
-	
-	void printConfig() const;
-	void setMaxAge(int newMaxAge);
-	int getMaxAge() const;
-	void setMaxHunger(int newMaxHunger);
-	int getMaxHunger() const;
-	void setMaxSize(int newMaxSize);
-	int getMaxSize() const;
+	SimulationConfig(int maxAge = 100, int maxHunger = 20, int maxSize = 0);
+	void setMaxAge(int maxAge);
+	void setMaxHunger(int maxHunger);
+	void setMaxSize(int maxSize);
+	int getMaxAge();
+	int getMaxHunger();
+	int getMaxSize();
 };
 
