@@ -31,7 +31,6 @@ void Graphics::draw() {
 	drawMenu();
 	drawWormBox();
 	drawWorm();
-	drawWormPath();
 }
 
 void Graphics::drawMenu() {
@@ -218,6 +217,7 @@ void Graphics::drawWorm() {
 		int y = worm.getHeadY();
 		//DrawRectangle(x, y, 5, 5, YELLOW);
 		drawWorm(x, y, 10);
+		drawWormPath(worm);
 	}
 }
 
@@ -225,17 +225,15 @@ void Graphics::drawWorm(int x, int y, int size) const {
 	DrawRectangle(295 + x * 10, 40 + y * 10, size, size, WHITE);
 }
 
-void Graphics::drawWormPath() {
-	for (Worm& worm : simulation.getWorms()) {
-		std::vector <std::vector <int>> availableTiles;
-		if (!worm.getMovement().empty()) {
-			availableTiles = worm.getMovement();
-		}
-		DrawRectangleLines(295 + worm.getHeadX() * 10, 40 + worm.getHeadY() * 10, 10, 10, BLUE);
-		for (int i = 0; i < availableTiles.size(); i++) {
-			if (!availableTiles[i].empty()) {
-				DrawRectangleLines(295 + availableTiles[i][0] * 10, 40 + availableTiles[i][1] * 10, 10, 10, PINK);
-			}
+void Graphics::drawWormPath(Worm& worm) {
+	std::vector <std::vector <int>> availableTiles;
+	if (!worm.getMovement().empty()) {
+		availableTiles = worm.getMovement();
+	}
+	DrawRectangleLines(295 + worm.getHeadX() * 10, 40 + worm.getHeadY() * 10, 10, 10, BLUE);
+	for (int i = 0; i < availableTiles.size(); i++) {
+		if (!availableTiles[i].empty()) {
+			DrawRectangleLines(295 + availableTiles[i][0] * 10, 40 + availableTiles[i][1] * 10, 10, 10, PINK);
 		}
 	}
 }

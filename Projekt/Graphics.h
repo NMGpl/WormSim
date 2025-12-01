@@ -18,7 +18,7 @@ class Graphics {
 	void drawMenu();
 	void drawWormBox() const;
 	void drawWorm();
-	void drawWormPath();
+	void drawWormPath(Worm& worm);
 	void generateWormBoxRandom();
 	void generateWormBoxHotspot();
 	void drawWorm(int x, int y, int size) const;
