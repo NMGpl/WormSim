@@ -155,8 +155,9 @@ void Simulation::starveWorm(Worm& worm) {
 
 void Simulation::growWorm(Worm& worm) {
 	if (worm.getSize() < worm.getMaxSize() && worm.getHunger() >= 15 && !worm.isDead()) {
-		worm.modifySize(1);
+		worm.grow();
 		worm.modifyHunger(-10);
+		std::cout << worm.getSize();
 	}
 }
 
@@ -516,11 +517,11 @@ SimulationConfig& Simulation::getConfigRef() {
 
 int Simulation::prepareTile() {
 	int r = rand() % 100;
-	if (r <= 75) {
+	if (r <= 60) {
 		return 0;
-	} else if (r <= 85){
+	} else if (r <= 75){
 		return 1;
-	} else if (r <= 95){
+	} else if (r <= 90){
 		return 2;
 	} else {
 		return 3;

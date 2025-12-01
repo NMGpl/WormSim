@@ -8,6 +8,7 @@ Worm::Worm(int headX, int headY, int maxAge, int maxHunger, int maxSize) {
     this->headX = headX;
     this->headY = headY;
     this->movement = {};
+    this->segments = {};
     age = 0;
     hunger = maxHunger / 2;
     size = 0;
@@ -15,11 +16,23 @@ Worm::Worm(int headX, int headY, int maxAge, int maxHunger, int maxSize) {
 }
 
 void Worm::move() {
-    
+    if (size != 0) {
+        moveSegments();
+    }
     std::vector <int> newPos = movement.back();
     this->headX = newPos[0];
     this->headY = newPos[1];
     movement.pop_back();
+}
+
+void Worm::moveSegments() {
+    for (int i = size - 1; i > 0; i--) {
+        segments[i][0] = segments[i - 1][0];
+        segments[i][1] = segments[i - 1][1];
+        std::cout << i << ") " << segments[i][0] << " " << segments[i][1] << "\n";
+    }
+    segments[0][0] = headX;
+    segments[0][1] = headY;
 }
 
 std::vector <std::vector <int>> Worm::getMovement() const {
@@ -95,6 +108,16 @@ void Worm::modifyAge(int ageChange) {
     this->age += ageChange;
 }
 
+void Worm::grow() {
+    if (segments.empty()) {
+        segments.push_back({ headX, headY });
+    } else {
+        std::vector <int> tail = segments.back();
+        segments.push_back({ tail[0], tail[1] });
+    }
+    modifySize(1);
+}
+
 void Worm::modifySize(int sizeChange) {
     this->size += sizeChange;
 }
@@ -109,4 +132,8 @@ void Worm::setMaxSize(int maxSize) {
 
 int Worm::getSize() const {
     return this->size;
+}
+
+std::vector <std::vector <int>> Worm::getSegments() {
+    return segments;
 }

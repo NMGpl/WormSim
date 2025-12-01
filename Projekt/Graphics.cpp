@@ -216,6 +216,14 @@ void Graphics::drawWorm() {
 		int x = worm.getHeadX();
 		int y = worm.getHeadY();
 		//DrawRectangle(x, y, 5, 5, YELLOW);
+		
+		std::vector <std::vector <int>> segments = worm.getSegments();
+		if(!segments.empty()){
+			for(std::vector <int> segment : segments){
+				drawWorm(segment[0], segment[1], 10);
+			}
+		}
+		
 		drawWorm(x, y, 10);
 		drawWormPath(worm);
 	}
