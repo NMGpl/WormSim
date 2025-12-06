@@ -9,7 +9,7 @@ class Simulation{
 	std::vector <Worm> worms;
 	std::vector <std::vector <int>> tiles;
 	int maxHunger = 20, maxAge = 100, maxSize = 2;
-	int boardWidth, boardHeight;
+	int boardWidth = 670, boardHeight = 670;
 	long long tickTime;
 public:
 	//void setup();
@@ -31,6 +31,7 @@ public:
 	void wormsPathfind(int distance);
 	void wormsMove();
 	void wormsSystems();
+	void foodRegenerate();
 	void setTickTime(int tps);
 	int getSimSpeed();
 	//void prepareBoard(int width, int height);

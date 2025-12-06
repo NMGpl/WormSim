@@ -107,6 +107,7 @@ void Simulation::simulate() {
 	wormsPathfind(10);
 	wormsMove();
 	wormsSystems();
+	foodRegenerate();
 }
 
 void Simulation::wormsSystems() {
@@ -116,6 +117,17 @@ void Simulation::wormsSystems() {
 		growWorm(worm);
 	}
 	killWorms();
+}
+
+void Simulation::foodRegenerate() {
+	for (int i = 0; i < config.getRegenSpeed(); i++) {
+		int posX = rand() % ((boardWidth + 1) / 10);
+		int posY = rand() % ((boardHeight + 1) / 10);
+		int food = tiles[posX][posY];
+		if (food < 3) {
+			tiles[posX][posY]++;
+		}
+	}
 }
 
 void Simulation::killWorms() {

@@ -8,15 +8,11 @@ int main(){
     srand(time(0));
     Simulation simulation;
     Graphics g(simulation);
-    //simulation.setup();
     
     auto lastTick = std::chrono::high_resolution_clock::now();
     long long tickTime;
     
     while (!WindowShouldClose()) {
-        // simulation.step();
-        // system("pause");
-        // system("cls");
         g.begin();
         g.draw();
         g.end();

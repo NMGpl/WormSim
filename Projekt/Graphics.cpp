@@ -93,7 +93,9 @@ void Graphics::drawButtons() {
 			if (manager.isLMouseClicked()) {
 				switch (i) {
 				case 0:
-					
+					//Food regen
+					value = inputs[0].getValue();
+					config.setRegenSpeed(value);
 					break;
 				case 1:
 					value = inputs[1].getValue();
@@ -108,10 +110,10 @@ void Graphics::drawButtons() {
 					config.setMaxAge(value);
 					break;
 				case 4:
-
+					//Children amount
 					break;
 				case 5:
-
+					//Breeding time?????
 					break;
 				case 6:
 					generateWormBoxRandom();

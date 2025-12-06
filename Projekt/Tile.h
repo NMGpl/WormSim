@@ -10,4 +10,3 @@ public:
 	int getFoodAmount() const;
 	void setFoodAmount(int foodAmount);
 };
-

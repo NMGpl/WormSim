@@ -19,6 +19,10 @@ void SimulationConfig::setMaxHunger(int maxHunger) {
 	this->maxHunger = maxHunger;
 }
 
+void SimulationConfig::setRegenSpeed(int regenSpeed) {
+	this->regenSpeed = regenSpeed;
+}
+
 int SimulationConfig::getMaxHunger() {
 	return maxHunger;
 }
@@ -29,4 +33,8 @@ void SimulationConfig::setMaxSize(int maxSize) {
 
 int SimulationConfig::getMaxSize() {
 	return maxSize;
+}
+
+int SimulationConfig::getRegenSpeed() {
+	return regenSpeed;
 }
