@@ -176,8 +176,8 @@ void Graphics::drawInfo() {
 	DrawText(val.c_str(), 1200, 405, 15, WHITE);
 
 	DrawText("Regeneracja podloza: ", 990, 405 + 15, 15, WHITE);
-	//val = std::to_string(simulation.getWorms().size());
-	DrawText("0", 1200, 405 + 15, 15, WHITE);
+	val = std::to_string(config.getRegenSpeed());
+	DrawText(val.c_str(), 1200, 405 + 15, 15, WHITE);
 
 	DrawText("Odpornosc na glod: ", 990, 405 + 30, 15, WHITE);
 	val = std::to_string(config.getMaxHunger());
