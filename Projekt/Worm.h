@@ -3,13 +3,13 @@
 
 class Worm {
 	int age, hunger, size;
-	int maxAge, maxHunger, maxSize;
+	int maxAge, maxHunger, maxSize, maxProductivity;
 	int headX, headY;
 	std::vector <std::vector <int>> segments;
 	std::vector <std::vector <int>> movement;
 	bool dead;
 public:
-	Worm(int headX, int headY, int maxAge = 100, int maxHunger = 20, int maxSize = 2);
+	Worm(int headX, int headY, int maxAge = 100, int maxHunger = 20, int maxSize = 2, int maxProductivity = 100);
 	std::vector <std::vector <int>> getMovement() const;
 	void move();
 	void moveSegments();
@@ -36,6 +36,8 @@ public:
 	void setMaxSize(int maxSize);
 	int getSize() const;
 	void setSize(int size);
+	int getMaxProductivity();
+	void setMaxProductivity(int maxProductivity);
 	std::vector <std::vector <int>> getSegments();
 };
 

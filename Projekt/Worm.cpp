@@ -1,10 +1,11 @@
 #include "Worm.h"
 #include <iostream>
 
-Worm::Worm(int headX, int headY, int maxAge, int maxHunger, int maxSize) {
+Worm::Worm(int headX, int headY, int maxAge, int maxHunger, int maxSize, int maxProductivity) {
     this->maxAge = maxAge;
     this->maxHunger = maxHunger;
     this->maxSize = maxSize;
+    this->maxProductivity = maxProductivity;
     this->headX = headX;
     this->headY = headY;
     this->movement = {};
@@ -131,6 +132,14 @@ void Worm::setMaxSize(int maxSize) {
 
 int Worm::getSize() const {
     return this->size;
+}
+
+void Worm::setMaxProductivity(int maxProductivity) {
+    this->maxProductivity = maxProductivity;
+}
+
+int Worm::getMaxProductivity() {
+    return maxProductivity;
 }
 
 std::vector <std::vector <int>> Worm::getSegments() {

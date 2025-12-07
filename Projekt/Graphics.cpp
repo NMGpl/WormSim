@@ -5,6 +5,7 @@
 #include "Simulation.h"
 #include "raylib.h"
 #include "Worm.h"
+#include "Egg.h"
 #include <vector>
 #include <iostream>
 
@@ -31,6 +32,7 @@ void Graphics::draw() {
 	drawMenu();
 	drawWormBox();
 	drawWorm();
+	drawEgg();
 }
 
 void Graphics::drawMenu() {
@@ -110,10 +112,12 @@ void Graphics::drawButtons() {
 					config.setMaxAge(value);
 					break;
 				case 4:
-					//Children amount
+					value = inputs[4].getValue();
+					config.setNewWormsAmount(value);
 					break;
 				case 5:
-					//Breeding time?????
+					value = inputs[5].getValue();
+					config.setMaxProductivity(value);
 					break;
 				case 6:
 					generateWormBoxRandom();
@@ -192,12 +196,12 @@ void Graphics::drawInfo() {
 	DrawText(val.c_str(), 1200, 405 + 60, 15, WHITE);
 
 	DrawText("Ilosc mlodych: ", 990, 405 + 75, 15, WHITE);
-	//val = std::to_string(config.getMaxSize());
-	DrawText("0", 1200, 405 + 75, 15, WHITE);
+	val = std::to_string(config.getNewWormsAmount());
+	DrawText(val.c_str(), 1200, 405 + 75, 15, WHITE);
 
 	DrawText("Sr. cz. produktywnosci: ", 990, 405 + 90, 15, WHITE);
-	//val = std::to_string(config.getMaxSize());
-	DrawText("0", 1200, 405 + 90, 15, WHITE);
+	val = std::to_string(config.getMaxProductivity());
+	DrawText(val.c_str(), 1200, 405 + 90, 15, WHITE);
 }
 
 void Graphics::generateWormBoxRandom() {
@@ -231,8 +235,21 @@ void Graphics::drawWorm() {
 	}
 }
 
+void Graphics::drawEgg() {
+	for (Egg& egg : simulation.getEggs()) {
+		int x = egg.getX();
+		int y = egg.getY();
+		//DrawRectangle(x, y, 5, 5, YELLOW);
+		drawEgg(x, y, 10);
+	}
+}
+
 void Graphics::drawWorm(int x, int y, int size) const {
 	DrawRectangle(295 + x * 10, 40 + y * 10, size, size, WHITE);
+}
+
+void Graphics::drawEgg(int x, int y, int size) const {
+	DrawRectangle(295 + x * 10, 40 + y * 10, size, size, PINK);
 }
 
 void Graphics::drawWormPath(Worm& worm) {

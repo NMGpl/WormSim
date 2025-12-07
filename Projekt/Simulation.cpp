@@ -1,6 +1,7 @@
 #include "Simulation.h"
 #include "Worm.h"
 #include "SimulationConfig.h"
+#include "Egg.h"
 #include <iostream>
 #include <ctime>
 #include <vector>
@@ -108,6 +109,7 @@ void Simulation::simulate() {
 	wormsMove();
 	wormsSystems();
 	foodRegenerate();
+	hatchEggs();
 }
 
 void Simulation::wormsSystems() {
@@ -115,6 +117,7 @@ void Simulation::wormsSystems() {
 		ageWorm(worm);
 		starveWorm(worm);
 		growWorm(worm);
+		layEgg(worm);
 	}
 	killWorms();
 }
@@ -128,6 +131,24 @@ void Simulation::foodRegenerate() {
 			tiles[posX][posY]++;
 		}
 	}
+}
+
+void Simulation::hatchEggs() {
+	bool hatched;
+	for (Egg& egg : eggs) {
+		hatched = egg.hatch();
+		if (hatched) {
+			addWorm(1, egg.getX(), egg.getY());
+		}
+	}
+	destroyEggs();
+}
+
+void Simulation::destroyEggs() {
+	auto newEnd = std::remove_if(eggs.begin(), eggs.end(), [](Egg egg) {
+		return egg.isHatched();
+		});
+	eggs.erase(newEnd, eggs.end());
 }
 
 void Simulation::killWorms() {
@@ -146,15 +167,15 @@ void Simulation::starveWorm(Worm& worm) {
 		int tileFood = tiles[headX][headY];
 		switch (tileFood) {
 			case 3:
-				tiles[headX][headY] -= 3;
+				tiles[headX][headY] -= 4;
 				worm.modifyHunger(3);
 				break;
 			case 2:
-				tiles[headX][headY] -= 2;
+				tiles[headX][headY] -= 3;
 				worm.modifyHunger(2);
 				break;
 			case 1:
-				tiles[headX][headY] -= 1;
+				tiles[headX][headY] -= 2;
 				worm.modifyHunger(1);
 				break;
 		}
@@ -180,10 +201,26 @@ void Simulation::ageWorm(Worm& worm) {
 	}
 }
 
+void Simulation::layEgg(Worm& worm) {
+	if ((worm.getSize() > (worm.getMaxSize() / 2)) && (worm.getAge() < worm.getMaxProductivity()) && (rand() % 101) > 92) {
+		int tailX = worm.getSegments()[worm.getSize() - 1][0];
+		int tailY = worm.getSegments()[worm.getSize() - 1][1];
+		Egg egg(tailX, tailY, config.getNewWormsAmount());
+		eggs.push_back(egg);
+	}
+}
+
 void Simulation::addWorm(int wormsAmount) {
 	for (int i = 0; i < wormsAmount; i++) {
 		std::vector <int> headXY = { rand() % (670 / 10), rand() % (670 / 10) };
-		Worm worm(headXY[0], headXY[1], config.getMaxAge(), config.getMaxHunger(), config.getMaxSize());
+		Worm worm(headXY[0], headXY[1], config.getMaxAge(), config.getMaxHunger(), config.getMaxSize(), config.getMaxProductivity());
+		worms.push_back(worm);
+	}
+}
+
+void Simulation::addWorm(int wormsAmount, int headX, int headY) {
+	for (int i = 0; i < wormsAmount; i++) {
+		Worm worm(headX, headY, config.getMaxAge(), config.getMaxHunger(), config.getMaxSize());
 		worms.push_back(worm);
 	}
 }
@@ -194,6 +231,10 @@ void Simulation::deleteWorms() {
 
 std::vector <Worm> Simulation::getWorms() {
 	return worms;
+}
+
+std::vector <Egg> Simulation::getEggs() {
+	return eggs;
 }
 
 void Simulation::setTickTime(int tps) {

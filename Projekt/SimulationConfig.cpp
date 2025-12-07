@@ -1,10 +1,13 @@
 #include "SimulationConfig.h"
 #include <iostream>
 
-SimulationConfig::SimulationConfig(int maxAge, int maxHunger, int maxSize) {
+SimulationConfig::SimulationConfig(int maxAge, int maxHunger, int maxSize, int regenSpeed, int maxProductivity, int newWormsAmount) {
 	this->maxAge = maxAge;
 	this->maxHunger = maxHunger;
 	this->maxSize = maxSize;
+	this->regenSpeed = regenSpeed;
+	this->maxProductivity = maxProductivity;
+	this->newWormsAmount = newWormsAmount;
 }
 
 void SimulationConfig::setMaxAge(int maxAge) {
@@ -23,6 +26,14 @@ void SimulationConfig::setRegenSpeed(int regenSpeed) {
 	this->regenSpeed = regenSpeed;
 }
 
+void SimulationConfig::setMaxProductivity(int maxProductivity) {
+	this->maxProductivity = maxProductivity;
+}
+
+void SimulationConfig::setNewWormsAmount(int newWormsAmount) {
+	this->newWormsAmount = newWormsAmount;
+}
+
 int SimulationConfig::getMaxHunger() {
 	return maxHunger;
 }
@@ -37,4 +48,12 @@ int SimulationConfig::getMaxSize() {
 
 int SimulationConfig::getRegenSpeed() {
 	return regenSpeed;
+}
+
+int SimulationConfig::getMaxProductivity() {
+	return maxProductivity;
+}
+
+int SimulationConfig::getNewWormsAmount() {
+	return newWormsAmount;
 }

@@ -2,12 +2,14 @@
 #include "Worm.h"
 #include "SimulationConfig.h"
 #include "Tile.h"
+#include "Egg.h"
 #include<vector>
 
 class Simulation{
 	SimulationConfig config;
 	std::vector <Worm> worms;
 	std::vector <std::vector <int>> tiles;
+	std::vector <Egg> eggs;
 	int maxHunger = 20, maxAge = 100, maxSize = 2;
 	int boardWidth = 670, boardHeight = 670;
 	long long tickTime;
@@ -18,14 +20,19 @@ public:
 	Simulation(int tps = 1);
 	void simulate();
 	void addWorm(int wormsAmount);
+	void addWorm(int wormsAmount, int headX, int headY);
 	void deleteWorms();
 	void starveWorm(Worm& worm);
 	void ageWorm(Worm& worm);
 	void growWorm(Worm& worm);
 	void killWorms();
+	void layEgg(Worm& worm);
+	void hatchEggs();
+	void destroyEggs();
 	std::vector <std::vector <int>>& getTilesRef();
 	SimulationConfig& getConfigRef();
 	std::vector <Worm> getWorms();
+	std::vector <Egg> getEggs();
 	std::vector <int> searchFood(int headX, int headY, int distance);
 	std::vector <int> searchClosestFood(std::vector <std::vector <int>> foodTiles, int distance, int headX, int headY);
 	void wormsPathfind(int distance);
