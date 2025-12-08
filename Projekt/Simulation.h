@@ -22,6 +22,7 @@ public:
 	void addWorm(int wormsAmount);
 	void addWorm(int wormsAmount, int headX, int headY);
 	void deleteWorms();
+	void deleteEggs();
 	void starveWorm(Worm& worm);
 	void ageWorm(Worm& worm);
 	void growWorm(Worm& worm);

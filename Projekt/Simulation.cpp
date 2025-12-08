@@ -229,6 +229,10 @@ void Simulation::deleteWorms() {
 	worms.clear();
 }
 
+void Simulation::deleteEggs() {
+	eggs.clear();
+}
+
 std::vector <Worm> Simulation::getWorms() {
 	return worms;
 }

@@ -130,6 +130,7 @@ void Graphics::drawButtons() {
 					break;
 				case 9:
 					simulation.deleteWorms();
+					simulation.deleteEggs();
 					break;
 				case 10:
 					simulation.setTickTime(0);

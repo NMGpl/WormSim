@@ -8,7 +8,8 @@ int main(){
     srand(time(0));
     Simulation simulation;
     Graphics g(simulation);
-    
+    Image image = LoadImage("icon.png");
+    SetWindowIcon(image);
     auto lastTick = std::chrono::high_resolution_clock::now();
     long long tickTime;
     
