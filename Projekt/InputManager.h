@@ -6,5 +6,6 @@ public:
 	bool isRMouseClicked();
 	bool isLMousePressed();
 	bool isLMouseReleased();
+	bool isLShiftClicked();
 };
 

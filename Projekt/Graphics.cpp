@@ -161,11 +161,17 @@ void Graphics::drawInputs() {
 		int height = input.getHeight();
 		if (manager.isMouseOver(x, y, width, height)) {
 			input.setColor(RED);
-			if (manager.isLMouseClicked()) {
-				input.setValue(value + 5);
+			if (manager.isLShiftClicked() && manager.isLMouseClicked()){
+				input.setValue(value + 10);
+			}
+			else if (manager.isLMouseClicked()) {
+				input.setValue(value + 1);
+			}
+			if (manager.isLShiftClicked() && manager.isRMouseClicked()) {
+				input.setValue(value - 10);
 			}
 			else if (manager.isRMouseClicked()) {
-				input.setValue(value - 5);
+				input.setValue(value - 1);
 			}
 		} else input.setColor(WHITE);
 		input.draw();

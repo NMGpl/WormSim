@@ -1,5 +1,6 @@
 #include "InputManager.h"
 #include "raylib.h"
+#include <iostream>
 
 bool InputManager::isMouseOver(int x, int y, int width, int height) {
 	int mouseX = GetMouseX();
@@ -37,6 +38,14 @@ bool InputManager::isLMousePressed() {
 bool InputManager::isLMouseReleased() {
 	bool release = IsMouseButtonReleased(0);
 	if (release) {
+		return true;
+	}
+	return false;
+}
+
+bool InputManager::isLShiftClicked() {
+	bool press = IsKeyDown(KEY_LEFT_SHIFT);
+	if (press) {
 		return true;
 	}
 	return false;
