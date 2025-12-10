@@ -168,10 +168,19 @@ void Graphics::drawInputs() {
 				input.setValue(value + 1);
 			}
 			if (manager.isLShiftClicked() && manager.isRMouseClicked()) {
-				input.setValue(value - 10);
+				if (value - 10 < 0) {
+					input.setValue(0);
+				} else {
+					input.setValue(value - 10);
+				}
 			}
 			else if (manager.isRMouseClicked()) {
-				input.setValue(value - 1);
+				if (value - 1 < 0) {
+					input.setValue(0);
+				}
+				else {
+					input.setValue(value - 1);
+				}
 			}
 		} else input.setColor(WHITE);
 		input.draw();
