@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AStar.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Egg.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -135,6 +136,7 @@
     <ClCompile Include="Worm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AStar.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Egg.h" />
     <ClInclude Include="Graphics.h" />
