@@ -1,7 +1,9 @@
 #pragma once
 class Tile {
-	int pos[2];
+	int x;
+	int y;
 	int foodAmount;
+	bool isWorm = false;
 public:
 	Tile(int foodAmount);
 	int getX() const;
