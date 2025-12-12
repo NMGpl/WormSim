@@ -1,27 +1,32 @@
 #include "Tile.h"
 
-Tile::Tile(int foodAmount = 0) {
-	//pos[0] = {5};
-	//pos[1] = {10};
+Tile::Tile(int x, int y, int foodAmount = 0) {
+	this->x = x;
+	this->y = y;
 	this->foodAmount = foodAmount;
 }
 
 int Tile::getX() const {
-	return pos[0];
+	return x;
 }
 
 int Tile::getY() const {
-	return pos[1];
+	return y;
 }
 
 void Tile::setPos(int x, int y) {
-	pos[0] = x;
-	pos[1] = y;
+	x = x;
+	y = y;
 }
 
 int Tile::getFoodAmount() const {
 	return foodAmount;
 }
+
+void Tile::modifyFoodAmount(int foodAmount) {
+	this->foodAmount += foodAmount;
+}
+
 void Tile::setFoodAmount(int foodAmount) {
 	this->foodAmount = foodAmount;
 }

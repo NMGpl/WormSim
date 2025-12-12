@@ -8,7 +8,8 @@
 class Simulation{
 	SimulationConfig config;
 	std::vector <Worm> worms;
-	std::vector <std::vector <int>> tiles;
+	//std::vector <std::vector <int>> tiles;
+	std::vector <std::vector <Tile>> tiles;
 	std::vector <Egg> eggs;
 	int maxHunger = 20, maxAge = 100, maxSize = 2;
 	int boardWidth = 670, boardHeight = 670;
@@ -30,7 +31,7 @@ public:
 	void layEgg(Worm& worm);
 	void hatchEggs();
 	void destroyEggs();
-	std::vector <std::vector <int>>& getTilesRef();
+	std::vector <std::vector <Tile>>& getTilesRef();
 	SimulationConfig& getConfigRef();
 	std::vector <Worm> getWorms();
 	std::vector <Egg> getEggs();

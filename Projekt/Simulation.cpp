@@ -92,8 +92,6 @@
 //	return tiles[wormHeadX][wormHeadY]->getFoodAmount();
 //}
 
-
-
 //void Simulation::ageWorm() {
 //	for (int i = 0; i < worms.size(); i++) {
 //		worms[i]->ageUp();
@@ -126,9 +124,9 @@ void Simulation::foodRegenerate() {
 	for (int i = 0; i < config.getRegenSpeed(); i++) {
 		int posX = rand() % ((boardWidth + 1) / 10);
 		int posY = rand() % ((boardHeight + 1) / 10);
-		int food = tiles[posX][posY];
+		int food = tiles[posX][posY].getFoodAmount();
 		if (food < 3) {
-			tiles[posX][posY]++;
+			tiles[posX][posY].modifyFoodAmount(1);
 		}
 	}
 }
@@ -164,18 +162,18 @@ void Simulation::starveWorm(Worm& worm) {
 	} else {
 		int headX = worm.getHeadX();
 		int headY = worm.getHeadY();
-		int tileFood = tiles[headX][headY];
+		int tileFood = tiles[headX][headY].getFoodAmount();
 		switch (tileFood) {
 			case 3:
-				tiles[headX][headY] -= 4;
+				tiles[headX][headY].modifyFoodAmount(-4);
 				worm.modifyHunger(3);
 				break;
 			case 2:
-				tiles[headX][headY] -= 3;
+				tiles[headX][headY].modifyFoodAmount(-3);
 				worm.modifyHunger(2);
 				break;
 			case 1:
-				tiles[headX][headY] -= 2;
+				tiles[headX][headY].modifyFoodAmount(-2);
 				worm.modifyHunger(1);
 				break;
 		}
@@ -348,7 +346,7 @@ std::vector <int> Simulation::searchFood(int headX, int headY, int distance) {
 			if (i < 0 || j < 0 || i >= tiles.size() || j >= tiles[0].size()) continue;
 			int kolo = (i - headX) * (i - headX) + (j - headY) * (j - headY);
 			if (kolo < distance * distance + distance / 10) {
-				food = tiles[i][j];
+				food = tiles[i][j].getFoodAmount();
 				if (food > 0) {
 					foodTiles.push_back({ i, j, food });
 					maxFood = food;
@@ -436,7 +434,10 @@ std::vector <std::vector <int>> Simulation::findMovement(std::vector <int> wormP
 //{
 //	int bestX = headX;
 //	int bestY = headY;
-//	int bestVal = *tiles[headX][headY];
+//	int bestVal = *
+// 
+// 
+// [headX][headY];
 //
 //	auto check = [&](int x, int y) {
 //		int val = *tiles[x][y];
@@ -518,11 +519,11 @@ void Simulation::wormsMove() {
 //}
 
 void Simulation::generateBoardRandom(int width, int height) {
-	std::vector <std::vector <int>> tiles;
+	std::vector <std::vector <Tile>> tiles;
 	for (int i = 0; i < width / 10; i++) {
-		std::vector<int> row;
+		std::vector<Tile> row;
 		for (int j = 0; j < height / 10; j++) {
-			int tileFood = prepareTile();
+			Tile tileFood(i, j, prepareTile());
 			row.push_back(tileFood);
 		}
 		tiles.push_back(row);
@@ -531,11 +532,11 @@ void Simulation::generateBoardRandom(int width, int height) {
 }
 
 void Simulation::generateBoardHotspot(int width, int height, int hotspotAmount) {
-	std::vector <std::vector <int>> tiles;
+	std::vector <std::vector <Tile>> tiles;
 	for (int i = 0; i < width / 10; i++) {
-		std::vector <int> row;
+		std::vector <Tile> row;
 		for (int j = 0; j < height / 10; j++) {
-			int tileFood = 0;
+			Tile tileFood(i, j, 0);
 			row.push_back(tileFood);
 		}
 		tiles.push_back(row);
@@ -557,13 +558,13 @@ void Simulation::generateBoardHotspot(int width, int height, int hotspotAmount) 
 					tileFood = hotspotFood;
 				}
 			}
-			tiles[i][j] = tileFood;
+			tiles[i][j].setFoodAmount(tileFood);
 		}
 	}
 	this->tiles = tiles;
 }
 
-std::vector <std::vector <int>>& Simulation::getTilesRef() {
+std::vector <std::vector <Tile>>& Simulation::getTilesRef() {
 	return tiles;
 }
 

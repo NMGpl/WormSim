@@ -6,14 +6,16 @@
 #include <vector>
 #include <string>
 #include "Worm.h"
+#include "Tile.h"
 
 class Graphics {
 	int x, y;
 	InputManager manager;
 	Simulation& simulation;
-	std::vector<Button> buttons;
-	std::vector<Input> inputs;
-	std::vector<std::vector<int>>& tiles;
+	std::vector <Button> buttons;
+	std::vector <Input> inputs;
+	//std::vector<std::vector<int>>& tiles;
+	std::vector <std::vector <Tile>>& tiles;
 	SimulationConfig& config;
 	void drawMenu();
 	void drawWormBox() const;
