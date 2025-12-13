@@ -53,6 +53,7 @@ void Simulation::hatchEggs() {
 	bool hatched;
 	for (Egg& egg : eggs) {
 		hatched = egg.hatch();
+		tiles[egg.getX()][egg.getY()].setFree(false);
 		if (hatched) {
 			addWorm(1, egg.getX(), egg.getY());
 			tiles[egg.getX()][egg.getY()].setFree(true);
@@ -124,7 +125,6 @@ void Simulation::layEgg(Worm& worm) {
 		int tailY = worm.getSegments()[worm.getSize() - 1][1];
 		Egg egg(tailX, tailY, config.getNewWormsAmount());
 		eggs.push_back(egg);
-		tiles[egg.getX()][egg.getY()].setFree(false);
 	}
 }
 

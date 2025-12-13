@@ -8,7 +8,7 @@ Egg::Egg(int posX, int posY, int newWorms) {
 void Egg::ageUp() {
 	this->age += 1;
 }
-///////////////////DO zmiany
+
 bool Egg::hatch() {
 	if (age >= maxAge) {
 		hatched = 1;
