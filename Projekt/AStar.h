@@ -1,27 +1,18 @@
 #pragma once
 #include <vector>
+#include "Tile.h"
+#include "Node.h"
 
 class AStar{
-	std::vector <int> currentPos;
-	std::vector <int> goal;
-	std::vector <int> start;
-	std::vector <std::vector <int>> canMove;
-	std::vector <std::vector <int>> cantMove;
-	std::vector <std::vector <int>> movement;
-
-	struct Node {
-		bool isWorm = false;
-		bool isVisited = false;
-		int x;
-		int y;
-		std::vector <Node> neighbours;
-	};
-
-	int heuristic(std::vector <int> a, std::vector <int> b);
-	bool foundEnd();
+	Tile start;
+	Tile goal;
+	std::vector <std::vector <Tile>>& tiles;
+	std::vector <Node> getNeighbours(Node& current);
+	bool containsNode(std::vector <Node>& list, Node& node);
+	void goToParent(Node& node, std::vector <Node>& processedNodes);
 public:
-	AStar(std::vector <int> wormPos, std::vector <int> foodTile);
+	AStar(Tile start, Tile goal, std::vector <std::vector <Tile>> tiles);
 	std::vector <std::vector <int>> findMovement();
-	std::vector <std::vector <int>> findMovement2();
+
 };
 

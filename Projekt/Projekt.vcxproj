@@ -130,6 +130,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="SimulationConfig.cpp" />
     <ClCompile Include="Tile.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="SimulationConfig.h" />
     <ClInclude Include="Tile.h" />

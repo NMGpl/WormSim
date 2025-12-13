@@ -1,6 +1,6 @@
 #include "Tile.h"
 
-Tile::Tile(int x, int y, int foodAmount = 0) {
+Tile::Tile(int x, int y, int foodAmount) {
 	this->x = x;
 	this->y = y;
 	this->foodAmount = foodAmount;
@@ -29,4 +29,12 @@ void Tile::modifyFoodAmount(int foodAmount) {
 
 void Tile::setFoodAmount(int foodAmount) {
 	this->foodAmount = foodAmount;
+}
+
+bool Tile::isWorm() {
+	return worm;
+}
+
+void Tile::setIsFree(bool worm) {
+	this->worm = worm;
 }

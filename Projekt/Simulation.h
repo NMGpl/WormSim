@@ -3,6 +3,7 @@
 #include "SimulationConfig.h"
 #include "Tile.h"
 #include "Egg.h"
+#include "AStar.h"
 #include<vector>
 
 class Simulation{

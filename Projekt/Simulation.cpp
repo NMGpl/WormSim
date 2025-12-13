@@ -485,6 +485,13 @@ void Simulation::wormsPathfind(int distance) {
 	}
 }
 
+std::vector <std::vector <int>> Simulation::findMovement(std::vector <int> wormPos, std::vector <int> foodTile) {
+	Tile start(wormPos[0], wormPos[1]);
+	Tile goal(foodTile[0], foodTile[1]);
+	AStar aStar(start, goal, getTilesRef());
+	std::vector <std::vector <int>> movement = aStar.findMovement();
+}
+
 void Simulation::wormsMove() {
 	for (Worm& worm : worms) {
 		worm.move();
