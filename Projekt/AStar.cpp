@@ -73,7 +73,7 @@ std::vector <std::vector <int>> AStar::findMovement() {
 
 		std::vector <Node*> neighbours = getNeighbours(pCurrent, nodes);
 		for (Node* neighbour : neighbours) {
-			if (!containsNode(processed, neighbour)) {
+			if (!containsNode(processed, neighbour)) {							//Najwolniejsza funkcja œwiata
 				bool inSearch = containsNode(toSearch, neighbour);
 				int costToNeighbor = pCurrent->getG() + pCurrent->getDistance(neighbour);
 				if (!inSearch || costToNeighbor < neighbour->getG()) {
