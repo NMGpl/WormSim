@@ -17,13 +17,15 @@ Worm::Worm(int headX, int headY, int maxAge, int maxHunger, int maxSize, int max
 }
 
 void Worm::move() {
-    if (size != 0) {
-        moveSegments();
+    if (!movement.empty()) {
+        if (size != 0) {
+            moveSegments();
+        }
+        std::vector <int> newPos = movement.back();
+        this->headX = newPos[0];
+        this->headY = newPos[1];
+        movement.pop_back();
     }
-    std::vector <int> newPos = movement.back();
-    this->headX = newPos[0];
-    this->headY = newPos[1];
-    movement.pop_back();
 }
 
 void Worm::moveSegments() {

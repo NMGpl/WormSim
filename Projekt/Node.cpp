@@ -1,12 +1,16 @@
 #include "Node.h"
+Node::Node() {
+	this->x = 0;
+	this->y = 0;
+	this->g = INT_MAX;
+	this->h = INT_MAX;
+}
 Node::Node(int x, int y) {
 	this->x = x;
 	this->y = y;
 
 	this->g = INT_MAX;
 	this->h = INT_MAX;
-	this->parentX = 0;
-	this->parentY = 0;
 }
 
 Node Node::tileToNode(Tile& tile) {
@@ -26,17 +30,12 @@ void Node::setH(int h) {
 	this->h = h;
 }
 
-void Node::setParent(int parentX, int parentY) {
-	this->parentX = parentX;
-	this->parentY = parentY;
+void Node::setParent(Node* pParent) {
+	this->pParent = pParent;
 }
 
-int Node::getParentX() {
-	return parentX;
-}
-
-int Node::getParentY() {
-	return parentY;
+Node* Node::getParent() {
+	return pParent;
 }
 
 int Node::getF() {
@@ -59,12 +58,8 @@ int Node::getY() {
 	return y;
 }
 
-int Node::getDistance(Node& neighbour) {
+int Node::getDistance(Node* neighbour) {
 	int distance;
-	distance = abs(x - neighbour.getX()) + abs(y - neighbour.getY());
+	distance = abs(x - neighbour->getX()) + abs(y - neighbour->getY());
 	return distance;
-}
-
-std::vector <Node> Node::getNeighbours() {
-	std::vector <Node> neighbours;
 }

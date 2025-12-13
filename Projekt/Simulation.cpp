@@ -390,45 +390,45 @@ std::vector <int> Simulation::searchClosestFood(std::vector <std::vector <int>> 
 	return foodTile;
 }
 
-std::vector <std::vector <int>> Simulation::findMovement(std::vector <int> wormPos, std::vector <int> foodTile) {
-	std::vector <std::vector <int>> movement = {foodTile};
-	//bresenham
-	std::vector <int> diff = { abs(wormPos[0] - foodTile[0]), abs(wormPos[1] - foodTile[1]) };
-	int moveX, moveY;
-	if (foodTile[0] > wormPos[0]) {
-		moveX = 1;
-	}
-	else {
-		moveX = -1;
-	}
-	if (foodTile[1] > wormPos[1]) {
-		moveY = 1;
-	}
-	else {
-		moveY = -1;
-	}
-	int error = diff[0] - diff[1];
-	while (true) {
-		//movement.push_back({ wormPos[0], wormPos[1] });
-		if (wormPos[0] == foodTile[0] && wormPos[1] == foodTile[1]) {
-			break;
-		}
-
-		int errorMult = 2 * error;
-
-		if (errorMult > -diff[1]) {
-			error -= diff[1];
-			wormPos[0] += moveX;
-			movement.push_back({ wormPos[0], wormPos[1] });
-		}
-		if (errorMult < diff[0]) {
-			error += diff[0];
-			wormPos[1] += moveY;
-			movement.push_back({ wormPos[0], wormPos[1] });
-		}
-	}
-	return movement;
-}
+//std::vector <std::vector <int>> Simulation::findMovement(std::vector <int> wormPos, std::vector <int> foodTile) {
+//	std::vector <std::vector <int>> movement = {foodTile};
+//	//bresenham
+//	std::vector <int> diff = { abs(wormPos[0] - foodTile[0]), abs(wormPos[1] - foodTile[1]) };
+//	int moveX, moveY;
+//	if (foodTile[0] > wormPos[0]) {
+//		moveX = 1;
+//	}
+//	else {
+//		moveX = -1;
+//	}
+//	if (foodTile[1] > wormPos[1]) {
+//		moveY = 1;
+//	}
+//	else {
+//		moveY = -1;
+//	}
+//	int error = diff[0] - diff[1];
+//	while (true) {
+//		//movement.push_back({ wormPos[0], wormPos[1] });
+//		if (wormPos[0] == foodTile[0] && wormPos[1] == foodTile[1]) {
+//			break;
+//		}
+//
+//		int errorMult = 2 * error;
+//
+//		if (errorMult > -diff[1]) {
+//			error -= diff[1];
+//			wormPos[0] += moveX;
+//			movement.push_back({ wormPos[0], wormPos[1] });
+//		}
+//		if (errorMult < diff[0]) {
+//			error += diff[0];
+//			wormPos[1] += moveY;
+//			movement.push_back({ wormPos[0], wormPos[1] });
+//		}
+//	}
+//	return movement;
+//}
 
 //std::vector<std::vector<int>> Simulation::searchPath(int headX, int headY, int distance)
 //{
@@ -475,9 +475,9 @@ void Simulation::wormsPathfind(int distance) {
 			std::vector <int> wormPos = { worm.getHeadX(), worm.getHeadY() };
 			std::vector <std::vector <int>> movement = findMovement(wormPos, foodTile);
 			//movement.pop_back();
-			std::reverse(movement.begin(), movement.end());
-			if (movement.size() != 1) {
-				movement.pop_back();
+			/*std::reverse(movement.begin(), movement.end());*/
+			if (movement.size() > 1) {
+				//movement.pop_back();
 			}
 			worm.setMovement(movement);
 			//std::cout << worm.getMovement()[0][0] << " " << worm.getMovement()[0][1] << "\n";
@@ -490,6 +490,8 @@ std::vector <std::vector <int>> Simulation::findMovement(std::vector <int> wormP
 	Tile goal(foodTile[0], foodTile[1]);
 	AStar aStar(start, goal, getTilesRef());
 	std::vector <std::vector <int>> movement = aStar.findMovement();
+
+	return movement;
 }
 
 void Simulation::wormsMove() {

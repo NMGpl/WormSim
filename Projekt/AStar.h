@@ -7,11 +7,10 @@ class AStar{
 	Tile start;
 	Tile goal;
 	std::vector <std::vector <Tile>>& tiles;
-	std::vector <Node> getNeighbours(Node& current);
-	bool containsNode(std::vector <Node>& list, Node& node);
-	void goToParent(Node& node, std::vector <Node>& processedNodes);
+	std::vector <Node*> getNeighbours(Node* current, std::vector <std::vector <Node>>& nodes);
+	bool containsNode(std::vector <Node*>& list, Node* node);
 public:
-	AStar(Tile start, Tile goal, std::vector <std::vector <Tile>> tiles);
+	AStar(Tile start, Tile goal, std::vector <std::vector <Tile>>& tiles);
 	std::vector <std::vector <int>> findMovement();
 
 };

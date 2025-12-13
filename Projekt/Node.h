@@ -7,27 +7,23 @@ class Node
 {
 	int x;
 	int y;
-
 	int g;
 	int h;
-	int f = g + h;
-	int parentX;
-	int parentY;
+	Node* pParent = nullptr;
 public:
+	Node();
 	Node(int x, int y);
 	static Node tileToNode(Tile& tile);
 	void setG(int g);
 	void setH(int h);
 	void setXY(int x, int y);
-	void setParent(int parentX, int parentY);
-	int getParentX();
-	int getParentY();
+	void setParent(Node* pParent);
+	Node* getParent();
 	int getF();
 	int getH();
 	int getG();
 	int getX();
 	int getY();
-	int getDistance(Node& neighbour);
-	std::vector <Node> getNeighbours();
+	int getDistance(Node* neighbour);
 };
 

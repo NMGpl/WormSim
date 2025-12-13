@@ -3,7 +3,7 @@ class Tile {
 	int x;
 	int y;
 	int foodAmount;
-	bool worm = false;
+	bool worm = true;
 public:
 	Tile(int x, int y, int foodAmount = 0);
 	int getX() const;
