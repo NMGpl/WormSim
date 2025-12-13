@@ -22,6 +22,7 @@ void Worm::move() {
             moveSegments();
         }
         std::vector <int> newPos = movement.back();
+        
         this->headX = newPos[0];
         this->headY = newPos[1];
         movement.pop_back();
@@ -37,7 +38,7 @@ void Worm::moveSegments() {
     segments[0][1] = headY;
 }
 
-std::vector <std::vector <int>> Worm::getMovement() const {
+std::vector <std::vector <int>>& Worm::getMovement() {
     return movement;
 }
 

@@ -38,8 +38,10 @@ public:
 	std::vector <Egg> getEggs();
 	std::vector <int> searchFood(int headX, int headY, int distance);
 	std::vector <int> searchClosestFood(std::vector <std::vector <int>> foodTiles, int distance, int headX, int headY);
-	void wormsPathfind(int distance);
-	void wormsMove();
+	void wormsPathfind(Worm& worm, int distance);
+	void passMovement(Worm& worm, int distance);
+	void wormsMove(Worm& worm);
+	void freeIfDead(Worm& worm);
 	void wormsSystems();
 	void foodRegenerate();
 	void setTickTime(int tps);

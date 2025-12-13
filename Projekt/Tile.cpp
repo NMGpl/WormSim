@@ -31,10 +31,10 @@ void Tile::setFoodAmount(int foodAmount) {
 	this->foodAmount = foodAmount;
 }
 
-bool Tile::isWorm() {
-	return worm;
+bool Tile::isFree() {
+	return free;
 }
 
-void Tile::setIsFree(bool worm) {
-	this->worm = worm;
+void Tile::setFree(bool free) {
+	this->free = free;
 }

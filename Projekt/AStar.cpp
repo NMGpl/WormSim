@@ -15,7 +15,7 @@ std::vector <Node*> AStar::getNeighbours(Node* pCurrent, std::vector <std::vecto
 		int newY = y + dY[i];
 
 		if (newX >= 0 && newX < tiles.size() && newY >= 0 && newY < tiles[0].size()) {
-			if (tiles[newX][newY].isWorm()) {
+			if (tiles[newX][newY].isFree()) {
 				neighbours.push_back(&nodes[newX][newY]);
 			}
 		}

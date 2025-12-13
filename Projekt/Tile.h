@@ -3,7 +3,7 @@ class Tile {
 	int x;
 	int y;
 	int foodAmount;
-	bool worm = true;
+	bool free = true;
 public:
 	Tile(int x, int y, int foodAmount = 0);
 	int getX() const;
@@ -12,6 +12,7 @@ public:
 	int getFoodAmount() const;
 	void modifyFoodAmount(int foodAmount);
 	void setFoodAmount(int foodAmount);
-	bool isWorm();
-	void setIsFree(bool worm);
+	bool isFree();
+	void setFree(bool free);
+	void wantToMove(int x);
 };

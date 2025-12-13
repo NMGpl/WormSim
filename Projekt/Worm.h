@@ -10,7 +10,7 @@ class Worm {
 	bool dead;
 public:
 	Worm(int headX, int headY, int maxAge = 100, int maxHunger = 20, int maxSize = 2, int maxProductivity = 100);
-	std::vector <std::vector <int>> getMovement() const;
+	std::vector <std::vector <int>>& getMovement();
 	void move();
 	void moveSegments();
 	void setMovement(std::vector <std::vector <int>> movement);

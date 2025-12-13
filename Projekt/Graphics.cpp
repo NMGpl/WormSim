@@ -289,7 +289,8 @@ void Graphics::drawTiles(int width, int height, int size) const {
 			if (tileFood == 3) DrawRectangle(295 + (i * size), 40 + (j * size), size, size, GREEN);
 			else if (tileFood == 2) DrawRectangle(295 + (i * size), 40 + (j * size), size, size, ORANGE);
 			else if (tileFood == 1) DrawRectangle(295 + (i * size), 40 + (j * size), size, size, RED);
-			else DrawRectangle(295 + (i * size), 40 + (j * size), size, size, BLACK);
+			//else DrawRectangle(295 + (i * size), 40 + (j * size), size, size, BLACK);
+			if (!tiles[i][j].isFree()) DrawRectangle(295 + (i * size), 40 + (j * size), 12, 12, BROWN);
 		}
 	}
 }
