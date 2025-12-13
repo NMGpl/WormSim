@@ -13,6 +13,12 @@ Node Node::tileToNode(Tile& tile) {
 	return Node(tile.getX(), tile.getY());
 }
 
+void Node::reset() {
+	g = INT_MAX;
+	h = 0;
+	pParent = nullptr;
+}
+
 void Node::setXY(int x, int y) {
 	this->x = x;
 	this->y = y;
@@ -29,6 +35,14 @@ void Node::setH(int h) {
 void Node::setParent(int parentX, int parentY) {
 	this->parentX = parentX;
 	this->parentY = parentY;
+}
+
+void Node::setParent(Node* pParent) {
+	this->pParent = pParent;
+}
+
+Node* Node::getParent() {
+	return pParent;
 }
 
 int Node::getParentX() {
@@ -59,9 +73,9 @@ int Node::getY() {
 	return y;
 }
 
-int Node::getDistance(Node& neighbour) {
+int Node::getDistance(Node* neighbour) {
 	int distance;
-	distance = abs(x - neighbour.getX()) + abs(y - neighbour.getY());
+	distance = abs(x - neighbour->getX()) + abs(y - neighbour->getY());
 	return distance;
 }
 
