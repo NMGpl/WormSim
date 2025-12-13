@@ -13,6 +13,7 @@ class Node
 public:
 	Node();
 	Node(int x, int y);
+	void reset();
 	static Node tileToNode(Tile& tile);
 	void setG(int g);
 	void setH(int h);
