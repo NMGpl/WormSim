@@ -36,7 +36,7 @@ void Graphics::draw() {
 }
 
 void Graphics::drawMenu() {
-	DrawRectangleLines(10, 40, 275, y - 50, WHITE);						//Lewe menu ?????
+	DrawRectangleLines(10, 40, 275, y - 50, WHITE);						//Lewe menu (?)
 	DrawRectangleLines(975, 40, 295, y - 50, WHITE);					//Prawe menu
 	drawInputs();
 	drawButtons();
@@ -95,7 +95,6 @@ void Graphics::drawButtons() {
 			if (manager.isLMouseClicked()) {
 				switch (i) {
 				case 0:
-					//Food regen
 					value = inputs[0].getValue();
 					config.setRegenSpeed(value);
 					break;
@@ -189,7 +188,6 @@ void Graphics::drawInputs() {
 }
 
 void Graphics::drawInfo() {
-	//DrawRectangleLines(975, 40, 295, y - 50, WHITE);					//Prawe menu
 	DrawRectangleLines(985, 400, 275, 260, WHITE);
 
 	DrawText("Ilosc robakow: ", 990, 405, 15, WHITE);
@@ -242,8 +240,6 @@ void Graphics::drawWorm() {
 	for (Worm& worm : simulation.getWorms()) {
 		int x = worm.getHeadX();
 		int y = worm.getHeadY();
-		//DrawRectangle(x, y, 5, 5, YELLOW);
-		
 		std::vector <std::vector <int>> segments = worm.getSegments();
 		if(!segments.empty()){
 			for(std::vector <int> segment : segments){
@@ -252,7 +248,7 @@ void Graphics::drawWorm() {
 		}
 		
 		drawWorm(x, y, 10);
-		drawWormPath(worm);
+		//drawWormPath(worm);		//Rysowanie pathfindingu robaka
 	}
 }
 
@@ -260,7 +256,6 @@ void Graphics::drawEgg() {
 	for (Egg& egg : simulation.getEggs()) {
 		int x = egg.getX();
 		int y = egg.getY();
-		//DrawRectangle(x, y, 5, 5, YELLOW);
 		drawEgg(x, y, 10);
 	}
 }
@@ -293,8 +288,8 @@ void Graphics::drawTiles(int width, int height, int size) const {
 			if (tileFood == 3) DrawRectangle(295 + (i * size), 40 + (j * size), size, size, GREEN);
 			else if (tileFood == 2) DrawRectangle(295 + (i * size), 40 + (j * size), size, size, ORANGE);
 			else if (tileFood == 1) DrawRectangle(295 + (i * size), 40 + (j * size), size, size, RED);
-			//else DrawRectangle(295 + (i * size), 40 + (j * size), size, size, BLACK);
-			if (!tiles[i][j].isFree()) DrawRectangle(293 + (i * size), 38 + (j * size), 14, 14, BROWN);
+			else DrawRectangle(295 + (i * size), 40 + (j * size), size, size, BLACK);
+			//if (!tiles[i][j].isFree()) DrawRectangle(293 + (i * size), 38 + (j * size), 14, 14, BROWN);	//Rysowanie hitboxow
 		}
 	}
 }

@@ -11,5 +11,6 @@ public:
 	bool isHatched();
 	int getX();
 	int getY();
+	int getNewWorms();
 };
 

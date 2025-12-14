@@ -56,7 +56,7 @@ void Simulation::hatchEggs() {
 		hatched = egg.hatch();
 		tiles[egg.getX()][egg.getY()].setFree(false);
 		if (hatched) {
-			addWorm(config.getNewWormsAmount(), egg.getX(), egg.getY());
+			addWorm(egg.getNewWorms(), egg.getX(), egg.getY());
 			tiles[egg.getX()][egg.getY()].setFree(true);
 		}
 	}

@@ -29,3 +29,7 @@ int Egg::getX() {
 int Egg::getY() {
 	return posY;
 }
+
+int Egg::getNewWorms() {
+	return newWorms;
+}

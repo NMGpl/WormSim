@@ -14,7 +14,7 @@ std::vector <Node*> AStar::getNeighbours(Node* pCurrent, std::vector <std::vecto
 		int newX = x + dX[i];
 		int newY = y + dY[i];
 
-		if (newX >= 0 && newX < tiles.size() && newY >= 0 && newY < tiles[0].size()) {
+		if (newX >= 0 && newX < tiles.size() && newY >= 0 && newY < tiles[0].size()) {		//Funkcja
 			if (tiles[newX][newY].isFree()) {
 				neighbours.push_back(&nodes[newX][newY]);
 			}
@@ -76,7 +76,7 @@ std::vector <std::vector <int>> AStar::findMovement() {
 			return movement;
 		}
 
-		std::vector <Node*> neighbours = getNeighbours(pCurrent, nodes);
+		std::vector <Node*> neighbours = getNeighbours(pCurrent, nodes);			//Najwolniejsza funkcja siwata 2
 		for (Node* neighbour : neighbours) {
 			if (!neighbour->isProcessed()) {
 			//if (!containsNode(processed, neighbour)) {							//Najwolniejsza funkcja œwiata
