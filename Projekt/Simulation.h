@@ -15,6 +15,7 @@ class Simulation{
 	int maxHunger = 20, maxAge = 100, maxSize = 2;
 	int boardWidth = 670, boardHeight = 670;
 	long long tickTime;
+	int deadWorms = 0;
 public:
 	//void setup();
 	//void step();
@@ -59,5 +60,6 @@ public:
 	//std::vector <std::vector <Tile>> generateBoard(int width, int height);
 	void generateBoardRandom(int width, int height);
 	void generateBoardHotspot(int width, int height, int hotspotAmount);
+	int getDeadWorms();
 };
 

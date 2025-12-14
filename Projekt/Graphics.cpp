@@ -139,10 +139,10 @@ void Graphics::drawButtons() {
 					simulation.setTickTime(1);
 					break;
 				case 12:
-					simulation.setTickTime(5);
+					simulation.setTickTime(3);
 					break;
 				case 13:
-					simulation.setTickTime(10);
+					simulation.setTickTime(6);
 					break;
 				}
 			}
@@ -196,29 +196,33 @@ void Graphics::drawInfo() {
 	std::string val = std::to_string(simulation.getWorms().size());
 	DrawText(val.c_str(), 1200, 405, 15, WHITE);
 
-	DrawText("Regeneracja podloza: ", 990, 405 + 15, 15, WHITE);
-	val = std::to_string(config.getRegenSpeed());
+	DrawText("Ilosc martwych robakow: ", 990, 405 + 15, 15, WHITE);
+	val = std::to_string(simulation.getDeadWorms());
 	DrawText(val.c_str(), 1200, 405 + 15, 15, WHITE);
 
-	DrawText("Odpornosc na glod: ", 990, 405 + 30, 15, WHITE);
-	val = std::to_string(config.getMaxHunger());
+	DrawText("Regeneracja podloza: ", 990, 405 + 30, 15, WHITE);
+	val = std::to_string(config.getRegenSpeed());
 	DrawText(val.c_str(), 1200, 405 + 30, 15, WHITE);
 
-	DrawText("Maksymalna wielkosc: ", 990, 405 + 45, 15, WHITE);
-	val = std::to_string(config.getMaxSize());
+	DrawText("Odpornosc na glod: ", 990, 405 + 45, 15, WHITE);
+	val = std::to_string(config.getMaxHunger());
 	DrawText(val.c_str(), 1200, 405 + 45, 15, WHITE);
 
-	DrawText("Sredni czas zycia: ", 990, 405 + 60, 15, WHITE);
-	val = std::to_string(config.getMaxAge());
+	DrawText("Maksymalna wielkosc: ", 990, 405 + 60, 15, WHITE);
+	val = std::to_string(config.getMaxSize());
 	DrawText(val.c_str(), 1200, 405 + 60, 15, WHITE);
 
-	DrawText("Ilosc mlodych: ", 990, 405 + 75, 15, WHITE);
-	val = std::to_string(config.getNewWormsAmount());
+	DrawText("Sredni czas zycia: ", 990, 405 + 75, 15, WHITE);
+	val = std::to_string(config.getMaxAge());
 	DrawText(val.c_str(), 1200, 405 + 75, 15, WHITE);
 
-	DrawText("Sr. cz. produktywnosci: ", 990, 405 + 90, 15, WHITE);
-	val = std::to_string(config.getMaxProductivity());
+	DrawText("Ilosc mlodych: ", 990, 405 + 90, 15, WHITE);
+	val = std::to_string(config.getNewWormsAmount());
 	DrawText(val.c_str(), 1200, 405 + 90, 15, WHITE);
+
+	DrawText("Sr. cz. produktywnosci: ", 990, 405 + 105, 15, WHITE);
+	val = std::to_string(config.getMaxProductivity());
+	DrawText(val.c_str(), 1200, 405 + 105, 15, WHITE);
 }
 
 void Graphics::generateWormBoxRandom() {

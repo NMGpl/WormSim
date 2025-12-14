@@ -35,6 +35,7 @@ void Simulation::freeIfDead(Worm& worm) {
 		for (auto segment : worm.getSegments()) {
 			tiles[segment[0]][segment[1]].setFree(true);
 		}
+		deadWorms++;
 	}
 }
 
@@ -144,10 +145,20 @@ void Simulation::addWorm(int wormsAmount, int headX, int headY) {
 }
 
 void Simulation::deleteWorms() {
+	for (Worm& worm : worms) {
+		tiles[worm.getHeadX()][worm.getHeadY()].setFree(true);
+		for (auto segment : worm.getSegments()) {
+			tiles[segment[0]][segment[1]].setFree(true);
+		}
+	}
+	deadWorms = 0;
 	worms.clear();
 }
 
 void Simulation::deleteEggs() {
+	for (Egg& egg : eggs) {
+		tiles[egg.getX()][egg.getY()].setFree(true);
+	}
 	eggs.clear();
 }
 
@@ -157,6 +168,10 @@ std::vector <Worm> Simulation::getWorms() {
 
 std::vector <Egg> Simulation::getEggs() {
 	return eggs;
+}
+
+int Simulation::getDeadWorms() {
+	return deadWorms;
 }
 
 void Simulation::setTickTime(int tps) {
