@@ -49,6 +49,8 @@ std::vector <std::vector <int>> AStar::findMovement() {
 	std::vector <Node*> toSearch = { pStart };
 	std::vector <Node*> processed;
 
+	pStart->setToSearch(true);
+
 	while (!toSearch.empty()) {
 		Node* pCurrent = toSearch[0];
 		for (Node* pNode : toSearch) {
@@ -60,6 +62,9 @@ std::vector <std::vector <int>> AStar::findMovement() {
 		processed.push_back(pCurrent);
 		auto index = std::find(toSearch.begin(), toSearch.end(), pCurrent);
 		toSearch.erase(index);
+
+		pCurrent->setToSearch(false);
+		pCurrent->setProcessed(true);
 
 		if (pCurrent->getX() == pGoal->getX() && pCurrent->getY() == pGoal->getY()) {
 			std::vector <std::vector <int>> movement;
@@ -73,14 +78,18 @@ std::vector <std::vector <int>> AStar::findMovement() {
 
 		std::vector <Node*> neighbours = getNeighbours(pCurrent, nodes);
 		for (Node* neighbour : neighbours) {
-			if (!containsNode(processed, neighbour)) {							//Najwolniejsza funkcja œwiata
-				bool inSearch = containsNode(toSearch, neighbour);
+			if (!neighbour->isProcessed()) {
+			//if (!containsNode(processed, neighbour)) {							//Najwolniejsza funkcja œwiata
+			//	bool inSearch = containsNode(toSearch, neighbour);
+			bool inSearch = neighbour->isToSeach();
+
 				int costToNeighbor = pCurrent->getG() + pCurrent->getDistance(neighbour);
 				if (!inSearch || costToNeighbor < neighbour->getG()) {
 					neighbour->setG(costToNeighbor);
 					neighbour->setParent(pCurrent);
 					if (!inSearch) {
 						neighbour->setH(neighbour->getDistance(pGoal));
+						neighbour->setToSearch(true);
 						toSearch.push_back(neighbour);
 					}
 				}

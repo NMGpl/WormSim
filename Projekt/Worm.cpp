@@ -2,10 +2,12 @@
 #include <iostream>
 
 Worm::Worm(int headX, int headY, int maxAge, int maxHunger, int maxSize, int maxProductivity) {
-    this->maxAge = maxAge;
+    int age = maxAge + (rand() % (maxAge / 5 + 1)) - (maxAge / 10);
+    this->maxAge = age;
     this->maxHunger = maxHunger;
     this->maxSize = maxSize;
-    this->maxProductivity = maxProductivity;
+    int productivity = maxProductivity + (rand() % (maxProductivity / 5 + 1)) - (maxProductivity / 10);
+    this->maxProductivity = productivity;
     this->headX = headX;
     this->headY = headY;
     this->movement = {};
@@ -76,7 +78,7 @@ int Worm::getMaxAge() const {
 }
 
 void Worm::setMaxAge(int maxAge) {
-    this->maxAge = maxAge;
+    this->maxAge = age;
 }
 
 int Worm::getAge() const {

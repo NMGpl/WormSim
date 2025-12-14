@@ -10,6 +10,8 @@ class Node
 	int g;
 	int h;
 	Node* pParent = nullptr;
+	bool toSearch = false;
+	bool processed = false;
 public:
 	Node();
 	Node(int x, int y);
@@ -26,5 +28,9 @@ public:
 	int getX();
 	int getY();
 	int getDistance(Node* neighbour);
+	bool isToSeach();
+	void setToSearch(bool toSearch);
+	bool isProcessed();
+	void setProcessed(bool processed);
 };
 

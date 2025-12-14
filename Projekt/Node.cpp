@@ -69,3 +69,19 @@ int Node::getDistance(Node* neighbour) {
 	distance = abs(x - neighbour->getX()) + abs(y - neighbour->getY());
 	return distance;
 }
+
+bool Node::isToSeach() {
+	return toSearch;
+}
+
+void Node::setToSearch(bool toSearch) {
+	this->toSearch = toSearch;
+}
+
+bool Node::isProcessed() {
+	return processed;
+}
+
+void Node::setProcessed(bool processed) {
+	this->processed = processed;
+}
