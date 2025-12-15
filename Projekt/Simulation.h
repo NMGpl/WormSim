@@ -6,6 +6,7 @@
 #include "AStar.h"
 #include <vector>
 #include <ctime>
+#include <chrono>
 
 class Simulation{
 	SimulationConfig config;
@@ -14,14 +15,18 @@ class Simulation{
 	std::vector <Egg> eggs;
 	int maxHunger = 20, maxAge = 100, maxSize = 2;
 	int boardWidth = 670, boardHeight = 670;
-	long long tickTime;
 	int deadWorms = 0;
 	std::vector <int> searchFood(int headX, int headY, int distance) const;
 	std::vector <int> searchClosestFood(std::vector <std::vector <int>> foodTiles, int distance, int headX, int headY) const;
 	std::vector <std::vector <int>> findMovement(std::vector <int> headPos, std::vector <int> foodTile);
 
+	std::chrono::high_resolution_clock::time_point lastTick = std::chrono::high_resolution_clock::now();
+	long long tickTime;
+
 	int prepareTile() const;
 	int prepareTile(int k, int i, int j, std::vector <std::vector <int>> hotspots) const;
+
+	bool timePassed();
 
 	void wormsSystems();
 	void wormsPathfind(Worm& worm, int distance);

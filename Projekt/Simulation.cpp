@@ -5,9 +5,23 @@ Simulation::Simulation(int tps) {
 }
 
 void Simulation::simulate() {
-	wormsSystems();
-	foodRegenerate();
-	hatchEggs();
+	if (timePassed()) {
+		wormsSystems();
+		foodRegenerate();
+		hatchEggs();
+	}
+}
+
+bool Simulation::timePassed() {
+	tickTime = getSimSpeed();
+	auto now = std::chrono::high_resolution_clock::now();
+	if (tickTime != 0 && now - lastTick >= std::chrono::nanoseconds(tickTime)) {
+		lastTick += std::chrono::nanoseconds(tickTime);
+		return true;
+	} else if (tickTime == 0) {
+		lastTick = std::chrono::high_resolution_clock::now();
+	}
+	return false;
 }
 
 void Simulation::wormsSystems() {
