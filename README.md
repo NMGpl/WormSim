@@ -1,6 +1,6 @@
 # WormSim
 This project simulates life of unspecified worms. They are placed in a closed space, where they can move, eat, grow, breed and die. The ground is self-replenishing food source. The parameters that are considered in simulation:
-+ amount of worms that are hatched from one egg,
++ **amount of worms that are hatched from one egg**,
 + **worm hunger** - for how long (in ticks) they can walk on tiles that don't have food on them,
 + **food regeneration rate**,
 + **worm max size**,
