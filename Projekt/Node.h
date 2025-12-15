@@ -1,7 +1,7 @@
 #pragma once
+#include "Tile.h"
 #include <climits>
 #include <vector>
-#include "Tile.h"
 
 class Node
 {
@@ -21,16 +21,16 @@ public:
 	void setH(int h);
 	void setXY(int x, int y);
 	void setParent(Node* pParent);
-	Node* getParent();
-	int getF();
-	int getH();
-	int getG();
-	int getX();
-	int getY();
-	int getDistance(Node* neighbour);
-	bool isToSeach();
+	Node* getParent() const;
+	int getF() const;
+	int getH() const;
+	int getG() const;
+	int getX() const;
+	int getY() const;
+	int getDistance(Node* neighbour) const;
+	bool isToSeach() const;
 	void setToSearch(bool toSearch);
-	bool isProcessed();
+	bool isProcessed() const;
 	void setProcessed(bool processed);
 };
 

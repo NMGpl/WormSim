@@ -1,5 +1,4 @@
 #include "Input.h"
-#include <string>
 
 Input::Input(int x, int y, int width, int height, int value, int id) {
 	this->x = x;

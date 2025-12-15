@@ -3,10 +3,12 @@
 #include "Input.h"
 #include "InputManager.h"
 #include "Simulation.h"
-#include <vector>
-#include <string>
 #include "Worm.h"
 #include "Tile.h"
+#include "raylib.h"
+#include "Egg.h"
+#include <vector>
+#include <string>
 
 class Graphics {
 	int x, y;

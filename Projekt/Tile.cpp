@@ -31,7 +31,7 @@ void Tile::setFoodAmount(int foodAmount) {
 	this->foodAmount = foodAmount;
 }
 
-bool Tile::isFree() {
+bool Tile::isFree() const {
 	return free;
 }
 

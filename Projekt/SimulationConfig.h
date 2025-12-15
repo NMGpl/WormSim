@@ -9,11 +9,11 @@ public:
 	void setRegenSpeed(int regenSpeed);
 	void setMaxProductivity(int maxProductivity);
 	void setNewWormsAmount(int newWormsAmount);
-	int getMaxAge();
-	int getMaxHunger();
-	int getMaxSize();
-	int getRegenSpeed();
-	int getMaxProductivity();
-	int getNewWormsAmount();
+	int getMaxAge() const;
+	int getMaxHunger() const;
+	int getMaxSize() const;
+	int getRegenSpeed() const;
+	int getMaxProductivity() const;
+	int getNewWormsAmount() const;
 };
 

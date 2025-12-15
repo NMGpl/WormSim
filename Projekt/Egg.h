@@ -8,9 +8,9 @@ class Egg {
 public:
 	Egg(int posX, int posY, int newWorms);
 	bool hatch();
-	bool isHatched();
-	int getX();
-	int getY();
-	int getNewWorms();
+	bool isHatched() const;
+	int getX() const;
+	int getY() const;
+	int getNewWorms() const;
 };
 

@@ -12,7 +12,6 @@ public:
 	int getFoodAmount() const;
 	void modifyFoodAmount(int foodAmount);
 	void setFoodAmount(int foodAmount);
-	bool isFree();
+	bool isFree() const;
 	void setFree(bool free);
-	void wantToMove(int x);
 };

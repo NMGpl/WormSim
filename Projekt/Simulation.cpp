@@ -1,10 +1,4 @@
 #include "Simulation.h"
-#include "Worm.h"
-#include "SimulationConfig.h"
-#include "Egg.h"
-#include <iostream>
-#include <ctime>
-#include <vector>
 
 Simulation::Simulation(int tps) {
 	setTickTime(tps);
@@ -162,15 +156,15 @@ void Simulation::deleteEggs() {
 	eggs.clear();
 }
 
-std::vector <Worm> Simulation::getWorms() {
+std::vector <Worm> Simulation::getWorms() const {
 	return worms;
 }
 
-std::vector <Egg> Simulation::getEggs() {
+std::vector <Egg> Simulation::getEggs() const {
 	return eggs;
 }
 
-int Simulation::getDeadWorms() {
+int Simulation::getDeadWorms() const {
 	return deadWorms;
 }
 
@@ -182,11 +176,11 @@ void Simulation::setTickTime(int tps) {
 	}
 }
 
-int Simulation::getSimSpeed() {
+int Simulation::getSimSpeed() const {
 	return tickTime;
 }
 
-std::vector <int> Simulation::searchFood(int headX, int headY, int distance) {
+std::vector <int> Simulation::searchFood(int headX, int headY, int distance) const {
 	std::vector <int> foodTile;
 	std::vector <std::vector <int>> foodTiles;
 	int food = 0;
@@ -224,7 +218,7 @@ std::vector <int> Simulation::searchFood(int headX, int headY, int distance) {
 	return foodTile;
 }
 
-std::vector <int> Simulation::searchClosestFood(std::vector <std::vector <int>> foodTiles, int distance, int headX, int headY) {
+std::vector <int> Simulation::searchClosestFood(std::vector <std::vector <int>> foodTiles, int distance, int headX, int headY) const {
 	int food = 0;
 	int foodDistance = distance;
 	std::vector <int> foodTile;
@@ -344,7 +338,7 @@ SimulationConfig& Simulation::getConfigRef() {
 	return config;
 }
 
-int Simulation::prepareTile() {
+int Simulation::prepareTile() const {
 	int r = rand() % 100;
 	if (r <= 60) {
 		return 0;
@@ -357,7 +351,7 @@ int Simulation::prepareTile() {
 	}
 }
 
-int Simulation::prepareTile(int k, int i, int j, std::vector <std::vector <int>> hotspots) {
+int Simulation::prepareTile(int k, int i, int j, std::vector <std::vector <int>> hotspots) const {
 	int kolo = (i - hotspots[k][0]) * (i - hotspots[k][0]) + (j - hotspots[k][1]) * (j - hotspots[k][1]);
 	if (kolo <= 48) {
 		return 3;

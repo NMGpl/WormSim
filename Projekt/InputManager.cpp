@@ -1,8 +1,6 @@
 #include "InputManager.h"
-#include "raylib.h"
-#include <iostream>
 
-bool InputManager::isMouseOver(int x, int y, int width, int height) {
+bool InputManager::isMouseOver(int x, int y, int width, int height) const {
 	int mouseX = GetMouseX();
 	int mouseY = GetMouseY();
 	if (mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height) {
@@ -11,7 +9,7 @@ bool InputManager::isMouseOver(int x, int y, int width, int height) {
 	return false;
 }
 
-bool InputManager::isLMouseClicked() {
+bool InputManager::isLMouseClicked() const {
 	bool click = IsMouseButtonPressed(0);
 	if (click) {
 		return true;
@@ -19,7 +17,7 @@ bool InputManager::isLMouseClicked() {
 	return false;
 }
 
-bool InputManager::isRMouseClicked() {
+bool InputManager::isRMouseClicked() const {
 	bool click = IsMouseButtonPressed(1);
 	if (click) {
 		return true;
@@ -27,7 +25,7 @@ bool InputManager::isRMouseClicked() {
 	return false;
 }
 
-bool InputManager::isLMousePressed() {
+bool InputManager::isLMousePressed() const {
 	bool press = IsMouseButtonPressed(0);
 	if (press) {
 		return true;
@@ -35,7 +33,7 @@ bool InputManager::isLMousePressed() {
 	return false;
 }
 
-bool InputManager::isLMouseReleased() {
+bool InputManager::isLMouseReleased() const {
 	bool release = IsMouseButtonReleased(0);
 	if (release) {
 		return true;
@@ -43,7 +41,7 @@ bool InputManager::isLMouseReleased() {
 	return false;
 }
 
-bool InputManager::isLShiftClicked() {
+bool InputManager::isLShiftClicked() const {
 	bool press = IsKeyDown(KEY_LEFT_SHIFT);
 	if (press) {
 		return true;

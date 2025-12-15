@@ -1,9 +1,8 @@
 #include "AStar.h"
-#include <iostream>
 
 AStar::AStar(Tile start, Tile goal, std::vector <std::vector <Tile>>& tiles): goal(goal), start(start), tiles(tiles) {}
 
-std::vector <Node*> AStar::getNeighbours(Node* pCurrent, std::vector <std::vector <Node>>& nodes) {
+std::vector <Node*> AStar::getNeighbours(Node* pCurrent, std::vector <std::vector <Node>>& nodes) const {
 	int x = pCurrent->getX();
 	int y = pCurrent->getY();
 	std::vector <Node*> neighbours;
@@ -23,7 +22,7 @@ std::vector <Node*> AStar::getNeighbours(Node* pCurrent, std::vector <std::vecto
 	return neighbours;
 }
 
-bool AStar::containsNode(std::vector <Node*>& list, Node* node) {
+bool AStar::containsNode(std::vector <Node*>& list, Node* node) const {
 	for (Node* n : list) {
 		if (n->getX() == node->getX() && n->getY() == node->getY()) {
 			return true;
@@ -32,7 +31,7 @@ bool AStar::containsNode(std::vector <Node*>& list, Node* node) {
 	return false;
 }
 
-std::vector <std::vector <int>> AStar::findMovement() {
+std::vector <std::vector <int>> AStar::findMovement() const {
 	std::vector <std::vector <Node>> nodes(tiles[0].size(), std::vector<Node>(tiles.size()));
 	for (int i = 0; i < tiles[0].size(); i++) {
 		for (int j = 0; j < tiles.size(); j++) {

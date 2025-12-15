@@ -1,4 +1,5 @@
 #include "Node.h"
+
 Node::Node() {
 	this->x = 0;
 	this->y = 0;
@@ -40,37 +41,37 @@ void Node::setParent(Node* pParent) {
 	this->pParent = pParent;
 }
 
-Node* Node::getParent() {
+Node* Node::getParent() const {
 	return pParent;
 }
 
-int Node::getF() {
+int Node::getF() const {
 	return g + h;
 }
 
-int Node::getG() {
+int Node::getG() const {
 	return g;
 }
 
-int Node::getH() {
+int Node::getH() const {
 	return h;
 }
 
-int Node::getX() {
+int Node::getX() const {
 	return x;
 }
 
-int Node::getY() {
+int Node::getY() const {
 	return y;
 }
 
-int Node::getDistance(Node* neighbour) {
+int Node::getDistance(Node* neighbour) const {
 	int distance;
 	distance = abs(x - neighbour->getX()) + abs(y - neighbour->getY());
 	return distance;
 }
 
-bool Node::isToSeach() {
+bool Node::isToSeach() const {
 	return toSearch;
 }
 
@@ -78,7 +79,7 @@ void Node::setToSearch(bool toSearch) {
 	this->toSearch = toSearch;
 }
 
-bool Node::isProcessed() {
+bool Node::isProcessed() const {
 	return processed;
 }
 

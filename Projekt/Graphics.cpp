@@ -1,13 +1,5 @@
 #include "Graphics.h"
-#include "Button.h"
-#include "Input.h"
-#include "InputManager.h"
-#include "Simulation.h"
-#include "raylib.h"
-#include "Worm.h"
-#include "Egg.h"
-#include <vector>
-#include <iostream>
+
 
 Graphics::Graphics(Simulation& simulation, int x, int y) : simulation(simulation), tiles(simulation.getTilesRef()), config(simulation.getConfigRef()) {
 	this->x = x;

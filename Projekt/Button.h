@@ -1,6 +1,6 @@
 #pragma once
-#include <string>
 #include "raylib.h"
+#include <string>
 
 class Button {
 	int x, y;
@@ -16,6 +16,6 @@ public:
 	int getWidth() const;
 	int getHeight() const;
 	void setColor(Color color);
-	std::string getID();
+	std::string getID() const;
 };
 

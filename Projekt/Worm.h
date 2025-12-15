@@ -35,9 +35,8 @@ public:
 	int getMaxSize() const;
 	void setMaxSize(int maxSize);
 	int getSize() const;
-	void setSize(int size);
-	int getMaxProductivity();
+	int getMaxProductivity() const;
 	void setMaxProductivity(int maxProductivity);
-	std::vector <std::vector <int>> getSegments();
+	std::vector <std::vector <int>> getSegments() const;
 };
 

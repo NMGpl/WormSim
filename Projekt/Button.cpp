@@ -1,5 +1,4 @@
 #include "Button.h"
-#include <string>
 
 Button::Button(int x, int y, int width, int height, std::string str, Color color) {
 	this->x = x;

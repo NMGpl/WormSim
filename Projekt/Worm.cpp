@@ -1,5 +1,4 @@
 #include "Worm.h"
-#include <iostream>
 
 Worm::Worm(int headX, int headY, int maxAge, int maxHunger, int maxSize, int maxProductivity) {
     int age = maxAge + (rand() % (maxAge / 5 + 1)) - (maxAge / 10);
@@ -143,10 +142,10 @@ void Worm::setMaxProductivity(int maxProductivity) {
     this->maxProductivity = maxProductivity;
 }
 
-int Worm::getMaxProductivity() {
+int Worm::getMaxProductivity() const {
     return maxProductivity;
 }
 
-std::vector <std::vector <int>> Worm::getSegments() {
+std::vector <std::vector <int>> Worm::getSegments() const {
     return segments;
 }
