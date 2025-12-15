@@ -10,13 +10,14 @@ class Input {
 public:
 	Input(int x, int y, int width, int height, int value, int id);
 	void draw() const;
+
+	void setColor(Color color);
+
 	int getX() const;
 	int getY() const;
 	int getWidth() const;
 	int getHeight() const;
-	void setColor(Color color);
 	int getValue() const;
 	void setValue(int value);
-	int getID() const;
 };
 

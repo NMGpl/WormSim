@@ -8,35 +8,41 @@ class Worm {
 	std::vector <std::vector <int>> segments;
 	std::vector <std::vector <int>> movement;
 	bool dead;
+
+	void moveSegments();
 public:
 	Worm(int headX, int headY, int maxAge = 100, int maxHunger = 20, int maxSize = 2, int maxProductivity = 100);
-	std::vector <std::vector <int>>& getMovement();
+	
 	void move();
-	void moveSegments();
-	void setMovement(std::vector <std::vector <int>> movement);
-	int getHeadX() const;
-	int getHeadY() const;
-	void setHeadCords(int headX, int headY);
 	void die();
-	bool isDead() const;
 	void ageUp();
-	int getMaxAge() const;
-	void setMaxAge(int maxAge);
-	int getAge() const;
-	void setAge(int age);
-	int getMaxHunger() const;
-	void setMaxHunger(int maxHunger);
-	int getHunger() const;
-	void setHunger(int hunger);
+	void grow();
+
 	void modifyHunger(int hungerChange);
 	void modifyAge(int ageChange);
 	void modifySize(int sizeChange);
-	void grow();
-	int getMaxSize() const;
+
+	void setHeadCords(int headX, int headY);
+	void setMaxAge(int maxAge);
+	void setAge(int age);
+	void setMaxHunger(int maxHunger);
+	void setHunger(int hunger);
 	void setMaxSize(int maxSize);
+	void setMaxProductivity(int maxProductivity);
+	void setMovement(std::vector <std::vector <int>> movement);
+	
+
+	int getHeadX() const;
+	int getHeadY() const;
+	int getMaxAge() const;
+	int getAge() const;
+	int getMaxHunger() const;
+	int getHunger() const;
+	int getMaxSize() const;
 	int getSize() const;
 	int getMaxProductivity() const;
-	void setMaxProductivity(int maxProductivity);
 	std::vector <std::vector <int>> getSegments() const;
+	std::vector <std::vector <int>>& getMovement();
+	bool isDead() const;
 };
 

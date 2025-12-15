@@ -42,7 +42,3 @@ int Input::getValue() const {
 void Input::setValue(int value) {
 	this->value = value;
 }
-
-int Input::getID() const {
-	return id;
-}

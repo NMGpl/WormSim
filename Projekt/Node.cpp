@@ -18,12 +18,6 @@ Node Node::tileToNode(Tile& tile) {
 	return Node(tile.getX(), tile.getY());
 }
 
-void Node::reset() {
-	g = INT_MAX;
-	h = 0;
-	pParent = nullptr;
-}
-
 void Node::setXY(int x, int y) {
 	this->x = x;
 	this->y = y;

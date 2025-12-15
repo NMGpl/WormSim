@@ -11,11 +11,11 @@ class Button {
 public:
 	Button(int x, int y, int width, int height, std::string str, Color color = WHITE);
 	void draw() const;
+	void setColor(Color color);
+
 	int getX() const;
 	int getY() const;
 	int getWidth() const;
 	int getHeight() const;
-	void setColor(Color color);
-	std::string getID() const;
 };
 

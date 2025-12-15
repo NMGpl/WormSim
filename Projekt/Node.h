@@ -12,25 +12,29 @@ class Node
 	Node* pParent = nullptr;
 	bool toSearch = false;
 	bool processed = false;
+
+	
 public:
 	Node();
 	Node(int x, int y);
-	void reset();
+	
 	static Node tileToNode(Tile& tile);
+
 	void setG(int g);
 	void setH(int h);
 	void setXY(int x, int y);
+	void setProcessed(bool processed);
+	void setToSearch(bool toSearch);
 	void setParent(Node* pParent);
-	Node* getParent() const;
+
 	int getF() const;
 	int getH() const;
 	int getG() const;
 	int getX() const;
 	int getY() const;
-	int getDistance(Node* neighbour) const;
-	bool isToSeach() const;
-	void setToSearch(bool toSearch);
 	bool isProcessed() const;
-	void setProcessed(bool processed);
+	bool isToSeach() const;
+	Node* getParent() const;
+	int getDistance(Node* neighbour) const;
 };
 

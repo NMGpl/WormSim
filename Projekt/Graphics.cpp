@@ -138,7 +138,7 @@ void Graphics::drawButtons() {
 				}
 			}
 		} else button.setColor(WHITE);
-		i += 1;
+		i ++;
 		button.draw();
 	}
 }

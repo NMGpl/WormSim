@@ -6,12 +6,14 @@ class Tile {
 	bool free = true;
 public:
 	Tile(int x, int y, int foodAmount = 0);
+	
+	void setPos(int x, int y);
+	void setFoodAmount(int foodAmount);
+	void modifyFoodAmount(int foodAmount);
+	void setFree(bool free);
+	
 	int getX() const;
 	int getY() const;
-	void setPos(int x, int y);
 	int getFoodAmount() const;
-	void modifyFoodAmount(int foodAmount);
-	void setFoodAmount(int foodAmount);
 	bool isFree() const;
-	void setFree(bool free);
 };
