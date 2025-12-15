@@ -24,6 +24,7 @@
     <ProjectGuid>{2429d219-66bb-40a4-8e5b-9bcdd4b37eca}</ProjectGuid>
     <RootNamespace>Projekt</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>WormSim</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
