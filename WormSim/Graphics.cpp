@@ -1,4 +1,5 @@
 #include "Graphics.h"
+#include "ButtonEnum.h"
 
 
 Graphics::Graphics(Simulation& simulation, int x, int y) : simulation(simulation), tiles(simulation.getTilesRef()), config(simulation.getConfigRef()) {
@@ -75,7 +76,7 @@ void Graphics::prepareInputs(int startX, int startY, int width, int height) {
 }
 
 void Graphics::drawButtons() {
-	int i = 0;
+	using enum ButtonEnum;
 	for (Button& button : buttons) {
 		int x = button.getX();
 		int y = button.getY();
@@ -84,61 +85,61 @@ void Graphics::drawButtons() {
 		int value;
 		if (manager.isMouseOver(x, y, width, height)) {
 			button.setColor(RED);
+			ButtonEnum e = static_cast <ButtonEnum> (button.getID());
 			if (manager.isLMouseClicked()) {
-				switch (i) {
-				case 0:
+				switch (e) {
+				case REGEN:
 					value = inputs[0].getValue();
 					config.setRegenSpeed(value);
 					break;
-				case 1:
+				case HUNGER:
 					value = inputs[1].getValue();
 					config.setMaxHunger(value);
 					break;
-				case 2:
+				case SIZE:
 					value = inputs[2].getValue();
 					config.setMaxSize(value);
 					break;
-				case 3:
+				case AGE:
 					value = inputs[3].getValue();
 					config.setMaxAge(value);
 					break;
-				case 4:
+				case NEWWORMS:
 					value = inputs[4].getValue();
 					config.setNewWormsAmount(value);
 					break;
-				case 5:
+				case PRODUCTIVITY:
 					value = inputs[5].getValue();
 					config.setMaxProductivity(value);
 					break;
-				case 6:
+				case RANDOMGEN:
 					generateWormBoxRandom();
 					break;
-				case 7:
+				case HOTSPOTGEN:
 					generateWormBoxHotspot();
 					break;
-				case 8:
+				case ADDWORM:
 					simulation.addWorm(1);
 					break;
-				case 9:
+				case CLEAR:
 					simulation.deleteWorms();
 					simulation.deleteEggs();
 					break;
-				case 10:
+				case PAUSE:
 					simulation.setTickTime(0);
 					break;
-				case 11:
+				case PLAY1X:
 					simulation.setTickTime(1);
 					break;
-				case 12:
+				case PLAY2X:
 					simulation.setTickTime(3);
 					break;
-				case 13:
+				case PLAY3X:
 					simulation.setTickTime(6);
 					break;
 				}
 			}
 		} else button.setColor(WHITE);
-		i ++;
 		button.draw();
 	}
 }

@@ -1,0 +1,18 @@
+#pragma once
+
+enum class ButtonEnum {
+	REGEN,
+	HUNGER,
+	SIZE,
+	AGE,
+	NEWWORMS,
+	PRODUCTIVITY,
+	RANDOMGEN,
+	HOTSPOTGEN,
+	ADDWORM,
+	CLEAR,
+	PAUSE,
+	PLAY1X,
+	PLAY2X,
+	PLAY3X
+};

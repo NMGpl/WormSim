@@ -14,10 +14,10 @@ class Graphics {
 	int x, y;
 	InputManager manager;
 	Simulation& simulation;
+	SimulationConfig& config;
 	std::vector <Button> buttons;
 	std::vector <Input> inputs;
 	std::vector <std::vector <Tile>>& tiles;
-	SimulationConfig& config;
 
 	void drawMenu();
 	void drawWormBox() const;

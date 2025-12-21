@@ -1,13 +1,14 @@
 #include "Button.h"
 
-Button::Button(int x, int y, int width, int height, std::string str, Color color) {
+int Button::nextID = 0;
+
+Button::Button(int x, int y, int width, int height, std::string str, Color color) : id(nextID++) {
 	this->x = x;
 	this->y = y;
 	this->width = width;
 	this->height = height;
 	this->buttonName = str;
 	this->color = color;
-	this->id = id;
 }
 
 void Button::draw() const {
@@ -32,4 +33,8 @@ int Button::getHeight() const {
 
 void Button::setColor(Color color) {
 	this->color = color;
+}
+
+int Button::getID() const {
+	return id;
 }
