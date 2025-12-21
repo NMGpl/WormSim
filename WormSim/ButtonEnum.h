@@ -14,5 +14,7 @@ enum class ButtonEnum {
 	PAUSE,
 	PLAY1X,
 	PLAY2X,
-	PLAY3X
+	PLAY3X,
+	PLACEWORM,
+	PLACEFOOD
 };

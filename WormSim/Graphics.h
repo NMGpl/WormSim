@@ -20,7 +20,7 @@ class Graphics {
 	std::vector <std::vector <Tile>>& tiles;
 
 	void drawMenu();
-	void drawWormBox() const;
+	void drawWormBox(const int width, const int height) const;
 	void drawWorm();
 	void drawEgg();
 	void drawWormPath(Worm& worm);
@@ -32,6 +32,7 @@ class Graphics {
 	void prepareButtons(int startX, int startY, int width, int height);
 	void prepareInputs(int startX, int startY, int width, int height);
 	void drawInfo();
+	void drawInfoLine(const std::string& label, const std::string& value, int x, int y);
 	void drawButtons();
 	void drawInputs();
 public:

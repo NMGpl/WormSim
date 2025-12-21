@@ -23,14 +23,14 @@ void Graphics::draw() {
 	ClearBackground(BLACK);
 	DrawText("WormSim", x / 2 - 50, 10, 20, WHITE);
 	drawMenu();
-	drawWormBox();
+	drawWormBox(670, 670);
 	drawWorm();
 	drawEgg();
 }
 
 void Graphics::drawMenu() {
-	DrawRectangleLines(10, 40, 275, y - 50, WHITE);						//Lewe menu (?)
-	DrawRectangleLines(975, 40, 295, y - 50, WHITE);					//Prawe menu
+	DrawRectangleLines(10, 40, 275, y - 50, WHITE);										//Lewe menu (?)
+	DrawRectangleLines(x - 305, 40, x - (x - 305 + 10), y - 50, WHITE);					//Prawe menu
 	drawInputs();
 	drawButtons();
 	drawInfo();
@@ -85,7 +85,7 @@ void Graphics::drawButtons() {
 		int value;
 		if (manager.isMouseOver(x, y, width, height)) {
 			button.setColor(RED);
-			ButtonEnum e = static_cast <ButtonEnum> (button.getID());
+			ButtonEnum e = static_cast <ButtonEnum> (button.getID());	//ID buttona na enum
 			if (manager.isLMouseClicked()) {
 				switch (e) {
 				case REGEN:
@@ -181,39 +181,33 @@ void Graphics::drawInputs() {
 }
 
 void Graphics::drawInfo() {
-	DrawRectangleLines(20, 50, 255, 260, WHITE);
+	const int startX = x - 295;
+	const int startY = y - 190;
 
-	DrawText("Ilosc robakow: ", 25, 55, 15, WHITE);
-	std::string val = std::to_string(simulation.getWorms().size());
-	DrawText(val.c_str(), 215, 55, 15, WHITE);
+	DrawRectangleLines(startX, startY, 275, 130, WHITE);
+	int x = startX + 5;
+	int y = startY + 5;
 
-	DrawText("Ilosc martwych robakow: ", 25, 55 + 15, 15, WHITE);
-	val = std::to_string(simulation.getDeadWorms());
-	DrawText(val.c_str(), 215, 55 + 15, 15, WHITE);
+	drawInfoLine("Ilosc robakow: ", std::to_string(simulation.getWorms().size()), x, y);
+	y += 15;
+	drawInfoLine("Ilosc martwych robakow: ", std::to_string(simulation.getDeadWorms()), x, y);
+	y += 15;
+	drawInfoLine("Regeneracja podloza: ", std::to_string(config.getRegenSpeed()), x, y);
+	y += 15;
+	drawInfoLine("Odpornosc na glod: ", std::to_string(config.getMaxHunger()), x, y);
+	y += 15;
+	drawInfoLine("Maksymalna wielkosc: ", std::to_string(config.getMaxSize()), x, y);
+	y += 15;
+	drawInfoLine("Sredni czas zycia: ", std::to_string(config.getMaxAge()), x, y);
+	y += 15;
+	drawInfoLine("Ilosc mlodych: ", std::to_string(config.getNewWormsAmount()), x, y);
+	y += 15;
+	drawInfoLine("Sr. cz. produktywnosci:", std::to_string(config.getMaxProductivity()), x, y);
+}
 
-	DrawText("Regeneracja podloza: ", 25, 55 + 30, 15, WHITE);
-	val = std::to_string(config.getRegenSpeed());
-	DrawText(val.c_str(), 215, 55 + 30, 15, WHITE);
-
-	DrawText("Odpornosc na glod: ", 25, 55 + 45, 15, WHITE);
-	val = std::to_string(config.getMaxHunger());
-	DrawText(val.c_str(), 215, 55 + 45, 15, WHITE);
-
-	DrawText("Maksymalna wielkosc: ", 25, 55 + 60, 15, WHITE);
-	val = std::to_string(config.getMaxSize());
-	DrawText(val.c_str(), 215, 55 + 60, 15, WHITE);
-
-	DrawText("Sredni czas zycia: ", 25, 55 + 75, 15, WHITE);
-	val = std::to_string(config.getMaxAge());
-	DrawText(val.c_str(), 215, 55 + 75, 15, WHITE);
-
-	DrawText("Ilosc mlodych: ", 25, 55 + 90, 15, WHITE);
-	val = std::to_string(config.getNewWormsAmount());
-	DrawText(val.c_str(), 215, 55 + 90, 15, WHITE);
-
-	DrawText("Sr. cz. produktywnosci: ", 25, 55 + 105, 15, WHITE);
-	val = std::to_string(config.getMaxProductivity());
-	DrawText(val.c_str(), 215, 55 + 105, 15, WHITE);
+void Graphics::drawInfoLine(const std::string& label, const std::string& value, int x, int y) {
+	DrawText(label.c_str(), x, y, 15, WHITE);
+	DrawText(value.c_str(), x + 210, y, 15, WHITE);
 }
 
 void Graphics::generateWormBoxRandom() {
@@ -224,8 +218,8 @@ void Graphics::generateWormBoxHotspot() {
 	simulation.generateBoardHotspot(670, 670, 15);
 }
 
-void Graphics::drawWormBox() const {
-	drawTiles(670, 670, 10);
+void Graphics::drawWormBox(const int width, const int height) const {
+	drawTiles(width, height, 10);
 	DrawRectangleLines(295, 40, y - 50, y - 50, WHITE);
 }
 
