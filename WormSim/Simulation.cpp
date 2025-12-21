@@ -1,6 +1,8 @@
 #include "Simulation.h"
 
-Simulation::Simulation(int tps) {
+Simulation::Simulation(int width, int height, int tps) {
+	this->boardWidth = width;
+	this->boardHeight = height;
 	setTickTime(tps);
 }
 
@@ -49,8 +51,8 @@ void Simulation::freeIfDead(Worm& worm) {
 
 void Simulation::foodRegenerate() {
 	for (int i = 0; i < config.getRegenSpeed(); i++) {
-		int posX = rand() % ((boardWidth + 1) / 10);
-		int posY = rand() % ((boardHeight + 1) / 10);
+		int posX = rand() % (boardWidth + 1);
+		int posY = rand() % (boardHeight + 1);
 		int food = tiles[posX][posY].getFoodAmount();
 		if (food < 3) {
 			tiles[posX][posY].modifyFoodAmount(1);
