@@ -2,7 +2,13 @@
 #include "ButtonEnum.h"
 
 
-Graphics::Graphics(Simulation& simulation, int x, int y) : simulation(simulation), tiles(simulation.getTilesRef()), config(simulation.getConfigRef()) {
+Graphics::Graphics(Simulation& simulation, int x, int y) : 
+	simulation(simulation), 
+	tiles(simulation.getTilesRef()), 
+	config(simulation.getConfigRef()), 
+	boardWidth(simulation.getBoardWidth()),
+	boardHeight(simulation.getBoardHeight())
+{
 	this->x = x;
 	this->y = y;
 	prepareButtons(985, 50, 170, 30);
@@ -23,7 +29,7 @@ void Graphics::draw() {
 	ClearBackground(BLACK);
 	DrawText("WormSim", x / 2 - 50, 10, 20, WHITE);
 	drawMenu();
-	drawWormBox(800, 670);
+	drawWormBox(boardWidth, boardHeight);
 	drawWorm();
 	drawEgg();
 }
@@ -219,8 +225,11 @@ void Graphics::generateWormBoxHotspot() {
 }
 
 void Graphics::drawWormBox(const int width, const int height) const {
-	drawTiles(width, height, 10);
-	DrawRectangleLines(295, 40, y - 50, y - 50, WHITE);
+	const int startX = 295;
+	const int startY = 40;
+	int size = 10;
+	drawTiles(width, height, size);
+	DrawRectangleLines(startX, startY, width * size, height * size, WHITE);
 }
 
 void Graphics::drawWorm() {
@@ -269,8 +278,8 @@ void Graphics::drawWormPath(Worm& worm) {
 }
 
 void Graphics::drawTiles(int width, int height, int size) const {
-	for (int i = 0; i < width / size; i++) {
-		for (int j = 0; j < height / size; j++) {
+	for (int i = 0; i < width; i++) {																					//HEIGHT
+		for (int j = 0; j < height; j++) {																				//WIDTH
 			int tileFood = tiles[j][i].getFoodAmount();
 			if (tileFood == 3) DrawRectangle(295 + (i * size), 40 + (j * size), size, size, GREEN);
 			else if (tileFood == 2) DrawRectangle(295 + (i * size), 40 + (j * size), size, size, ORANGE);

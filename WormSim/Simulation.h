@@ -61,5 +61,7 @@ public:
 	std::vector <Egg> getEggs() const;
 	int getSimSpeed() const;
 	int getDeadWorms() const;
+	int getBoardWidth() const;
+	int getBoardHeight() const;
 };
 

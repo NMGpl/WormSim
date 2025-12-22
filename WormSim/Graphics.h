@@ -12,6 +12,7 @@
 
 class Graphics {
 	int x, y;
+	int boardWidth, boardHeight;
 	InputManager manager;
 	Simulation& simulation;
 	SimulationConfig& config;

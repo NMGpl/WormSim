@@ -379,3 +379,11 @@ int Simulation::prepareTile(int k, int i, int j, std::vector <std::vector <int>>
 		return 0;
 	}
 }
+
+int Simulation::getBoardWidth() const {
+	return boardWidth;
+}
+
+int Simulation::getBoardHeight() const {
+	return boardHeight;
+}
