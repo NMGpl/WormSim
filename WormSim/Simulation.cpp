@@ -51,8 +51,8 @@ void Simulation::freeIfDead(Worm& worm) {
 
 void Simulation::foodRegenerate() {
 	for (int i = 0; i < config.getRegenSpeed(); i++) {
-		int posX = rand() % (boardWidth + 1);
-		int posY = rand() % (boardHeight + 1);
+		int posX = rand() % (boardWidth);
+		int posY = rand() % (boardHeight);
 		int food = tiles[posX][posY].getFoodAmount();
 		if (food < 3) {
 			tiles[posX][posY].modifyFoodAmount(1);
@@ -141,7 +141,7 @@ void Simulation::layEgg(Worm& worm) {
 
 void Simulation::addWorm(int wormsAmount) {
 	for (int i = 0; i < wormsAmount; i++) {
-		std::vector <int> headXY = { rand() % (670 / 10), rand() % (670 / 10) };
+		std::vector <int> headXY = { rand() % boardWidth, rand() % boardHeight };
 		Worm worm(headXY[0], headXY[1], config.getMaxAge(), config.getMaxHunger(), config.getMaxSize(), config.getMaxProductivity());
 		worms.push_back(worm);
 	}
@@ -302,9 +302,9 @@ void Simulation::wormsMove(Worm& worm) {
 
 void Simulation::generateBoardRandom(int width, int height) {
 	std::vector <std::vector <Tile>> tiles;
-	for (int i = 0; i < width / 10; i++) {
+	for (int i = 0; i < width; i++) {
 		std::vector<Tile> row;
-		for (int j = 0; j < height / 10; j++) {
+		for (int j = 0; j < height; j++) {
 			Tile tileFood(i, j, prepareTile());
 			row.push_back(tileFood);
 		}
@@ -315,9 +315,9 @@ void Simulation::generateBoardRandom(int width, int height) {
 
 void Simulation::generateBoardHotspot(int width, int height, int hotspotAmount) {
 	std::vector <std::vector <Tile>> tiles;
-	for (int i = 0; i < width / 10; i++) {
+	for (int i = 0; i < width; i++) {
 		std::vector <Tile> row;
-		for (int j = 0; j < height / 10; j++) {
+		for (int j = 0; j < height; j++) {
 			Tile tileFood(i, j, 0);
 			row.push_back(tileFood);
 		}
@@ -326,12 +326,12 @@ void Simulation::generateBoardHotspot(int width, int height, int hotspotAmount) 
 	std::vector <std::vector <int>> hotspots;
 	for (int i = 0; i < hotspotAmount; i++) {
 		std::vector <int> hotspot;
-		hotspot.push_back(rand() % (width / 10));
-		hotspot.push_back(rand() % (height / 10));
+		hotspot.push_back(rand() % (width));
+		hotspot.push_back(rand() % (height));
 		hotspots.push_back(hotspot);
 	}
-	for (int i = 0; i < width / 10; i++) {
-		for (int j = 0; j < height / 10; j++) {
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {
 			int hotspotFood = 0;
 			int tileFood = 0;
 			for (int k = 0; k < hotspotAmount; k++) {

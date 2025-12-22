@@ -217,11 +217,11 @@ void Graphics::drawInfoLine(const std::string& label, const std::string& value, 
 }
 
 void Graphics::generateWormBoxRandom() {
-	simulation.generateBoardRandom(670, 670);
+	simulation.generateBoardRandom(boardWidth, boardHeight);
 }
 
 void Graphics::generateWormBoxHotspot() {
-	simulation.generateBoardHotspot(670, 670, 15);
+	simulation.generateBoardHotspot(boardWidth, boardHeight, 15);
 }
 
 void Graphics::drawWormBox(const int width, const int height) const {
