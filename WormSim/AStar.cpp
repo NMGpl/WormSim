@@ -32,9 +32,9 @@ bool AStar::containsNode(std::vector <Node*>& list, Node* node) const {
 }
 
 std::vector <std::vector <int>> AStar::findMovement() const {
-	std::vector <std::vector <Node>> nodes(tiles[0].size(), std::vector<Node>(tiles.size()));
-	for (int i = 0; i < tiles[0].size(); i++) {
-		for (int j = 0; j < tiles.size(); j++) {
+	std::vector <std::vector <Node>> nodes(tiles.size(), std::vector<Node>(tiles[0].size()));
+	for (int i = 0; i < tiles.size(); i++) {
+		for (int j = 0; j < tiles[0].size(); j++) {
 			nodes[i][j] = Node::tileToNode(tiles[i][j]);
 		}
 	}

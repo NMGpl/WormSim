@@ -5,7 +5,7 @@
 
 int main(){
     srand(time(0));
-    Simulation simulation(67, 40);
+    Simulation simulation(67, 47);
     Graphics g(simulation);
     Image image = LoadImage("icon.png");
     SetWindowIcon(image);

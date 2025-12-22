@@ -60,8 +60,7 @@ int Node::getY() const {
 }
 
 int Node::getDistance(Node* neighbour) const {
-	int distance;
-	distance = abs(x - neighbour->getX()) + abs(y - neighbour->getY());
+	int distance = abs(x - neighbour->getX()) + abs(y - neighbour->getY());
 	return distance;
 }
 
