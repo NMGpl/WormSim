@@ -26,7 +26,7 @@ bool InputManager::isRMouseClicked() const {
 }
 
 bool InputManager::isLMousePressed() const {
-	bool press = IsMouseButtonPressed(0);
+	bool press = IsMouseButtonDown(0);
 	if (press) {
 		return true;
 	}

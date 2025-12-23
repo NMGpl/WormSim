@@ -193,11 +193,16 @@ void Graphics::drawWormOnMouse() {
 			int mouseX = config.getStartX() + size * offsetX;
 			int offsetY = ((GetMouseY() - 40) / size);
 			int mouseY = 40 + size * offsetY;
-			Rectangle rect = { mouseX - 2, mouseY - 2, size + 4, size + 4 };
-			DrawRectangleLinesEx(rect, 3, LIGHTGRAY);
-			if (manager.isLMouseClicked()) {
+			Rectangle rect = { mouseX - 1, mouseY - 1, size + 2, size + 2 };
+			DrawRectangleLinesEx(rect, 2, LIGHTGRAY);
+			if (manager.isLMousePressed() && manager.isLShiftClicked()) {
+				simulation.addWorm(1, offsetX, offsetY);
+			} else if (manager.isLMouseClicked()) {
 				simulation.addWorm(1, offsetX, offsetY);
 			}
+		}
+		if (manager.isRMouseClicked()) {
+			config.setWormOnMouse(false);
 		}
 	}
 }
@@ -210,11 +215,16 @@ void Graphics::drawFoodOnMouse() {
 			int mouseX = config.getStartX() + size * offsetX;
 			int offsetY = ((GetMouseY() - 40) / size);
 			int mouseY = 40 + size * offsetY;
-			Rectangle rect = { mouseX - 2, mouseY - 2, size + 4, size + 4 };
-			DrawRectangleLinesEx(rect, 3, PINK);
-			if (manager.isLMouseClicked()) {
+			Rectangle rect = { mouseX - 1, mouseY - 1, size + 2, size + 2 };
+			DrawRectangleLinesEx(rect, 2, PINK);
+			if (manager.isLMousePressed() && manager.isLShiftClicked()) {
+				simulation.addFood(1, offsetX, offsetY);
+			} else if (manager.isLMouseClicked()) {
 				simulation.addFood(1, offsetX, offsetY);
 			}
+		}
+		if (manager.isRMouseClicked()) {
+			config.setFoodOnMouse(false);
 		}
 	}
 }
