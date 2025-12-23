@@ -5,16 +5,13 @@
 
 int main(){
     srand(time(0));
-    Simulation simulation(67, 67);
-    Graphics g(simulation);
-    Image image = LoadImage("icon.png");
-    SetWindowIcon(image);
+    Simulation s(6, 10);
+    Graphics g(s);
+    SetWindowIcon(LoadImage("icon.png"));
 
     while (!WindowShouldClose()) {
-        g.begin();
         g.draw();
-        g.end();
-        simulation.simulate();
+        s.simulate();
     }
     CloseWindow();
 }

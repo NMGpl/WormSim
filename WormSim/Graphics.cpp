@@ -21,11 +21,8 @@ Graphics::Graphics(Simulation& simulation, int x, int y) :
 	InitWindow(x, y, "WormSim");
 }
 
-void Graphics::begin() const {
-	BeginDrawing();
-}
-
 void Graphics::draw() {
+	BeginDrawing();
 	ClearBackground(BLACK);
 	DrawText("WormSim", x / 2 - 50, 10, 20, WHITE);
 	drawMenu();
@@ -34,6 +31,7 @@ void Graphics::draw() {
 	drawEgg();
 	drawWormOnMouse();
 	drawFoodOnMouse();
+	EndDrawing();
 }
 
 void Graphics::drawMenu() {
@@ -370,8 +368,4 @@ void Graphics::drawTiles(const int startX, const int startY, const int width, co
 			//if (!tiles[i][j].isFree()) DrawRectangle(293 + (i * size), 38 + (j * size), 14, 14, BROWN);	//Rysowanie hitboxow
 		}
 	}
-}
-
-void Graphics::end() const {
-	EndDrawing();
 }
