@@ -1,12 +1,14 @@
 #include "SimulationConfig.h"
 
-SimulationConfig::SimulationConfig(int maxAge, int maxHunger, int maxSize, int regenSpeed, int maxProductivity, int newWormsAmount) {
+SimulationConfig::SimulationConfig(int maxAge, int maxHunger, int maxSize, int regenSpeed, int maxProductivity, int newWormsAmount, int width, int height) {
 	this->maxAge = maxAge;
 	this->maxHunger = maxHunger;
 	this->maxSize = maxSize;
 	this->regenSpeed = regenSpeed;
 	this->maxProductivity = maxProductivity;
 	this->newWormsAmount = newWormsAmount;
+	this->width = width;
+	this->height = height;
 }
 
 void SimulationConfig::setMaxAge(int maxAge) {
@@ -33,12 +35,20 @@ void SimulationConfig::setNewWormsAmount(int newWormsAmount) {
 	this->newWormsAmount = newWormsAmount;
 }
 
-int SimulationConfig::getMaxHunger() const {
-	return maxHunger;
+void SimulationConfig::setWidth(int width) {
+	this->width = width;
+}
+
+void SimulationConfig::setHeight(int height) {
+	this->height = height;
 }
 
 void SimulationConfig::setMaxSize(int maxSize) {
 	this->maxSize = maxSize;
+}
+
+int SimulationConfig::getMaxHunger() const {
+	return maxHunger;
 }
 
 int SimulationConfig::getMaxSize() const {
@@ -55,4 +65,17 @@ int SimulationConfig::getMaxProductivity() const {
 
 int SimulationConfig::getNewWormsAmount() const {
 	return newWormsAmount;
+}
+
+int SimulationConfig::getSize() const {
+	if (width > height) {
+		return maxWidth / width;
+	}
+	else {
+		return maxHeight / height;
+	}
+}
+
+int SimulationConfig::getStartX() const {
+	return startX + ((maxWidth - width * getSize()) / 2);
 }

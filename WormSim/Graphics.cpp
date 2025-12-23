@@ -29,7 +29,7 @@ void Graphics::draw() {
 	ClearBackground(BLACK);
 	DrawText("WormSim", x / 2 - 50, 10, 20, WHITE);
 	drawMenu();
-	drawWormBox(boardWidth, boardHeight);
+	drawWormBox();
 	drawWorm();
 	drawEgg();
 }
@@ -224,44 +224,47 @@ void Graphics::generateWormBoxHotspot() {
 	simulation.generateBoardHotspot(boardWidth, boardHeight, 15);
 }
 
-void Graphics::drawWormBox(const int width, const int height) const {
-	const int startX = 295;
+void Graphics::drawWormBox() const {
 	const int startY = 40;
-	int size = 10;
-	drawTiles(width, height, size);
-	DrawRectangleLines(startX, startY, width * size, height * size, WHITE);
+	int startX = config.getStartX();
+	int size = config.getSize();
+
+	drawTiles(startX, startY, boardWidth, boardHeight, size);
+	DrawRectangleLines(startX, startY, boardWidth * size, boardHeight * size, WHITE);
 }
 
 void Graphics::drawWorm() {
+	int size = config.getSize();
 	for (Worm& worm : simulation.getWorms()) {
 		int x = worm.getHeadX();
 		int y = worm.getHeadY();
 		std::vector <std::vector <int>> segments = worm.getSegments();
 		if(!segments.empty()){
 			for(std::vector <int> segment : segments){
-				drawWorm(segment[0], segment[1], 10);
+				drawWorm(segment[0], segment[1], size);
 			}
 		}
 		
-		drawWorm(x, y, 10);
+		drawWorm(x, y, size);
 		//drawWormPath(worm);		//Rysowanie pathfindingu robaka
 	}
 }
 
 void Graphics::drawEgg() {
+	int size = config.getSize();
 	for (Egg& egg : simulation.getEggs()) {
 		int x = egg.getX();
 		int y = egg.getY();
-		drawEgg(x, y, 10);
+		drawEgg(x, y, size);
 	}
 }
 
 void Graphics::drawWorm(int x, int y, int size) const {
-	DrawRectangle(295 + x * 10, 40 + y * 10, size, size, WHITE);
+	DrawRectangle(config.getStartX() + x * size, 40 + y * size, size, size, WHITE);
 }
 
 void Graphics::drawEgg(int x, int y, int size) const {
-	DrawRectangle(295 + x * 10, 40 + y * 10, size, size, PINK);
+	DrawRectangle(config.getStartX() + x * size, 40 + y * size, size, size, PINK);
 }
 
 void Graphics::drawWormPath(Worm& worm) {
@@ -277,14 +280,14 @@ void Graphics::drawWormPath(Worm& worm) {
 	}
 }
 
-void Graphics::drawTiles(int width, int height, int size) const {
+void Graphics::drawTiles(const int startX, const int startY, const int width, const int height, const int size) const {
 	for (int i = 0; i < width; i++) {																					//HEIGHT
 		for (int j = 0; j < height; j++) {
 			int tileFood = tiles[i][j].getFoodAmount();
-			if (tileFood == 3) DrawRectangle(295 + (i * size), 40 + (j * size), size, size, GREEN);
-			else if (tileFood == 2) DrawRectangle(295 + (i * size), 40 + (j * size), size, size, ORANGE);
-			else if (tileFood == 1) DrawRectangle(295 + (i * size), 40 + (j * size), size, size, RED);
-			else DrawRectangle(295 + (i * size), 40 + (j * size), size, size, BLACK);
+			if (tileFood == 3) DrawRectangle(startX + (i * size), startY + (j * size), size, size, GREEN);
+			else if (tileFood == 2) DrawRectangle(startX + (i * size), startY + (j * size), size, size, ORANGE);
+			else if (tileFood == 1) DrawRectangle(startX + (i * size), startY + (j * size), size, size, RED);
+			else DrawRectangle(startX + (i * size), startY + (j * size), size, size, BLACK);
 			//if (!tiles[i][j].isFree()) DrawRectangle(293 + (i * size), 38 + (j * size), 14, 14, BROWN);	//Rysowanie hitboxow
 		}
 	}

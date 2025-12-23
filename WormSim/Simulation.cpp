@@ -4,6 +4,8 @@ Simulation::Simulation(int width, int height, int tps) {
 	this->boardWidth = width;
 	this->boardHeight = height;
 	setTickTime(tps);
+	config.setWidth(width);
+	config.setHeight(height);
 }
 
 void Simulation::simulate() {
@@ -96,23 +98,25 @@ void Simulation::starveWorm(Worm& worm) {
 		int tileFood = tiles[headX][headY].getFoodAmount();
 		switch (tileFood) {
 			case 3:
-				tiles[headX][headY].modifyFoodAmount(-4);
+				tiles[headX][headY].modifyFoodAmount(-3);
 				worm.modifyHunger(3);
 				break;
 			case 2:
-				tiles[headX][headY].modifyFoodAmount(-3);
+				tiles[headX][headY].modifyFoodAmount(-2);
 				worm.modifyHunger(2);
 				break;
 			case 1:
-				tiles[headX][headY].modifyFoodAmount(-2);
+				tiles[headX][headY].modifyFoodAmount(-1);
 				worm.modifyHunger(1);
 				break;
+			default:
+				worm.modifyHunger(-1);
 		}
 		if (worm.getHunger() > worm.getMaxHunger()) {
 			worm.setHunger(worm.getMaxHunger());
 		}
 	}
-	worm.modifyHunger(-1);
+	
 }
 
 void Simulation::growWorm(Worm& worm) {
