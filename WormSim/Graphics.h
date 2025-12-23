@@ -23,6 +23,8 @@ class Graphics {
 	void drawMenu();
 	void drawWormBox() const;
 	void drawWorm();
+	void drawWormOnMouse();
+	void drawFoodOnMouse();
 	void drawEgg();
 	void drawWormPath(Worm& worm);
 	void generateWormBoxRandom();

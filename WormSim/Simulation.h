@@ -47,6 +47,7 @@ public:
 	void simulate();
 	void addWorm(int wormsAmount);
 	void addWorm(int wormsAmount, int headX, int headY);
+	void addFood(int foodAmount, int posX, int posY);
 	void deleteWorms();
 	void deleteEggs();
 

@@ -158,6 +158,10 @@ void Simulation::addWorm(int wormsAmount, int headX, int headY) {
 	}
 }
 
+void Simulation::addFood(int foodAmount, int posX, int posY) {
+	tiles[posX][posY].modifyFoodAmount(foodAmount);
+}
+
 void Simulation::deleteWorms() {
 	for (Worm& worm : worms) {
 		tiles[worm.getHeadX()][worm.getHeadY()].setFree(true);

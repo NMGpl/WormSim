@@ -9,6 +9,8 @@ SimulationConfig::SimulationConfig(int maxAge, int maxHunger, int maxSize, int r
 	this->newWormsAmount = newWormsAmount;
 	this->width = width;
 	this->height = height;
+	this->wormOnMouse = false;
+	this->foodOnMouse = false;
 }
 
 void SimulationConfig::setMaxAge(int maxAge) {
@@ -47,6 +49,22 @@ void SimulationConfig::setMaxSize(int maxSize) {
 	this->maxSize = maxSize;
 }
 
+void SimulationConfig::setWormOnMouse(bool state) {
+	this->wormOnMouse = state;
+}
+
+void SimulationConfig::setFoodOnMouse(bool state) {
+	this->foodOnMouse = state;
+}
+
+void SimulationConfig::toggleWormOnMouse() {
+	this->wormOnMouse = !wormOnMouse;
+}
+
+void SimulationConfig::toggleFoodOnMouse() {
+	this->foodOnMouse = !foodOnMouse;
+}
+
 int SimulationConfig::getMaxHunger() const {
 	return maxHunger;
 }
@@ -78,4 +96,12 @@ int SimulationConfig::getSize() const {
 
 int SimulationConfig::getStartX() const {
 	return startX + ((maxWidth - width * getSize()) / 2);
+}
+
+bool SimulationConfig::getWormOnMouse() const {
+	return wormOnMouse;
+}
+
+bool SimulationConfig::getFoodOnMouse() const {
+	return foodOnMouse;
 }

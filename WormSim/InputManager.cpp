@@ -3,7 +3,7 @@
 bool InputManager::isMouseOver(int x, int y, int width, int height) const {
 	int mouseX = GetMouseX();
 	int mouseY = GetMouseY();
-	if (mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height) {
+	if (mouseX > x && mouseX < x + width && mouseY > y && mouseY < y + height) {
 		return true;
 	}
 	return false;

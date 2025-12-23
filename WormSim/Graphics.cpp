@@ -32,6 +32,8 @@ void Graphics::draw() {
 	drawWormBox();
 	drawWorm();
 	drawEgg();
+	drawWormOnMouse();
+	drawFoodOnMouse();
 }
 
 void Graphics::drawMenu() {
@@ -169,15 +171,51 @@ void Graphics::drawButtons() {
 					simulation.setTickTime(6);
 					break;
 				case PLACEWORM:
-
+					config.toggleWormOnMouse();
+					config.setFoodOnMouse(false);
 					break;
 				case PLACEFOOD:
-
+					config.toggleFoodOnMouse();
+					config.setWormOnMouse(false);
 					break;
 				}
 			}
 		} else button.setColor(WHITE);
 		button.draw();
+	}
+}
+
+void Graphics::drawWormOnMouse() {
+	if (config.getWormOnMouse()) {
+		int size = config.getSize();
+		if (manager.isMouseOver(config.getStartX(), 40, boardWidth * size, boardHeight * size)) {
+			int offsetX = ((GetMouseX() - config.getStartX()) / size);
+			int mouseX = config.getStartX() + size * offsetX;
+			int offsetY = ((GetMouseY() - 40) / size);
+			int mouseY = 40 + size * offsetY;
+			Rectangle rect = { mouseX - 2, mouseY - 2, size + 4, size + 4 };
+			DrawRectangleLinesEx(rect, 3, LIGHTGRAY);
+			if (manager.isLMouseClicked()) {
+				simulation.addWorm(1, offsetX, offsetY);
+			}
+		}
+	}
+}
+
+void Graphics::drawFoodOnMouse() {
+	if (config.getFoodOnMouse()) {
+		int size = config.getSize();
+		if (manager.isMouseOver(config.getStartX(), 40, boardWidth * size, boardHeight * size)) {
+			int offsetX = ((GetMouseX() - config.getStartX()) / size);
+			int mouseX = config.getStartX() + size * offsetX;
+			int offsetY = ((GetMouseY() - 40) / size);
+			int mouseY = 40 + size * offsetY;
+			Rectangle rect = { mouseX - 2, mouseY - 2, size + 4, size + 4 };
+			DrawRectangleLinesEx(rect, 3, PINK);
+			if (manager.isLMouseClicked()) {
+				simulation.addFood(1, offsetX, offsetY);
+			}
+		}
 	}
 }
 
