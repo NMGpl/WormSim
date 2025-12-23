@@ -55,11 +55,11 @@ void Graphics::prepareButtons(int startX, int startY, int width, int height) {
 	buttons.push_back(bChildren);
 	Button bProductivity(startX, startY + 200, width, height, "Sr. czas prod.");
 	buttons.push_back(bProductivity);
-	Button bGenerateRandom(985, y - 50, 132, 30, "Losowo");
+	Button bGenerateRandom(startX, y - 50, 132, 30, "Losowo");
 	buttons.push_back(bGenerateRandom);
-	Button bGenerateHotspot(985 + 143, y - 50, 132, 30, "Strefy");
+	Button bGenerateHotspot(startX + 143, y - 50, 132, 30, "Strefy");
 	buttons.push_back(bGenerateHotspot);
-	Button bAddWorm(startX, startY + 240, width, height, "Dodaj robaka");
+	Button bAddWorm(startX, startY + 240, width, height, "Losowy robak");
 	buttons.push_back(bAddWorm);
 	Button bDeleteWorms(startX + 180, startY + 240, 95, height, "Wyczysc");
 	buttons.push_back(bDeleteWorms);
@@ -71,11 +71,36 @@ void Graphics::prepareButtons(int startX, int startY, int width, int height) {
 	buttons.push_back(bSimSpeed2);
 	Button bSimSpeed3(startX + 3 * height + 30, startY + 280, height, height, ">>>");
 	buttons.push_back(bSimSpeed3);
+	Button bPlaceWorm(startX, y - 230, 132, 30, "Postaw robaka");
+	buttons.push_back(bPlaceWorm);
+	Button bPlaceFood(startX + 143, y - 230, 132, 30, "Postaw jedzenie");
+	buttons.push_back(bPlaceFood);
 }
 
 void Graphics::prepareInputs(int startX, int startY, int width, int height) {
 	for (int i = 0; i < 6; i++) {
-		Input input(startX, startY, width, height, 10, i);
+		int value;
+		switch (i) {
+		case 0:
+			value = config.getRegenSpeed();
+			break;
+		case 1:
+			value = config.getMaxHunger();
+			break;
+		case 2:
+			value = config.getMaxSize();
+			break;
+		case 3:
+			value = config.getMaxAge();
+			break;
+		case 4:
+			value = config.getNewWormsAmount();
+			break;
+		case 5:
+			value = config.getMaxProductivity();
+			break;
+		}
+		Input input(startX, startY, width, height, value, i);
 		inputs.push_back(input);
 		startY += 40;
 	}
@@ -124,7 +149,7 @@ void Graphics::drawButtons() {
 				case HOTSPOTGEN:
 					generateWormBoxHotspot();
 					break;
-				case ADDWORM:
+				case RANDOMWORM:
 					simulation.addWorm(1);
 					break;
 				case CLEAR:
@@ -142,6 +167,12 @@ void Graphics::drawButtons() {
 					break;
 				case PLAY3X:
 					simulation.setTickTime(6);
+					break;
+				case PLACEWORM:
+
+					break;
+				case PLACEFOOD:
+
 					break;
 				}
 			}
