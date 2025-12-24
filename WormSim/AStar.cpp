@@ -46,7 +46,6 @@ std::vector <std::vector <int>> AStar::findMovement() const {
 
 
 	std::vector <Node*> toSearch = { pStart };
-	std::vector <Node*> processed;
 
 	pStart->setToSearch(true);
 
@@ -58,7 +57,6 @@ std::vector <std::vector <int>> AStar::findMovement() const {
 			}
 		}
 
-		processed.push_back(pCurrent);
 		auto index = std::find(toSearch.begin(), toSearch.end(), pCurrent);
 		toSearch.erase(index);
 

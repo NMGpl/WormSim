@@ -35,7 +35,7 @@ void Graphics::draw() {
 }
 
 void Graphics::drawMenu() {
-	DrawRectangleLines(10, 40, 275, y - 50, WHITE);										//Lewe menu (?)
+	//DrawRectangleLines(10, 40, 275, y - 50, WHITE);										//Lewe menu (?)
 	DrawRectangleLines(x - 305, 40, x - (x - 305 + 10), y - 50, WHITE);					//Prawe menu
 	drawInputs();
 	drawButtons();

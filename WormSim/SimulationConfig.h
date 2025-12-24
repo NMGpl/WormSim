@@ -2,9 +2,9 @@
 class SimulationConfig{
 	int maxAge, maxHunger, maxSize, regenSpeed, maxProductivity, newWormsAmount;
 	int width, height;
-	const int maxWidth = 670;
+	const int maxWidth = 960;
 	const int maxHeight = 670;
-	const int startX = 295;
+	const int startX = 10;
 	bool wormOnMouse, foodOnMouse;
 public:
 	SimulationConfig(int maxAge = 200, int maxHunger = 20, int maxSize = 4, int regenSpeed = 50, int maxProductivity = 175, int newWormsAmount = 2, int width = 67, int height = 67);
