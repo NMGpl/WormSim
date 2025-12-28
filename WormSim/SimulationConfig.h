@@ -21,6 +21,8 @@ public:
 	void setFoodOnMouse(bool state);
 	void toggleWormOnMouse();
 	void toggleFoodOnMouse();
+	void setBoardWidth(int newWidth);
+	void setBoardHeight(int newHeight);
 
 	int getMaxAge() const;
 	int getMaxHunger() const;
@@ -32,5 +34,7 @@ public:
 	int getStartX() const;
 	bool getWormOnMouse() const;
 	bool getFoodOnMouse() const;
+	int getWidth() const;
+	int getHeight() const;
 };
 

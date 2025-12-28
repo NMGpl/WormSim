@@ -53,8 +53,8 @@ void Simulation::freeIfDead(Worm& worm) {
 
 void Simulation::foodRegenerate() {
 	for (int i = 0; i < config.getRegenSpeed(); i++) {
-		int posX = rand() % (boardWidth);
-		int posY = rand() % (boardHeight);
+		int posX = rand() % (config.getWidth());
+		int posY = rand() % (config.getHeight());
 		int food = tiles[posX][posY].getFoodAmount();
 		if (food < 3) {
 			tiles[posX][posY].modifyFoodAmount(1);
@@ -145,7 +145,7 @@ void Simulation::layEgg(Worm& worm) {
 
 void Simulation::addWorm(int wormsAmount) {
 	for (int i = 0; i < wormsAmount; i++) {
-		std::vector <int> headXY = { rand() % boardWidth, rand() % boardHeight };
+		std::vector <int> headXY = { rand() % config.getWidth(), rand() % config.getHeight()};
 		Worm worm(headXY[0], headXY[1], config.getMaxAge(), config.getMaxHunger(), config.getMaxSize(), config.getMaxProductivity());
 		worms.push_back(worm);
 	}
@@ -394,4 +394,29 @@ int Simulation::getBoardWidth() const {
 
 int Simulation::getBoardHeight() const {
 	return boardHeight;
+}
+void Simulation::resizeBoard() {
+	Tile newTile(0, 0, 0);
+	int newWidth = config.getWidth();
+	int newHeight = config.getHeight();
+	//tiles.resize(newWidth, newTile);
+	tiles.resize(newWidth);
+	for (std::vector <Tile>& row : tiles) {
+		row.resize(newHeight, newTile);
+	}
+	deleteOutOfBounds();
+}
+
+void Simulation::deleteOutOfBounds() {
+	int maxWidth = config.getWidth();
+	int maxHeight = config.getHeight();
+	auto newEnd = std::remove_if(worms.begin(), worms.end(), [maxWidth, maxHeight](Worm worm) {
+		return worm.getHeadX() >= maxWidth || worm.getHeadY() >= maxHeight;
+		});
+	worms.erase(newEnd, worms.end());
+
+	auto newEndd = std::remove_if(eggs.begin(), eggs.end(), [maxWidth, maxHeight](Egg egg) {
+		return egg.getX() >= maxWidth || egg.getY() >= maxHeight;
+		});
+	eggs.erase(newEndd, eggs.end());
 }

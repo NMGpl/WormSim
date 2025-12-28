@@ -65,6 +65,14 @@ void SimulationConfig::toggleFoodOnMouse() {
 	this->foodOnMouse = !foodOnMouse;
 }
 
+void SimulationConfig::setBoardWidth(int newWidth) {
+	this->width = newWidth;
+}
+
+void SimulationConfig::setBoardHeight(int newHeight) {
+	this->height = newHeight;
+}
+
 int SimulationConfig::getMaxHunger() const {
 	return maxHunger;
 }
@@ -104,4 +112,12 @@ bool SimulationConfig::getWormOnMouse() const {
 
 bool SimulationConfig::getFoodOnMouse() const {
 	return foodOnMouse;
+}
+
+int SimulationConfig::getWidth() const {
+	return width;
+}
+
+int SimulationConfig::getHeight() const {
+	return height;
 }

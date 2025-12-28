@@ -4,7 +4,7 @@
 
 Graphics::Graphics(Simulation& simulation, int x, int y) : 
 	simulation(simulation), 
-	tiles(simulation.getTilesRef()), 
+	//tiles(simulation.getTilesRef()), 
 	config(simulation.getConfigRef()), 
 	boardWidth(simulation.getBoardWidth()),
 	boardHeight(simulation.getBoardHeight())
@@ -39,6 +39,7 @@ void Graphics::drawMenu() {
 	DrawRectangleLines(x - 305, 40, x - (x - 305 + 10), y - 50, WHITE);					//Prawe menu
 	drawInputs();
 	drawButtons();
+	drawSizeFrame();
 	drawInfo();
 }
 
@@ -75,6 +76,9 @@ void Graphics::prepareButtons(int startX, int startY, int width, int height) {
 	buttons.push_back(bPlaceWorm);
 	Button bPlaceFood(startX + 143, y - 230, 132, 30, "Postaw jedzenie");
 	buttons.push_back(bPlaceFood);
+	Button bConfirm(startX + 10, 420, 254, 30, "Potwierdz");
+	buttons.push_back(bConfirm);
+
 }
 
 void Graphics::prepareInputs(int startX, int startY, int width, int height) {
@@ -104,6 +108,13 @@ void Graphics::prepareInputs(int startX, int startY, int width, int height) {
 		inputs.push_back(input);
 		startY += 40;
 	}
+	startY += 90;
+	startX -= 145;
+	Input iWidth(startX, startY, width, height, config.getWidth(), 6);
+	inputs.push_back(iWidth);
+	startX += 135;
+	Input iHeight(startX, startY, width, height, config.getHeight(), 7);
+	inputs.push_back(iHeight);
 }
 
 void Graphics::drawButtons() {
@@ -176,6 +187,13 @@ void Graphics::drawButtons() {
 					config.toggleFoodOnMouse();
 					config.setWormOnMouse(false);
 					break;
+				case CONFIRM:
+					int newWidth = inputs[6].getValue();
+					config.setBoardWidth(newWidth);
+					int newHeight = inputs[7].getValue();
+					config.setBoardHeight(newHeight);
+					simulation.resizeBoard();
+					//tiles = simulation.getTilesRef();
 				}
 			}
 		} else button.setColor(WHITE);
@@ -263,6 +281,12 @@ void Graphics::drawInputs() {
 	}
 }
 
+void Graphics::drawSizeFrame() {
+	DrawRectangleLines(x - 295, 370, 275, 90, WHITE);
+	DrawText("><:", x - 285, 380, 20, WHITE);
+	DrawText("Y:", x - 150, 380, 20, WHITE);
+}
+
 void Graphics::drawInfo() {
 	const int startX = x - 295;
 	const int startY = y - 190;
@@ -306,8 +330,8 @@ void Graphics::drawWormBox() const {
 	int startX = config.getStartX();
 	int size = config.getSize();
 
-	drawTiles(startX, startY, boardWidth, boardHeight, size);
-	DrawRectangleLines(startX, startY, boardWidth * size, boardHeight * size, WHITE);
+	drawTiles(startX, startY, config.getWidth(), config.getHeight(), size);
+	DrawRectangleLines(startX, startY, config.getWidth() * size, config.getHeight() * size, WHITE);
 }
 
 void Graphics::drawWorm() {
@@ -321,7 +345,6 @@ void Graphics::drawWorm() {
 				drawWorm(segment[0], segment[1], size);
 			}
 		}
-		
 		drawWorm(x, y, size);
 		//drawWormPath(worm);		//Rysowanie pathfindingu robaka
 	}
@@ -358,6 +381,7 @@ void Graphics::drawWormPath(Worm& worm) {
 }
 
 void Graphics::drawTiles(const int startX, const int startY, const int width, const int height, const int size) const {
+	std::vector <std::vector <Tile>>& tiles = simulation.getTilesRef();
 	for (int i = 0; i < width; i++) {																					//HEIGHT
 		for (int j = 0; j < height; j++) {
 			int tileFood = tiles[i][j].getFoodAmount();

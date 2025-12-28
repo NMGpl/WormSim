@@ -18,7 +18,7 @@ class Graphics {
 	SimulationConfig& config;
 	std::vector <Button> buttons;
 	std::vector <Input> inputs;
-	std::vector <std::vector <Tile>>& tiles;
+	//std::vector <std::vector <Tile>>& tiles;
 
 	void drawMenu();
 	void drawWormBox() const;
@@ -35,6 +35,7 @@ class Graphics {
 	void prepareButtons(int startX, int startY, int width, int height);
 	void prepareInputs(int startX, int startY, int width, int height);
 	void drawInfo();
+	void drawSizeFrame();
 	void drawInfoLine(const std::string& label, const std::string& value, int x, int y);
 	void drawButtons();
 	void drawInputs();

@@ -14,7 +14,7 @@ class Simulation{
 	std::vector <std::vector <Tile>> tiles;
 	std::vector <Egg> eggs;
 	int maxHunger = 20, maxAge = 100, maxSize = 2;
-	int boardWidth = 67, boardHeight = 67;
+	int boardWidth = 95, boardHeight = 67;
 	int deadWorms = 0;
 	std::vector <int> searchFood(int headX, int headY, int distance) const;
 	std::vector <int> searchClosestFood(std::vector <std::vector <int>> foodTiles, int distance, int headX, int headY) const;
@@ -40,6 +40,7 @@ class Simulation{
 	void layEgg(Worm& worm);
 	void hatchEggs();
 	void destroyEggs();
+	void deleteOutOfBounds();
 
 	void foodRegenerate();
 public:
@@ -53,6 +54,7 @@ public:
 
 	void generateBoardRandom(int width, int height);
 	void generateBoardHotspot(int width, int height, int hotspotAmount);
+	void resizeBoard();
 	
 	void setTickTime(int tps);
 	

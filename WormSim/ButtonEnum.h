@@ -16,5 +16,6 @@ enum class ButtonEnum {
 	PLAY2X,
 	PLAY3X,
 	PLACEWORM,
-	PLACEFOOD
+	PLACEFOOD,
+	CONFIRM
 };
