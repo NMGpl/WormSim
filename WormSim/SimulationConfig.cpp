@@ -94,11 +94,11 @@ int SimulationConfig::getNewWormsAmount() const {
 }
 
 int SimulationConfig::getSize() const {
-	if (width > height) {
-		return maxWidth / width;
+	if (width < height || height * maxWidth / width > maxHeight) {
+		return maxHeight / height;
 	}
 	else {
-		return maxHeight / height;
+		return maxWidth / width;
 	}
 }
 
