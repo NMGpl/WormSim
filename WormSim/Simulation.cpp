@@ -399,6 +399,22 @@ void Simulation::resizeBoard() {
 	Tile newTile(0, 0, 0);
 	int newWidth = config.getWidth();
 	int newHeight = config.getHeight();
+	if (newWidth < 1) {
+		newWidth = 1;
+		config.setWidth(1);
+	}
+	else if (newWidth > boardWidth * 10) {
+		newWidth = boardWidth * 10;
+		config.setWidth(boardWidth * 10);
+	}
+	if (newHeight < 1) {
+		newHeight = 1;
+		config.setHeight(1);
+	}
+	else if (newHeight > boardHeight * 10) {
+		newHeight = boardHeight * 10;
+		config.setHeight(boardHeight * 10);
+	}
 	//tiles.resize(newWidth, newTile);
 	tiles.resize(newWidth);
 	for (std::vector <Tile>& row : tiles) {

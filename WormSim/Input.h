@@ -18,6 +18,8 @@ public:
 	int getWidth() const;
 	int getHeight() const;
 	int getValue() const;
+	int getId() const;
+
 	void setValue(int value);
 };
 

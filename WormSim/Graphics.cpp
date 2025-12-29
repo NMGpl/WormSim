@@ -254,14 +254,33 @@ void Graphics::drawInputs() {
 		int height = input.getHeight();
 		if (manager.isMouseOver(x, y, width, height)) {
 			input.setColor(RED);
-			if (manager.isLShiftClicked() && manager.isLMouseClicked()){
-				input.setValue(value + 10);
+			if (manager.isLShiftClicked() && manager.isLMouseClicked()) {
+				if (value + 10 > 950 && input.getId() == 6) {
+					input.setValue(950);
+				}
+				else if (value + 10 > 670 && input.getId() == 7) {
+					input.setValue(670);
+				}
+				else {
+					input.setValue(value + 10);
+				}
 			}
 			else if (manager.isLMouseClicked()) {
-				input.setValue(value + 1);
+				if (value + 1 > 950 && input.getId() == 6) {
+					input.setValue(950);
+				}
+				else if (value + 1 > 670 && input.getId() == 7) {
+					input.setValue(670);
+				}
+				else {
+					input.setValue(value + 1);
+				}
 			}
 			if (manager.isLShiftClicked() && manager.isRMouseClicked()) {
-				if (value - 10 < 0) {
+				if (value - 10 < 1 && (input.getId() == 6 || input.getId() == 7)) {
+					input.setValue(1);
+				} 
+				else if (value - 10 < 1) {
 					input.setValue(0);
 				} 
 				else {
@@ -269,7 +288,10 @@ void Graphics::drawInputs() {
 				}
 			}
 			else if (manager.isRMouseClicked()) {
-				if (value - 1 < 0) {
+				if (value - 1 < 1 && (input.getId() == 6 || input.getId() == 7)) {
+					input.setValue(1);
+				}
+				else if (value - 1 < 1) {
 					input.setValue(0);
 				}
 				else {

@@ -31,6 +31,10 @@ int Input::getHeight() const {
 	return height;
 }
 
+int Input::getId() const {
+	return id;
+}
+
 void Input::setColor(Color color) {
 	this->color = color;
 }
