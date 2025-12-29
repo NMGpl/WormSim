@@ -204,7 +204,7 @@ void Graphics::drawButtons() {
 void Graphics::drawWormOnMouse() {
 	if (config.getWormOnMouse()) {
 		int size = config.getSize();
-		if (manager.isMouseOver(config.getStartX(), 40, boardWidth * size, boardHeight * size)) {
+		if (manager.isMouseOver(config.getStartX(), 40, config.getWidth() * size, config.getHeight() * size)) {
 			int offsetX = ((GetMouseX() - config.getStartX()) / size);
 			int mouseX = config.getStartX() + size * offsetX;
 			int offsetY = ((GetMouseY() - 40) / size);
@@ -226,7 +226,7 @@ void Graphics::drawWormOnMouse() {
 void Graphics::drawFoodOnMouse() {
 	if (config.getFoodOnMouse()) {
 		int size = config.getSize();
-		if (manager.isMouseOver(config.getStartX(), 40, boardWidth * size, boardHeight * size)) {
+		if (manager.isMouseOver(config.getStartX(), 40, config.getWidth() * size, config.getHeight() * size)) {
 			int offsetX = ((GetMouseX() - config.getStartX()) / size);
 			int mouseX = config.getStartX() + size * offsetX;
 			int offsetY = ((GetMouseY() - 40) / size);
