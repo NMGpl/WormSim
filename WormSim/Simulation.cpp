@@ -122,7 +122,7 @@ void Simulation::starveWorm(Worm& worm) {
 void Simulation::growWorm(Worm& worm) {
 	if (worm.getSize() < worm.getMaxSize() && worm.getHunger() >= 3 * (worm.getMaxHunger() / 4) && !worm.isDead()) {
 		worm.grow();
-		worm.modifyHunger(-10);
+		worm.modifyHunger(-(worm.getMaxHunger() / 2));
 	}
 }
 
@@ -135,12 +135,14 @@ void Simulation::ageWorm(Worm& worm) {
 }
 
 void Simulation::layEgg(Worm& worm) {
-	if ((worm.getSize() > (worm.getMaxSize() / 2)) && (worm.getAge() < worm.getMaxProductivity()) && (rand() % 101) > 92) {
+	if ((worm.getSize() > (worm.getMaxSize() / 2)) && (worm.getAge() < worm.getMaxProductivity()) && worm.getEggCooldown() == 0) {
 		int tailX = worm.getSegments()[worm.getSize() - 1][0];
 		int tailY = worm.getSegments()[worm.getSize() - 1][1];
 		Egg egg(tailX, tailY, config.getNewWormsAmount());
 		eggs.push_back(egg);
+		worm.modifyEggCooldown(worm.getMaxProductivity() / 10);
 	}
+	worm.modifyEggCooldown(-1);
 }
 
 void Simulation::addWorm(int wormsAmount) {
@@ -213,7 +215,7 @@ std::vector <int> Simulation::searchFood(int headX, int headY, int distance) con
 		for (int j = headY - distance; j < headY + distance; j++) {
 			if (i < 0 || j < 0 || i >= tiles.size() || j >= tiles[0].size()) continue;
 			int kolo = (i - headX) * (i - headX) + (j - headY) * (j - headY);
-			if (kolo < distance * distance + distance / 10) {
+			if (kolo < distance * distance + distance/* / 10*/) {
 				food = tiles[i][j].getFoodAmount();
 				if (food > 0) {
 					foodTiles.push_back({ i, j, food });
@@ -234,7 +236,7 @@ std::vector <int> Simulation::searchFood(int headX, int headY, int distance) con
 				y = headY - distance + (rand() % (2 * distance + 1));
 			} while (y < 0 || y >= tiles[0].size());
 			kolo = (x - headX) * (x - headX) + (y - headY) * (y - headY);
-		} while (!(kolo < distance * distance + distance / 10));
+		} while (!(kolo < distance * distance + distance/* / 10*/));
 		
 		foodTile = { x, y, 0 };
 		return foodTile;

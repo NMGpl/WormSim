@@ -5,6 +5,7 @@ class Worm {
 	int age, hunger, size;
 	int maxAge, maxHunger, maxSize, maxProductivity;
 	int headX, headY;
+	int eggCooldown;
 	std::vector <std::vector <int>> segments;
 	std::vector <std::vector <int>> movement;
 	bool dead;
@@ -30,6 +31,7 @@ public:
 	void setMaxSize(int maxSize);
 	void setMaxProductivity(int maxProductivity);
 	void setMovement(std::vector <std::vector <int>> movement);
+	void modifyEggCooldown(int eggCooldown);
 	
 
 	int getHeadX() const;
@@ -44,5 +46,6 @@ public:
 	std::vector <std::vector <int>> getSegments() const;
 	std::vector <std::vector <int>>& getMovement();
 	bool isDead() const;
+	int getEggCooldown() const;
 };
 

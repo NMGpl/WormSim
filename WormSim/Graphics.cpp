@@ -27,8 +27,8 @@ void Graphics::draw() {
 	DrawText("WormSim", x / 2 - 50, 10, 20, WHITE);
 	drawMenu();
 	drawWormBox();
-	drawWorm();
 	drawEgg();
+	drawWorm();
 	drawWormOnMouse();
 	drawFoodOnMouse();
 	EndDrawing();

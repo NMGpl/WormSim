@@ -15,15 +15,15 @@ Worm::Worm(int headX, int headY, int maxAge, int maxHunger, int maxSize, int max
     hunger = maxHunger / 2;
     size = 0;
     dead = false;
+    eggCooldown = 0;
 }
 
 void Worm::move() {
     if (!movement.empty()) {
-        if (size != 0) {
+        std::vector <int> newPos = movement.back();
+        if (size != 0 && !(headX == newPos[0] && headY == newPos[1])) {
             moveSegments();
         }
-        std::vector <int> newPos = movement.back();
-        
         this->headX = newPos[0];
         this->headY = newPos[1];
         movement.pop_back();
@@ -148,4 +148,17 @@ int Worm::getMaxProductivity() const {
 
 std::vector <std::vector <int>> Worm::getSegments() const {
     return segments;
+}
+
+int Worm::getEggCooldown() const {
+    return eggCooldown;
+}
+
+void Worm::modifyEggCooldown(int eggCooldown) {
+    if (this->eggCooldown + eggCooldown < 0) {
+        this->eggCooldown = 0;
+	}
+    else {
+        this->eggCooldown += eggCooldown;
+    }
 }
