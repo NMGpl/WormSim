@@ -399,6 +399,7 @@ void Simulation::resizeBoard() {
 	Tile newTile(0, 0, 0);
 	int newWidth = config.getWidth();
 	int newHeight = config.getHeight();
+
 	if (newWidth < 1) {
 		newWidth = 1;
 		config.setWidth(1);
@@ -415,19 +416,38 @@ void Simulation::resizeBoard() {
 		newHeight = boardHeight * 10;
 		config.setHeight(boardHeight * 10);
 	}
+
 	//tiles.resize(newWidth, newTile);
 	tiles.resize(newWidth);
 	for (std::vector <Tile>& row : tiles) {
 		row.resize(newHeight, newTile);
 	}
+	fixNewTiles();
 	deleteOutOfBounds();
+}
+
+void Simulation::fixNewTiles() {
+	for (int i = 0; i < config.getWidth(); i++) {
+		for (int j = 0; j < config.getHeight(); j++) {
+			tiles[i][j].setPos(i, j);
+		}
+	}
 }
 
 void Simulation::deleteOutOfBounds() {
 	int maxWidth = config.getWidth();
 	int maxHeight = config.getHeight();
+
 	auto newEnd = std::remove_if(worms.begin(), worms.end(), [maxWidth, maxHeight](Worm worm) {
-		return worm.getHeadX() >= maxWidth || worm.getHeadY() >= maxHeight;
+		bool bodyOutOfBounds = false;
+		//if (worm.getSize() > 0) {
+			for (auto segment : worm.getSegments()) {
+				if (segment[0] >= maxWidth || segment[1] >= maxHeight) {
+					bodyOutOfBounds = true;
+				}
+			}
+		//}
+		return worm.getHeadX() >= maxWidth || worm.getHeadY() >= maxHeight || bodyOutOfBounds;
 		});
 	worms.erase(newEnd, worms.end());
 

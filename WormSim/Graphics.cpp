@@ -193,7 +193,6 @@ void Graphics::drawButtons() {
 					int newHeight = inputs[7].getValue();
 					config.setBoardHeight(newHeight);
 					simulation.resizeBoard();
-					//tiles = simulation.getTilesRef();
 				}
 			}
 		} else button.setColor(WHITE);
@@ -340,11 +339,11 @@ void Graphics::drawInfoLine(const std::string& label, const std::string& value, 
 }
 
 void Graphics::generateWormBoxRandom() {
-	simulation.generateBoardRandom(boardWidth, boardHeight);
+	simulation.generateBoardRandom(config.getWidth(), config.getHeight());
 }
 
 void Graphics::generateWormBoxHotspot() {
-	simulation.generateBoardHotspot(boardWidth, boardHeight, 15);
+	simulation.generateBoardHotspot(config.getWidth(), config.getHeight(), 15);
 }
 
 void Graphics::drawWormBox() const {

@@ -41,6 +41,7 @@ class Simulation{
 	void hatchEggs();
 	void destroyEggs();
 	void deleteOutOfBounds();
+	void fixNewTiles();
 
 	void foodRegenerate();
 public:
