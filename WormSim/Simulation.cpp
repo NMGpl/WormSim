@@ -155,7 +155,7 @@ void Simulation::addWorm(int wormsAmount) {
 
 void Simulation::addWorm(int wormsAmount, int headX, int headY) {
 	for (int i = 0; i < wormsAmount; i++) {
-		Worm worm(headX, headY, config.getMaxAge(), config.getMaxHunger(), config.getMaxSize());
+		Worm worm(headX, headY, config.getMaxAge(), config.getMaxHunger(), config.getMaxSize(), config.getMaxProductivity());
 		worms.push_back(worm);
 	}
 }
