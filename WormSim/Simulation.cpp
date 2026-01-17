@@ -268,11 +268,11 @@ void Simulation::wormsPathfind(Worm& worm, int distance) {
 	if (!needMovement) {
 		std::vector <int>& nextMove = worm.getMovement().back();
 		std::vector <int>& food = worm.getMovement()[0];
-		if (nextMove[0] > config.getWidth() || 
-							nextMove[1] > config.getHeight() || 
-							food[0] > config.getWidth() || 
-							food[1] > config.getHeight() || 
-							!tiles[nextMove[0]][nextMove[1]].isFree() || 
+		if (nextMove[0] >= config.getWidth() || 
+							nextMove[1] >= config.getHeight() || 
+							food[0] >= config.getWidth() || 
+							food[1] >= config.getHeight() || 
+							!tiles[nextMove[0]][nextMove[1]].isFree() || //????
 							!tiles[food[0]][food[1]].isFree()) {
 			passMovement(worm, distance);
 		}
@@ -283,9 +283,9 @@ void Simulation::passMovement(Worm& worm, int distance) {
 	std::vector <int> foodTile = searchFood(worm.getHeadX(), worm.getHeadY(), distance);
 	std::vector <int> wormPos = { worm.getHeadX(), worm.getHeadY() };
 	std::vector <std::vector <int>> movement = findMovement(wormPos, foodTile);
-	if (!movement.empty()) {
+	//if (!movement.empty()) {
 		worm.setMovement(movement);
-	}
+	//}
 }
 
 std::vector <std::vector <int>> Simulation::findMovement(std::vector <int> wormPos, std::vector <int> foodTile) {
