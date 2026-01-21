@@ -140,7 +140,7 @@ void Simulation::layEgg(Worm& worm) {
 		int tailY = worm.getSegments()[worm.getSize() - 1][1];
 		Egg egg(tailX, tailY, config.getNewWormsAmount());
 		eggs.push_back(egg);
-		worm.modifyEggCooldown(worm.getMaxProductivity() / 10);
+		worm.modifyEggCooldown(worm.getMaxProductivity() / 3);
 	}
 	worm.modifyEggCooldown(-1);
 }
