@@ -24,7 +24,7 @@ class Simulation{
 	long long tickTime;
 
 	int prepareTile() const;
-	int prepareTile(int k, int i, int j, std::vector <std::vector <int>> hotspots) const;
+	int prepareTile(int i, int j, std::vector <int> hotspots) const;
 
 	bool timePassed();
 
@@ -54,7 +54,10 @@ public:
 	void deleteEggs();
 
 	void generateBoardRandom(int width, int height);
-	void generateBoardHotspot(int width, int height, int hotspotAmount);
+	//void generateBoardHotspot(int width, int height, int hotspotAmount);+
+	void addFoodRandom(int width, int height);
+	void addFoodHotspot(int width, int heigh);
+
 	void resizeBoard();
 	
 	void setTickTime(int tps);

@@ -24,7 +24,10 @@ int Tile::getFoodAmount() const {
 }
 
 void Tile::modifyFoodAmount(int foodAmount) {
-	if (this->foodAmount + foodAmount <= 3 && this->foodAmount + foodAmount >= 0) {
+	if (this->foodAmount + foodAmount >= 0) {
+		while (this->foodAmount + foodAmount > 3) {
+			foodAmount -= 1;
+		}
 		this->foodAmount += foodAmount;
 	}
 }

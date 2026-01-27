@@ -320,44 +320,68 @@ void Simulation::generateBoardRandom(int width, int height) {
 		for (int j = 0; j < height; j++) {
 			Tile tileFood(i, j, prepareTile());
 			row.push_back(tileFood);
+			//tiles[i][j].modifyFoodAmount(prepareTile());
 		}
 		tiles.push_back(row);
 	}
 	this->tiles = tiles;
 }
 
-void Simulation::generateBoardHotspot(int width, int height, int hotspotAmount) {
-	std::vector <std::vector <Tile>> tiles;
+void Simulation::addFoodRandom(int width, int height) {
 	for (int i = 0; i < width; i++) {
-		std::vector <Tile> row;
 		for (int j = 0; j < height; j++) {
-			Tile tileFood(i, j, 0);
-			row.push_back(tileFood);
+			tiles[i][j].modifyFoodAmount(prepareTile());
 		}
-		tiles.push_back(row);
 	}
-	std::vector <std::vector <int>> hotspots;
-	for (int i = 0; i < hotspotAmount; i++) {
-		std::vector <int> hotspot;
-		hotspot.push_back(rand() % (width));
-		hotspot.push_back(rand() % (height));
-		hotspots.push_back(hotspot);
-	}
+}
+
+void Simulation::addFoodHotspot(int width, int height) {
+	std::vector <int> hotspot;
+	hotspot.push_back(rand() % (width));
+	hotspot.push_back(rand() % (height));
+
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
 			int hotspotFood = 0;
 			int tileFood = 0;
-			for (int k = 0; k < hotspotAmount; k++) {
-				hotspotFood = prepareTile(k, i, j, hotspots);
-				if (hotspotFood > tileFood) {
-					tileFood = hotspotFood;
-				}
-			}
-			tiles[i][j].setFoodAmount(tileFood);
+			hotspotFood = prepareTile(i, j, hotspot);
+			tiles[i][j].modifyFoodAmount(hotspotFood);
 		}
 	}
-	this->tiles = tiles;
 }
+
+//void Simulation::generateBoardHotspot(int width, int height, int hotspotAmount) {
+//	std::vector <std::vector <Tile>> tiles;
+//	for (int i = 0; i < width; i++) {
+//		std::vector <Tile> row;
+//		for (int j = 0; j < height; j++) {
+//			Tile tileFood(i, j, 0);
+//			row.push_back(tileFood);
+//		}
+//		tiles.push_back(row);
+//	}
+//	std::vector <std::vector <int>> hotspots;
+//	for (int i = 0; i < hotspotAmount; i++) {
+//		std::vector <int> hotspot;
+//		hotspot.push_back(rand() % (width));
+//		hotspot.push_back(rand() % (height));
+//		hotspots.push_back(hotspot);
+//	}
+//	for (int i = 0; i < width; i++) {
+//		for (int j = 0; j < height; j++) {
+//			int hotspotFood = 0;
+//			int tileFood = 0;
+//			for (int k = 0; k < hotspotAmount; k++) {
+//				hotspotFood = prepareTile(k, i, j, hotspots);
+//				if (hotspotFood > tileFood) {
+//					tileFood = hotspotFood;
+//				}
+//			}
+//			tiles[i][j].setFoodAmount(tileFood);
+//		}
+//	}
+//	this->tiles = tiles;
+//}
 
 std::vector <std::vector <Tile>>& Simulation::getTilesRef() {
 	return tiles;
@@ -380,8 +404,8 @@ int Simulation::prepareTile() const {
 	}
 }
 
-int Simulation::prepareTile(int k, int i, int j, std::vector <std::vector <int>> hotspots) const {
-	int kolo = (i - hotspots[k][0]) * (i - hotspots[k][0]) + (j - hotspots[k][1]) * (j - hotspots[k][1]);
+int Simulation::prepareTile(int i, int j, std::vector <int> hotspot) const {
+	int kolo = (i - hotspot[0]) * (i - hotspot[0]) + (j - hotspot[1]) * (j - hotspot[1]);
 	if (kolo <= 48) {
 		return 3;
 	} else if (kolo <= 80 && kolo > 48) {

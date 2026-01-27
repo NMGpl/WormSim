@@ -29,6 +29,8 @@ class Graphics {
 	void drawWormPath(Worm& worm);
 	void generateWormBoxRandom();
 	void generateWormBoxHotspot();
+	void addFoodRandom();
+	void addFoodHotspot();
 	void drawWorm(int x, int y, int size) const;
 	void drawEgg(int x, int y, int size) const;
 	void drawTiles(const int startX, const int startY, const int width, const int height, const int size) const;

@@ -155,10 +155,12 @@ void Graphics::drawButtons() {
 					config.setMaxProductivity(value);
 					break;
 				case RANDOMGEN:
-					generateWormBoxRandom();
+					//generateWormBoxRandom();
+					addFoodRandom();
 					break;
 				case HOTSPOTGEN:
-					generateWormBoxHotspot();
+					//generateWormBoxHotspot();
+					addFoodHotspot();
 					break;
 				case RANDOMWORM:
 					simulation.addWorm(1);
@@ -342,8 +344,16 @@ void Graphics::generateWormBoxRandom() {
 	simulation.generateBoardRandom(config.getWidth(), config.getHeight());
 }
 
+void Graphics::addFoodRandom() {
+	simulation.addFoodRandom(config.getWidth(), config.getHeight());
+}
+
 void Graphics::generateWormBoxHotspot() {
-	simulation.generateBoardHotspot(config.getWidth(), config.getHeight(), 15);
+	//simulation.generateBoardHotspot(config.getWidth(), config.getHeight(), 15);
+}
+
+void Graphics::addFoodHotspot() {
+	simulation.addFoodHotspot(config.getWidth(), config.getHeight());
 }
 
 void Graphics::drawWormBox() const {
