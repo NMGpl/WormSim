@@ -272,7 +272,7 @@ void Simulation::wormsPathfind(Worm& worm, int distance) {
 							nextMove[1] >= config.getHeight() || 
 							food[0] >= config.getWidth() || 
 							food[1] >= config.getHeight() || 
-							!tiles[nextMove[0]][nextMove[1]].isFree() || //????
+							!tiles[nextMove[0]][nextMove[1]].isFree() ||
 							!tiles[food[0]][food[1]].isFree()) {
 			passMovement(worm, distance);
 		}
@@ -283,9 +283,7 @@ void Simulation::passMovement(Worm& worm, int distance) {
 	std::vector <int> foodTile = searchFood(worm.getHeadX(), worm.getHeadY(), distance);
 	std::vector <int> wormPos = { worm.getHeadX(), worm.getHeadY() };
 	std::vector <std::vector <int>> movement = findMovement(wormPos, foodTile);
-	//if (!movement.empty()) {
-		worm.setMovement(movement);
-	//}
+	worm.setMovement(movement);
 }
 
 std::vector <std::vector <int>> Simulation::findMovement(std::vector <int> wormPos, std::vector <int> foodTile) {
@@ -424,7 +422,6 @@ void Simulation::resizeBoard() {
 		config.setHeight(boardHeight * 10);
 	}
 
-	//tiles.resize(newWidth, newTile);
 	tiles.resize(newWidth);
 	for (std::vector <Tile>& row : tiles) {
 		row.resize(newHeight, newTile);
@@ -447,13 +444,11 @@ void Simulation::deleteOutOfBounds() {
 
 	auto newEnd = std::remove_if(worms.begin(), worms.end(), [maxWidth, maxHeight](Worm worm) {
 		bool bodyOutOfBounds = false;
-		//if (worm.getSize() > 0) {
-			for (auto segment : worm.getSegments()) {
-				if (segment[0] >= maxWidth || segment[1] >= maxHeight) {
-					bodyOutOfBounds = true;
-				}
+		for (auto segment : worm.getSegments()) {
+			if (segment[0] >= maxWidth || segment[1] >= maxHeight) {
+				bodyOutOfBounds = true;
 			}
-		//}
+		}
 		return worm.getHeadX() >= maxWidth || worm.getHeadY() >= maxHeight || bodyOutOfBounds;
 		});
 	worms.erase(newEnd, worms.end());

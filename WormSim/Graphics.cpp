@@ -254,22 +254,22 @@ void Graphics::drawInputs() {
 		if (manager.isMouseOver(x, y, width, height)) {
 			input.setColor(RED);
 			if (manager.isLShiftClicked() && manager.isLMouseClicked()) {
-				if (value + 10 > 950 && input.getId() == 6) {
-					input.setValue(950);
+				if (value + 10 > 475 && input.getId() == 6) {
+					input.setValue(475);
 				}
-				else if (value + 10 > 670 && input.getId() == 7) {
-					input.setValue(670);
+				else if (value + 10 > 335 && input.getId() == 7) {
+					input.setValue(335);
 				}
 				else {
 					input.setValue(value + 10);
 				}
 			}
 			else if (manager.isLMouseClicked()) {
-				if (value + 1 > 950 && input.getId() == 6) {
-					input.setValue(950);
+				if (value + 1 > 475 && input.getId() == 6) {
+					input.setValue(475);
 				}
-				else if (value + 1 > 670 && input.getId() == 7) {
-					input.setValue(670);
+				else if (value + 1 > 335 && input.getId() == 7) {
+					input.setValue(335);
 				}
 				else {
 					input.setValue(value + 1);

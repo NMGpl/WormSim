@@ -73,10 +73,10 @@ std::vector <std::vector <int>> AStar::findMovement() const {
 			return movement;
 		}
 
-		std::vector <Node*> neighbours = getNeighbours(pCurrent, nodes);			//Najwolniejsza funkcja siwata 2
+		std::vector <Node*> neighbours = getNeighbours(pCurrent, nodes);
 		for (Node* neighbour : neighbours) {
 			if (!neighbour->isProcessed()) {
-			//if (!containsNode(processed, neighbour)) {							//Najwolniejsza funkcja œwiata
+			//if (!containsNode(processed, neighbour)) {
 			//	bool inSearch = containsNode(toSearch, neighbour);
 			bool inSearch = neighbour->isToSeach();
 
