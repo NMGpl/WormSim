@@ -57,6 +57,7 @@ public:
 	//void generateBoardHotspot(int width, int height, int hotspotAmount);+
 	void addFoodRandom(int width, int height);
 	void addFoodHotspot(int width, int heigh);
+	void clearBoard(int width, int height);
 
 	void resizeBoard();
 	

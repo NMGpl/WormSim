@@ -393,11 +393,11 @@ SimulationConfig& Simulation::getConfigRef() {
 
 int Simulation::prepareTile() const {
 	int r = rand() % 100;
-	if (r <= 60) {
+	if (r <= 90) {
 		return 0;
-	} else if (r <= 75){
+	} else if (r <= 94){
 		return 1;
-	} else if (r <= 90){
+	} else if (r <= 98){
 		return 2;
 	} else {
 		return 3;
@@ -481,4 +481,12 @@ void Simulation::deleteOutOfBounds() {
 		return egg.getX() >= maxWidth || egg.getY() >= maxHeight;
 		});
 	eggs.erase(newEndd, eggs.end());
+}
+
+void Simulation::clearBoard(int width, int height) {
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {
+			tiles[i][j].setFoodAmount(0);
+		}
+	}
 }

@@ -56,29 +56,37 @@ void Graphics::prepareButtons(int startX, int startY, int width, int height) {
 	buttons.push_back(bChildren);
 	Button bProductivity(startX, startY + 200, width, height, "Sr. czas prod.");
 	buttons.push_back(bProductivity);
-	Button bGenerateRandom(startX, y - 50, 132, 30, "Losowo");
+
+	Button bGenerateRandom(startX + 10, y - 110, 122, 30, "Dosyp losowo");
 	buttons.push_back(bGenerateRandom);
-	Button bGenerateHotspot(startX + 143, y - 50, 132, 30, "Strefy");
+	Button bGenerateHotspot(startX + 143, y - 110, 122, 30, "Dosyp strefowo");
 	buttons.push_back(bGenerateHotspot);
-	Button bAddWorm(startX, startY + 240, width, height, "Losowy robak");
+
+	Button bAddWorm(startX + 10, y - 210, 254, height, "Dodaj losowego robaka");
 	buttons.push_back(bAddWorm);
-	Button bDeleteWorms(startX + 180, startY + 240, 95, height, "Wyczysc");
+
+	Button bDeleteWorms(startX + 143, y - 250, 122, height, "Usun robaki");
 	buttons.push_back(bDeleteWorms);
-	Button bSimStop(startX, startY + 280, height, height, "0");
+
+	Button bSimStop(startX, startY + 270, height, height, "0");
 	buttons.push_back(bSimStop);
-	Button bSimSpeed1(startX + height + 10, startY + 280, height, height, ">");
+	Button bSimSpeed1(startX + height + 10, startY + 270, height, height, ">");
 	buttons.push_back(bSimSpeed1);
-	Button bSimSpeed2(startX + 2 * height + 20, startY + 280, height, height, ">>");
+	Button bSimSpeed2(startX + 2 * height + 20, startY + 270, height, height, ">>");
 	buttons.push_back(bSimSpeed2);
-	Button bSimSpeed3(startX + 3 * height + 30, startY + 280, height, height, ">>>");
+	Button bSimSpeed3(startX + 3 * height + 30, startY + 270, height, height, ">>>");
 	buttons.push_back(bSimSpeed3);
-	Button bPlaceWorm(startX, y - 230, 132, 30, "Postaw robaka");
+	Button bPlaceWorm(startX + 10, y - 250, 122, 30, "Postaw robaka");
 	buttons.push_back(bPlaceWorm);
-	Button bPlaceFood(startX + 143, y - 230, 132, 30, "Postaw jedzenie");
+	
+	Button bPlaceFood(startX + 10, y - 150, 122, 30, "Postaw jedzenie");
 	buttons.push_back(bPlaceFood);
-	Button bConfirm(startX + 10, 420, 254, 30, "Potwierdz");
+
+	Button bConfirm(startX + 10, 410, 254, 30, "Zastosuj");
 	buttons.push_back(bConfirm);
 
+	Button bClearFood(startX + 143, y - 150, 122, 30, "Wyczysc jedzenie");
+	buttons.push_back(bClearFood);
 }
 
 void Graphics::prepareInputs(int startX, int startY, int width, int height) {
@@ -108,7 +116,7 @@ void Graphics::prepareInputs(int startX, int startY, int width, int height) {
 		inputs.push_back(input);
 		startY += 40;
 	}
-	startY += 90;
+	startY += 80;
 	startX -= 145;
 	Input iWidth(startX, startY, width, height, config.getWidth(), 6);
 	inputs.push_back(iWidth);
@@ -190,16 +198,31 @@ void Graphics::drawButtons() {
 					config.setWormOnMouse(false);
 					break;
 				case CONFIRM:
-					int newWidth = inputs[6].getValue();
-					config.setBoardWidth(newWidth);
-					int newHeight = inputs[7].getValue();
-					config.setBoardHeight(newHeight);
+					config.setBoardWidth(inputs[6].getValue());
+					config.setBoardHeight(inputs[7].getValue());
 					simulation.resizeBoard();
+					break;
+				case CLEARFOOD:
+					simulation.clearBoard(config.getWidth(), config.getHeight());
+					break;
+				case SAVECHANGES:
+					//TODO
+					break;
+				case DISCARDCHANGES:
+					//TODO
+					break;
 				}
 			}
 		} else button.setColor(WHITE);
 		button.draw();
 	}
+	DrawRectangleLines(x - 295, y - 260, 275, 90, WHITE);
+	DrawRectangle(x - 163 - (MeasureText("Kontrola robakow", 15) / 2), y - 267, MeasureText("Kontrola robakow", 15) + 6, 15, BLACK);
+	DrawText("Kontrola robakow", x - 160 - (MeasureText("Kontrola robakow", 15) / 2), y - 267, 15, WHITE);
+
+	DrawRectangleLines(x - 295, y - 160, 275, 90, WHITE);
+	DrawRectangle(x - 163 - (MeasureText("Kontrola jedzenia", 15) / 2), y - 167, MeasureText("Kontrola jedzenia", 15) + 6, 15, BLACK);
+	DrawText("Kontrola jedzenia", x - 160 - (MeasureText("Kontrola jedzenia", 15) / 2), y - 167, 15, WHITE);
 }
 
 void Graphics::drawWormOnMouse() {
@@ -235,7 +258,7 @@ void Graphics::drawFoodOnMouse() {
 			Rectangle rect = { mouseX - 1, mouseY - 1, size + 2, size + 2 };
 			DrawRectangleLinesEx(rect, 2, PINK);
 			if (manager.isLMousePressed() && manager.isLShiftClicked()) {
-				simulation.addFood(1, offsetX, offsetY);
+				simulation.addFood(3, offsetX, offsetY);
 			} else if (manager.isLMouseClicked()) {
 				simulation.addFood(1, offsetX, offsetY);
 			}
@@ -305,34 +328,28 @@ void Graphics::drawInputs() {
 }
 
 void Graphics::drawSizeFrame() {
-	DrawRectangleLines(x - 295, 370, 275, 90, WHITE);
-	DrawText("><:", x - 285, 380, 20, WHITE);
-	DrawText("Y:", x - 150, 380, 20, WHITE);
+	DrawRectangleLines(x - 295, 360, 275, 90, WHITE);
+	DrawRectangle(x - 163 - (MeasureText("Wielkosc planszy", 15) / 2), 353, MeasureText("Wielkosc planszy", 15) + 6, 15, BLACK);
+	DrawText("Wielkosc planszy", x - 160 - (MeasureText("Wielkosc planszy", 15) / 2), 353, 15, WHITE);
+	DrawText("><:", x - 285, 370, 20, WHITE);
+	DrawText("Y:", x - 150, 370, 20, WHITE);
 }
 
 void Graphics::drawInfo() {
 	const int startX = x - 295;
-	const int startY = y - 190;
+	const int startY = y - 60;
 
-	DrawRectangleLines(startX, startY, 275, 130, WHITE);
+	DrawRectangleLines(startX, startY, 275, 40, WHITE);
 	int x = startX + 5;
 	int y = startY + 5;
 
-	drawInfoLine("Ilosc robakow: ", std::to_string(simulation.getWorms().size()), x, y);
+	drawInfoLine("Ilosc zywych robakow: ", std::to_string(simulation.getWorms().size()), x, y);
 	y += 15;
 	drawInfoLine("Ilosc martwych robakow: ", std::to_string(simulation.getDeadWorms()), x, y);
-	y += 15;
-	drawInfoLine("Regeneracja podloza: ", std::to_string(config.getRegenSpeed()), x, y);
-	y += 15;
-	drawInfoLine("Odpornosc na glod: ", std::to_string(config.getMaxHunger()), x, y);
-	y += 15;
-	drawInfoLine("Maksymalna wielkosc: ", std::to_string(config.getMaxSize()), x, y);
-	y += 15;
-	drawInfoLine("Sredni czas zycia: ", std::to_string(config.getMaxAge()), x, y);
-	y += 15;
-	drawInfoLine("Ilosc mlodych: ", std::to_string(config.getNewWormsAmount()), x, y);
-	y += 15;
-	drawInfoLine("Sr. cz. produktywnosci:", std::to_string(config.getMaxProductivity()), x, y);
+
+	
+	DrawRectangle(x + 97, y - 27, MeasureText("Statystyki", 15) + 6, 15, BLACK);
+	DrawText("Statystyki", x + 100, y - 27, 15, WHITE);
 }
 
 void Graphics::drawInfoLine(const std::string& label, const std::string& value, int x, int y) {
