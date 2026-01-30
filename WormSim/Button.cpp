@@ -1,8 +1,6 @@
 #include "Button.h"
 
-int Button::nextID = 0;
-
-Button::Button(int x, int y, int width, int height, std::string str, Color color) : id(nextID++) {
+Button::Button(int x, int y, int width, int height, std::string str, int id, Color color) : id(id) {
 	this->x = x;
 	this->y = y;
 	this->width = width;
@@ -13,9 +11,10 @@ Button::Button(int x, int y, int width, int height, std::string str, Color color
 
 void Button::draw() const {
 	int size = 30;
+	float dY = 0;
 	DrawRectangleLines(x, y, width, height, color);
-	for (size; MeasureText(buttonName.c_str(), size) >= width; size--);
-	DrawText(buttonName.c_str(), x + (width / 2) - (MeasureText(buttonName.c_str(), size) / 2), y, size, WHITE);
+	for (size; MeasureText(buttonName.c_str(), size) >= width; size--, dY += 0.5);
+	DrawText(buttonName.c_str(), x + (width / 2) - (MeasureText(buttonName.c_str(), size) / 2), y + dY, size, WHITE);
 }
 
 int Button::getX() const {

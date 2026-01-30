@@ -6,16 +6,25 @@ Input::Input(int x, int y, int width, int height, int value, int id) {
 	this->width = width;
 	this->height = height;
 	color = WHITE;
-	this->value = value;
+	this->activeValue = value;
 	this->id = id;
+	this->value = activeValue;
 }
 
 void Input::draw() const {
-	int size = 30;
+	int size = 24;
 	std::string strValue = std::to_string(value);
-	DrawRectangleLines(x, y, width, height, color);
 	for (size; MeasureText(strValue.c_str(), size) >= width; size--);
-	DrawText(strValue.c_str(), x + (width / 2) - (MeasureText(strValue.c_str(), size) / 2), y, size, WHITE);
+
+	if (value != activeValue) {
+		DrawRectangle(x, y, width, height, ColorFromHSV(360, 0.97, 0.43));
+		DrawRectangleLines(x, y, width, height, color);
+		DrawText(strValue.c_str(), x + (width / 2) - (MeasureText(strValue.c_str(), size) / 2), y, size, ColorFromHSV(360, 0.25, 1));
+	}
+	else {
+		DrawRectangleLines(x, y, width, height, color);
+		DrawText(strValue.c_str(), x + (width / 2) - (MeasureText(strValue.c_str(), size) / 2), y, size, WHITE);
+	}
 }
 
 int Input::getX() const {
@@ -37,6 +46,10 @@ int Input::getId() const {
 
 void Input::setColor(Color color) {
 	this->color = color;
+}
+
+void Input::setActiveValue(int value) {
+	this->activeValue = value;
 }
 
 int Input::getValue() const {

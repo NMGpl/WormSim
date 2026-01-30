@@ -7,11 +7,10 @@ class Button {
 	int width, height;
 	bool state;
 	int id;
-	static int nextID;
 	Color color, bgColor;
 	std::string buttonName;
 public:
-	Button(int x, int y, int width, int height, std::string str, Color color = WHITE);
+	Button(int x, int y, int width, int height, std::string str, int id, Color color = WHITE);
 	void draw() const;
 	void setColor(Color color);
 

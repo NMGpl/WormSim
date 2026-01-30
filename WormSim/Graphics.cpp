@@ -11,8 +11,8 @@ Graphics::Graphics(Simulation& simulation, int x, int y) :
 {
 	this->x = x;
 	this->y = y;
-	prepareButtons(985, 50, 170, 30);
-	prepareInputs(1165, 50, 95, 30);
+	prepareButtons(985, 50, 122, 30);
+	prepareInputs(1165, 50 + 10, 122, 20);
 	generateWormBoxRandom();
 	// Tell the window to use vsync and work on high DPI displays
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
@@ -44,49 +44,55 @@ void Graphics::drawMenu() {
 }
 
 void Graphics::prepareButtons(int startX, int startY, int width, int height) {
-	Button bRegen(startX, startY, width, height, "Reg. podloza");
-	buttons.push_back(bRegen);
-	Button bHunger(startX, startY + 40, width, height, "Odpornosc na glod");
-	buttons.push_back(bHunger);
-	Button bSize(startX, startY + 80, width, height, "Maks. wielkosc");
-	buttons.push_back(bSize);
-	Button bLifespan(startX, startY + 120, width, height, "Sr. czas zycia");
-	buttons.push_back(bLifespan);
-	Button bChildren(startX, startY + 160, width, height, "Ilosc mlodych");
-	buttons.push_back(bChildren);
-	Button bProductivity(startX, startY + 200, width, height, "Sr. czas prod.");
-	buttons.push_back(bProductivity);
+	//Button bRegen(startX + 10, startY + 10, width, height, "Reg. podloza", 0);
+	//buttons.push_back(bRegen);
+	//Button bHunger(startX + 10, startY + 50, width, height, "Odpornosc na glod", 1);
+	//buttons.push_back(bHunger);
+	//Button bSize(startX + 10, startY + 90, width, height, "Maks. wielkosc", 2);
+	//buttons.push_back(bSize);
+	//Button bLifespan(startX + 10, startY + 130, width, height, "Sr. czas zycia", 3);
+	//buttons.push_back(bLifespan);
+	//Button bChildren(startX + 10, startY + 170, width, height, "Ilosc mlodych", 4);
+	//buttons.push_back(bChildren);
+	//Button bProductivity(startX + 10, startY + 210, width, height, "Sr. czas prod.", 5);
+	//buttons.push_back(bProductivity);
 
-	Button bGenerateRandom(startX + 10, y - 110, 122, 30, "Dosyp losowo");
+	Button bGenerateRandom(startX + 10, y - 110, 122, 30, "Dosyp losowo", 6);
 	buttons.push_back(bGenerateRandom);
-	Button bGenerateHotspot(startX + 143, y - 110, 122, 30, "Dosyp strefowo");
+	Button bGenerateHotspot(startX + 143, y - 110, 122, 30, "Dosyp strefowo", 7);
 	buttons.push_back(bGenerateHotspot);
 
-	Button bAddWorm(startX + 10, y - 210, 254, height, "Dodaj losowego robaka");
+	Button bAddWorm(startX + 10, y - 210, 254, height, "Dodaj losowego robaka", 8);
 	buttons.push_back(bAddWorm);
 
-	Button bDeleteWorms(startX + 143, y - 250, 122, height, "Usun robaki");
+	Button bDeleteWorms(startX + 143, y - 250, 122, height, "Usun robaki", 9);
 	buttons.push_back(bDeleteWorms);
 
-	Button bSimStop(startX, startY + 270, height, height, "0");
+	Button bSimStop(startX, startY + 270, height, height, "0", 10);
 	buttons.push_back(bSimStop);
-	Button bSimSpeed1(startX + height + 10, startY + 270, height, height, ">");
+	Button bSimSpeed1(startX + height + 10, startY + 270, height, height, ">", 11);
 	buttons.push_back(bSimSpeed1);
-	Button bSimSpeed2(startX + 2 * height + 20, startY + 270, height, height, ">>");
+	Button bSimSpeed2(startX + 2 * height + 20, startY + 270, height, height, ">>", 12);
 	buttons.push_back(bSimSpeed2);
-	Button bSimSpeed3(startX + 3 * height + 30, startY + 270, height, height, ">>>");
+	Button bSimSpeed3(startX + 3 * height + 30, startY + 270, height, height, ">>>", 13);
 	buttons.push_back(bSimSpeed3);
-	Button bPlaceWorm(startX + 10, y - 250, 122, 30, "Postaw robaka");
+	Button bPlaceWorm(startX + 10, y - 250, 122, 30, "Postaw robaka", 14);
 	buttons.push_back(bPlaceWorm);
 	
-	Button bPlaceFood(startX + 10, y - 150, 122, 30, "Postaw jedzenie");
+	Button bPlaceFood(startX + 10, y - 150, 122, 30, "Postaw jedzenie", 15);
 	buttons.push_back(bPlaceFood);
 
-	Button bConfirm(startX + 10, 410, 254, 30, "Zastosuj");
+	Button bConfirm(startX + 10, 410, 254, 30, "Zastosuj", 16);
 	buttons.push_back(bConfirm);
 
-	Button bClearFood(startX + 143, y - 150, 122, 30, "Wyczysc jedzenie");
+	Button bClearFood(startX + 143, y - 150, 122, 30, "Wyczysc jedzenie", 17);
 	buttons.push_back(bClearFood);
+
+	Button bSaveChanges(startX + 10, startY + 190, 122, 30, "Zapisz zmiany", 18);
+	buttons.push_back(bSaveChanges);
+
+	Button bDiscardChanges(startX + 143, startY + 190, 122, 30, "Odrzuc zmiany", 19);
+	buttons.push_back(bDiscardChanges);
 }
 
 void Graphics::prepareInputs(int startX, int startY, int width, int height) {
@@ -112,16 +118,16 @@ void Graphics::prepareInputs(int startX, int startY, int width, int height) {
 			value = config.getMaxProductivity();
 			break;
 		}
-		Input input(startX, startY, width, height, value, i);
+		Input input(x - 30 - 2 * height, startY, 2 * height, height, value, i);
 		inputs.push_back(input);
-		startY += 40;
+		startY += 30;
 	}
-	startY += 80;
+	startY += 140;
 	startX -= 145;
-	Input iWidth(startX, startY, width, height, config.getWidth(), 6);
+	Input iWidth(startX, startY - 10, 80, height, config.getWidth(), 6);
 	inputs.push_back(iWidth);
 	startX += 135;
-	Input iHeight(startX, startY, width, height, config.getHeight(), 7);
+	Input iHeight(startX, startY - 10, 80, height, config.getHeight(), 7);
 	inputs.push_back(iHeight);
 }
 
@@ -142,80 +148,142 @@ void Graphics::drawButtons() {
 					value = inputs[0].getValue();
 					config.setRegenSpeed(value);
 					break;
+
 				case HUNGER:
 					value = inputs[1].getValue();
 					config.setMaxHunger(value);
 					break;
+
 				case SIZE:
 					value = inputs[2].getValue();
 					config.setMaxSize(value);
 					break;
+
 				case AGE:
 					value = inputs[3].getValue();
 					config.setMaxAge(value);
 					break;
+
 				case NEWWORMS:
 					value = inputs[4].getValue();
 					config.setNewWormsAmount(value);
 					break;
+
 				case PRODUCTIVITY:
 					value = inputs[5].getValue();
 					config.setMaxProductivity(value);
 					break;
+
 				case RANDOMGEN:
 					//generateWormBoxRandom();
 					addFoodRandom();
 					break;
+
 				case HOTSPOTGEN:
 					//generateWormBoxHotspot();
 					addFoodHotspot();
 					break;
+
 				case RANDOMWORM:
 					simulation.addWorm(1);
 					break;
+
 				case CLEAR:
 					simulation.deleteWorms();
 					simulation.deleteEggs();
 					break;
+
 				case PAUSE:
 					simulation.setTickTime(0);
 					break;
+
 				case PLAY1X:
 					simulation.setTickTime(1);
 					break;
+
 				case PLAY2X:
 					simulation.setTickTime(3);
 					break;
 				case PLAY3X:
 					simulation.setTickTime(6);
 					break;
+
 				case PLACEWORM:
 					config.toggleWormOnMouse();
 					config.setFoodOnMouse(false);
 					break;
+
 				case PLACEFOOD:
 					config.toggleFoodOnMouse();
 					config.setWormOnMouse(false);
 					break;
+
 				case CONFIRM:
-					config.setBoardWidth(inputs[6].getValue());
-					config.setBoardHeight(inputs[7].getValue());
+					value = inputs[6].getValue();
+					config.setBoardWidth(value);
+					inputs[6].setActiveValue(value);
+					
+					value = inputs[7].getValue();
+					config.setBoardHeight(value);
+					inputs[7].setActiveValue(value);
+					
 					simulation.resizeBoard();
 					break;
+
 				case CLEARFOOD:
 					simulation.clearBoard(config.getWidth(), config.getHeight());
 					break;
+
 				case SAVECHANGES:
-					//TODO
+					value = inputs[0].getValue();
+					inputs[0].setActiveValue(value);
+					config.setRegenSpeed(value);
+
+					value = inputs[1].getValue();
+					inputs[1].setActiveValue(value);
+					config.setMaxHunger(value);
+					
+					value = inputs[2].getValue();
+					inputs[2].setActiveValue(value);
+					config.setMaxSize(value);
+					
+					value = inputs[3].getValue();
+					inputs[3].setActiveValue(value);
+					config.setMaxAge(value);
+					
+					value = inputs[4].getValue();
+					inputs[4].setActiveValue(value);
+					config.setNewWormsAmount(value);
+					
+					value = inputs[5].getValue();
+					inputs[5].setActiveValue(value);
+					config.setMaxProductivity(value);
 					break;
+
 				case DISCARDCHANGES:
-					//TODO
+					inputs[0].setValue(config.getRegenSpeed());
+					inputs[1].setValue(config.getMaxHunger());
+					inputs[2].setValue(config.getMaxSize());
+					inputs[3].setValue(config.getMaxAge());
+					inputs[4].setValue(config.getNewWormsAmount());
+					inputs[5].setValue(config.getMaxProductivity());
 					break;
 				}
 			}
 		} else button.setColor(WHITE);
 		button.draw();
 	}
+
+	DrawRectangleLines(x - 295, 50, 275, 250, WHITE);
+	DrawRectangle(x - 163 - (MeasureText("Parametry symulacji", 15) / 2), 43, MeasureText("Parametry symulacji", 15) + 6, 15, BLACK);
+	DrawText("Parametry symulacji", x - 160 - (MeasureText("Parametry symulacji", 15) / 2), 43, 15, WHITE);
+	DrawText("Regeneracja podloza", x - 285, 60, 15, WHITE);
+	DrawText("Odpornosc na glod", x - 285, 90, 15, WHITE);
+	DrawText("Maksymalna dlugosc", x - 285, 120, 15, WHITE);
+	DrawText("Sredni czas zycia", x - 285, 150, 15, WHITE);
+	DrawText("Ilosc mlodych z jednego legu", x - 285, 180, 14, WHITE);
+	DrawText("Sredni czas produktywnosci", x - 285, 210, 14, WHITE);
+
 	DrawRectangleLines(x - 295, y - 260, 275, 90, WHITE);
 	DrawRectangle(x - 163 - (MeasureText("Kontrola robakow", 15) / 2), y - 267, MeasureText("Kontrola robakow", 15) + 6, 15, BLACK);
 	DrawText("Kontrola robakow", x - 160 - (MeasureText("Kontrola robakow", 15) / 2), y - 267, 15, WHITE);

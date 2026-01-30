@@ -5,7 +5,7 @@
 class Input {
 	int x, y;
 	int width, height;
-	int value, id;
+	int value, activeValue, id;
 	Color color;
 public:
 	Input(int x, int y, int width, int height, int value, int id);
@@ -21,5 +21,6 @@ public:
 	int getId() const;
 
 	void setValue(int value);
+	void setActiveValue(int value);
 };
 
