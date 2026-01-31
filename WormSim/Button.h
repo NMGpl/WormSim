@@ -5,14 +5,16 @@
 class Button {
 	int x, y;
 	int width, height;
-	bool state;
+	bool state, toggleable, toggled;
 	int id;
-	Color color, bgColor;
+	Color color = WHITE, bgColor = BLACK, txtColor = WHITE;
 	std::string buttonName;
 public:
-	Button(int x, int y, int width, int height, std::string str, int id, Color color = WHITE);
+	Button(int x, int y, int width, int height, std::string str, int id, bool toggleable = false, bool toggled = false);
 	void draw() const;
 	void setColor(Color color);
+	void setBgColor(Color color);
+	void setTxtColor(Color color);
 
 	int getX() const;
 	int getY() const;

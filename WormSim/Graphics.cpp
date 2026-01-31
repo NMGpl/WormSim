@@ -76,10 +76,10 @@ void Graphics::prepareButtons(int startX, int startY, int width, int height) {
 	buttons.push_back(bSimSpeed2);
 	Button bSimSpeed3(startX + 3 * height + 30, startY + 270, height, height, ">>>", 13);
 	buttons.push_back(bSimSpeed3);
-	Button bPlaceWorm(startX + 10, y - 250, 122, 30, "Postaw robaka", 14);
+	Button bPlaceWorm(startX + 10, y - 250, 122, 30, "Postaw robaka", 14, true, config.getWormOnMouse());
 	buttons.push_back(bPlaceWorm);
 	
-	Button bPlaceFood(startX + 10, y - 150, 122, 30, "Postaw jedzenie", 15);
+	Button bPlaceFood(startX + 10, y - 150, 122, 30, "Postaw jedzenie", 15, true, config.getFoodOnMouse());
 	buttons.push_back(bPlaceFood);
 
 	Button bConfirm(startX + 10, 410, 254, 30, "Zastosuj", 16);
@@ -144,137 +144,162 @@ void Graphics::drawButtons() {
 			ButtonEnum e = static_cast <ButtonEnum> (button.getID());	//ID buttona na enum
 			if (manager.isLMouseClicked()) {
 				switch (e) {
-				case REGEN:
-					value = inputs[0].getValue();
-					config.setRegenSpeed(value);
-					break;
+					case REGEN:
+						value = inputs[0].getValue();
+						config.setRegenSpeed(value);
+						break;
 
-				case HUNGER:
-					value = inputs[1].getValue();
-					config.setMaxHunger(value);
-					break;
+					case HUNGER:
+						value = inputs[1].getValue();
+						config.setMaxHunger(value);
+						break;
 
-				case SIZE:
-					value = inputs[2].getValue();
-					config.setMaxSize(value);
-					break;
+					case SIZE:
+						value = inputs[2].getValue();
+						config.setMaxSize(value);
+						break;
 
-				case AGE:
-					value = inputs[3].getValue();
-					config.setMaxAge(value);
-					break;
+					case AGE:
+						value = inputs[3].getValue();
+						config.setMaxAge(value);
+						break;
 
-				case NEWWORMS:
-					value = inputs[4].getValue();
-					config.setNewWormsAmount(value);
-					break;
+					case NEWWORMS:
+						value = inputs[4].getValue();
+						config.setNewWormsAmount(value);
+						break;
 
-				case PRODUCTIVITY:
-					value = inputs[5].getValue();
-					config.setMaxProductivity(value);
-					break;
+					case PRODUCTIVITY:
+						value = inputs[5].getValue();
+						config.setMaxProductivity(value);
+						break;
 
-				case RANDOMGEN:
-					//generateWormBoxRandom();
-					addFoodRandom();
-					break;
+					case RANDOMGEN:
+						//generateWormBoxRandom();
+						addFoodRandom();
+						break;
 
-				case HOTSPOTGEN:
-					//generateWormBoxHotspot();
-					addFoodHotspot();
-					break;
+					case HOTSPOTGEN:
+						//generateWormBoxHotspot();
+						addFoodHotspot();
+						break;
 
-				case RANDOMWORM:
-					simulation.addWorm(1);
-					break;
+					case RANDOMWORM:
+						simulation.addWorm(1);
+						break;
 
-				case CLEAR:
-					simulation.deleteWorms();
-					simulation.deleteEggs();
-					break;
+					case CLEAR:
+						simulation.deleteWorms();
+						simulation.deleteEggs();
+						break;
 
-				case PAUSE:
-					simulation.setTickTime(0);
-					break;
+					case PAUSE:
+						simulation.setTickTime(0);
+						break;
 
-				case PLAY1X:
-					simulation.setTickTime(1);
-					break;
+					case PLAY1X:
+						simulation.setTickTime(1);
+						break;
 
-				case PLAY2X:
-					simulation.setTickTime(3);
-					break;
-				case PLAY3X:
-					simulation.setTickTime(6);
-					break;
+					case PLAY2X:
+						simulation.setTickTime(3);
+						break;
+					case PLAY3X:
+						simulation.setTickTime(6);
+						break;
 
-				case PLACEWORM:
-					config.toggleWormOnMouse();
-					config.setFoodOnMouse(false);
-					break;
+					case PLACEWORM:
+						config.setWormOnMouse(true);
+						config.setFoodOnMouse(false);
 
-				case PLACEFOOD:
-					config.toggleFoodOnMouse();
-					config.setWormOnMouse(false);
-					break;
+						buttons[8].setBgColor(WHITE);
+						buttons[8].setTxtColor(BLACK);
+						buttons[9].setBgColor(BLACK);
+						buttons[9].setTxtColor(WHITE);
+						break;
 
-				case CONFIRM:
-					value = inputs[6].getValue();
-					config.setBoardWidth(value);
-					inputs[6].setActiveValue(value);
+					case PLACEFOOD:
+						config.setFoodOnMouse(true);
+						config.setWormOnMouse(false);
+
+						buttons[9].setBgColor(WHITE);
+						buttons[9].setTxtColor(BLACK);
+						buttons[8].setBgColor(BLACK);
+						buttons[8].setTxtColor(WHITE);
+						break;
+
+					case CONFIRM:
+						value = inputs[6].getValue();
+						config.setBoardWidth(value);
+						inputs[6].setActiveValue(value);
 					
-					value = inputs[7].getValue();
-					config.setBoardHeight(value);
-					inputs[7].setActiveValue(value);
+						value = inputs[7].getValue();
+						config.setBoardHeight(value);
+						inputs[7].setActiveValue(value);
 					
-					simulation.resizeBoard();
-					break;
+						simulation.resizeBoard();
+						break;
 
-				case CLEARFOOD:
-					simulation.clearBoard(config.getWidth(), config.getHeight());
-					break;
+					case CLEARFOOD:
+						simulation.clearBoard(config.getWidth(), config.getHeight());
+						break;
 
-				case SAVECHANGES:
-					value = inputs[0].getValue();
-					inputs[0].setActiveValue(value);
-					config.setRegenSpeed(value);
+					case SAVECHANGES:
+						value = inputs[0].getValue();
+						inputs[0].setActiveValue(value);
+						config.setRegenSpeed(value);
 
-					value = inputs[1].getValue();
-					inputs[1].setActiveValue(value);
-					config.setMaxHunger(value);
+						value = inputs[1].getValue();
+						inputs[1].setActiveValue(value);
+						config.setMaxHunger(value);
 					
-					value = inputs[2].getValue();
-					inputs[2].setActiveValue(value);
-					config.setMaxSize(value);
+						value = inputs[2].getValue();
+						inputs[2].setActiveValue(value);
+						config.setMaxSize(value);
 					
-					value = inputs[3].getValue();
-					inputs[3].setActiveValue(value);
-					config.setMaxAge(value);
+						value = inputs[3].getValue();
+						inputs[3].setActiveValue(value);
+						config.setMaxAge(value);
 					
-					value = inputs[4].getValue();
-					inputs[4].setActiveValue(value);
-					config.setNewWormsAmount(value);
+						value = inputs[4].getValue();
+						inputs[4].setActiveValue(value);
+						config.setNewWormsAmount(value);
 					
-					value = inputs[5].getValue();
-					inputs[5].setActiveValue(value);
-					config.setMaxProductivity(value);
-					break;
+						value = inputs[5].getValue();
+						inputs[5].setActiveValue(value);
+						config.setMaxProductivity(value);
+						break;
 
-				case DISCARDCHANGES:
-					inputs[0].setValue(config.getRegenSpeed());
-					inputs[1].setValue(config.getMaxHunger());
-					inputs[2].setValue(config.getMaxSize());
-					inputs[3].setValue(config.getMaxAge());
-					inputs[4].setValue(config.getNewWormsAmount());
-					inputs[5].setValue(config.getMaxProductivity());
-					break;
+					case DISCARDCHANGES:
+						inputs[0].setValue(config.getRegenSpeed());
+						inputs[1].setValue(config.getMaxHunger());
+						inputs[2].setValue(config.getMaxSize());
+						inputs[3].setValue(config.getMaxAge());
+						inputs[4].setValue(config.getNewWormsAmount());
+						inputs[5].setValue(config.getMaxProductivity());
+						break;
+				}
+
+			}
+			if (button.getID() != 14 && button.getID() != 15) {
+				if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+					button.setBgColor(WHITE);
+					button.setTxtColor(BLACK);
+				}
+				if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
+					button.setBgColor(BLACK);
+					button.setTxtColor(WHITE);
 				}
 			}
-		} else button.setColor(WHITE);
+		}
+		else {
+			button.setColor(WHITE);
+			
+		}
 		button.draw();
 	}
 
-	DrawRectangleLines(x - 295, 50, 275, 250, WHITE);
+	DrawRectangleLines(x - 295, 50, 275, 230, WHITE);
 	DrawRectangle(x - 163 - (MeasureText("Parametry symulacji", 15) / 2), 43, MeasureText("Parametry symulacji", 15) + 6, 15, BLACK);
 	DrawText("Parametry symulacji", x - 160 - (MeasureText("Parametry symulacji", 15) / 2), 43, 15, WHITE);
 	DrawText("Regeneracja podloza", x - 285, 60, 15, WHITE);
@@ -283,6 +308,10 @@ void Graphics::drawButtons() {
 	DrawText("Sredni czas zycia", x - 285, 150, 15, WHITE);
 	DrawText("Ilosc mlodych z jednego legu", x - 285, 180, 14, WHITE);
 	DrawText("Sredni czas produktywnosci", x - 285, 210, 14, WHITE);
+
+	DrawRectangleLines(x - 295, 290, 275, 60, WHITE);
+	DrawRectangle(x - 163 - (MeasureText("Predkosc symulacji", 15) / 2), 283, MeasureText("Predkosc symulacji", 15) + 6, 15, BLACK);
+	DrawText("Predkosc symulacji", x - 160 - (MeasureText("Predkosc symulacji", 15) / 2), 283, 15, WHITE);
 
 	DrawRectangleLines(x - 295, y - 260, 275, 90, WHITE);
 	DrawRectangle(x - 163 - (MeasureText("Kontrola robakow", 15) / 2), y - 267, MeasureText("Kontrola robakow", 15) + 6, 15, BLACK);
@@ -309,9 +338,6 @@ void Graphics::drawWormOnMouse() {
 				simulation.addWorm(1, offsetX, offsetY);
 			}
 		}
-		if (manager.isRMouseClicked()) {
-			config.setWormOnMouse(false);
-		}
 	}
 }
 
@@ -330,9 +356,6 @@ void Graphics::drawFoodOnMouse() {
 			} else if (manager.isLMouseClicked()) {
 				simulation.addFood(1, offsetX, offsetY);
 			}
-		}
-		if (manager.isRMouseClicked()) {
-			config.setFoodOnMouse(false);
 		}
 	}
 }

@@ -9,7 +9,7 @@ SimulationConfig::SimulationConfig(int maxAge, int maxHunger, int maxSize, int r
 	this->newWormsAmount = newWormsAmount;
 	this->width = width;
 	this->height = height;
-	this->wormOnMouse = false;
+	this->wormOnMouse = true;
 	this->foodOnMouse = false;
 }
 
