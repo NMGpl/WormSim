@@ -68,14 +68,14 @@ void Graphics::prepareButtons(int startX, int startY, int width, int height) {
 	Button bDeleteWorms(startX + 143, y - 250, 122, height, "Usun robaki", 9);
 	buttons.push_back(bDeleteWorms);
 
-	Button bSimStop(startX, startY + 270, height, height, "0", 10);
-	buttons.push_back(bSimStop);
-	Button bSimSpeed1(startX + height + 10, startY + 270, height, height, ">", 11);
-	buttons.push_back(bSimSpeed1);
-	Button bSimSpeed2(startX + 2 * height + 20, startY + 270, height, height, ">>", 12);
-	buttons.push_back(bSimSpeed2);
-	Button bSimSpeed3(startX + 3 * height + 30, startY + 270, height, height, ">>>", 13);
-	buttons.push_back(bSimSpeed3);
+	Button bSimSubZero(startX + 10, startY + 250, height, height, "-0.1", 10);
+	buttons.push_back(bSimSubZero);
+	Button bSimSubOne(startX + height + 20, startY + 250, height, height, "-1.0", 11);
+	buttons.push_back(bSimSubOne);
+	Button bSimAddOne(startX + 275 - 2 * height - 20, startY + 250, height, height, "+1.0", 12);
+	buttons.push_back(bSimAddOne);
+	Button bSimAddZero(startX + 275 - height - 10, startY + 250, height, height, "+0.1", 13);
+	buttons.push_back(bSimAddZero);
 	Button bPlaceWorm(startX + 10, y - 250, 122, 30, "Postaw robaka", 14, true, config.getWormOnMouse());
 	buttons.push_back(bPlaceWorm);
 	
@@ -93,6 +93,9 @@ void Graphics::prepareButtons(int startX, int startY, int width, int height) {
 
 	Button bDiscardChanges(startX + 143, startY + 190, 122, 30, "Odrzuc zmiany", 19);
 	buttons.push_back(bDiscardChanges);
+
+	Button bPause(startX + 2 * height + 30, startY + 280, 3 * height + 5, height * 0.75, "Zatrzymaj", 20, true, false, 20);
+	buttons.push_back(bPause);
 }
 
 void Graphics::prepareInputs(int startX, int startY, int width, int height) {
@@ -122,7 +125,7 @@ void Graphics::prepareInputs(int startX, int startY, int width, int height) {
 		inputs.push_back(input);
 		startY += 30;
 	}
-	startY += 140;
+	startY += 150;
 	startX -= 145;
 	Input iWidth(startX, startY - 10, 80, height, config.getWidth(), 6);
 	inputs.push_back(iWidth);
@@ -193,39 +196,47 @@ void Graphics::drawButtons() {
 						simulation.deleteEggs();
 						break;
 
-					case PAUSE:
-						simulation.setTickTime(0);
+					case SUBZERO:
+						config.addTickTime(-0.1);
+						simulation.updateTickTime();
 						break;
 
-					case PLAY1X:
-						simulation.setTickTime(1);
+					case SUBONE:
+						config.addTickTime(-1);
+						simulation.updateTickTime();
 						break;
 
-					case PLAY2X:
-						simulation.setTickTime(3);
+					case ADDONE:
+						config.addTickTime(1);
+						simulation.updateTickTime();
 						break;
-					case PLAY3X:
-						simulation.setTickTime(6);
+					case ADDZERO:
+						config.addTickTime(0.1);
+						simulation.updateTickTime();
 						break;
 
 					case PLACEWORM:
 						config.setWormOnMouse(true);
 						config.setFoodOnMouse(false);
 
-						buttons[8].setBgColor(WHITE);
-						buttons[8].setTxtColor(BLACK);
-						buttons[9].setBgColor(BLACK);
-						buttons[9].setTxtColor(WHITE);
+						/*buttons[8].setBgColor(WHITE);
+						buttons[8].setTxtColor(BLACK);*/
+						buttons[8].setToggle(true);
+						/*buttons[9].setBgColor(BLACK);
+						buttons[9].setTxtColor(WHITE);*/
+						buttons[9].setToggle(false);
 						break;
 
 					case PLACEFOOD:
 						config.setFoodOnMouse(true);
 						config.setWormOnMouse(false);
+						buttons[9].setToggle(true);
+						buttons[8].setToggle(false);
 
-						buttons[9].setBgColor(WHITE);
+						/*buttons[9].setBgColor(WHITE);
 						buttons[9].setTxtColor(BLACK);
 						buttons[8].setBgColor(BLACK);
-						buttons[8].setTxtColor(WHITE);
+						buttons[8].setTxtColor(WHITE);*/
 						break;
 
 					case CONFIRM:
@@ -278,6 +289,10 @@ void Graphics::drawButtons() {
 						inputs[4].setValue(config.getNewWormsAmount());
 						inputs[5].setValue(config.getMaxProductivity());
 						break;
+
+					case PAUSE:
+						simulation.togglePause();
+						buttons[14].toggle();
 				}
 
 			}
@@ -309,10 +324,12 @@ void Graphics::drawButtons() {
 	DrawText("Ilosc mlodych z jednego legu", x - 285, 180, 14, WHITE);
 	DrawText("Sredni czas produktywnosci", x - 285, 210, 14, WHITE);
 
-	DrawRectangleLines(x - 295, 290, 275, 60, WHITE);
+	DrawRectangleLines(x - 295, 290, 275, 70, WHITE);
 	DrawRectangle(x - 163 - (MeasureText("Predkosc symulacji", 15) / 2), 283, MeasureText("Predkosc symulacji", 15) + 6, 15, BLACK);
 	DrawText("Predkosc symulacji", x - 160 - (MeasureText("Predkosc symulacji", 15) / 2), 283, 15, WHITE);
-
+	std::string speed = std::format("{:.1f}", config.getTickTime());
+	DrawText(speed.c_str(), x - 157 - (MeasureText(speed.c_str(), 20) / 2), 305, 20, WHITE);
+	
 	DrawRectangleLines(x - 295, y - 260, 275, 90, WHITE);
 	DrawRectangle(x - 163 - (MeasureText("Kontrola robakow", 15) / 2), y - 267, MeasureText("Kontrola robakow", 15) + 6, 15, BLACK);
 	DrawText("Kontrola robakow", x - 160 - (MeasureText("Kontrola robakow", 15) / 2), y - 267, 15, WHITE);
@@ -419,11 +436,11 @@ void Graphics::drawInputs() {
 }
 
 void Graphics::drawSizeFrame() {
-	DrawRectangleLines(x - 295, 360, 275, 90, WHITE);
-	DrawRectangle(x - 163 - (MeasureText("Wielkosc planszy", 15) / 2), 353, MeasureText("Wielkosc planszy", 15) + 6, 15, BLACK);
-	DrawText("Wielkosc planszy", x - 160 - (MeasureText("Wielkosc planszy", 15) / 2), 353, 15, WHITE);
-	DrawText("><:", x - 285, 370, 20, WHITE);
-	DrawText("Y:", x - 150, 370, 20, WHITE);
+	DrawRectangleLines(x - 295, 370, 275, 80, WHITE);
+	DrawRectangle(x - 163 - (MeasureText("Wielkosc planszy", 15) / 2), 363, MeasureText("Wielkosc planszy", 15) + 6, 15, BLACK);
+	DrawText("Wielkosc planszy", x - 160 - (MeasureText("Wielkosc planszy", 15) / 2), 363, 15, WHITE);
+	DrawText("><:", x - 285, 380, 20, WHITE);
+	DrawText("Y:", x - 150, 380, 20, WHITE);
 }
 
 void Graphics::drawInfo() {

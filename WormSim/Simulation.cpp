@@ -19,11 +19,16 @@ void Simulation::simulate() {
 bool Simulation::timePassed() {
 	tickTime = getSimSpeed();
 	auto now = std::chrono::high_resolution_clock::now();
+	if (paused) {
+		lastTick = now;
+		return false;
+	}
 	if (tickTime != 0 && now - lastTick >= std::chrono::nanoseconds(tickTime)) {
 		lastTick += std::chrono::nanoseconds(tickTime);
 		return true;
-	} else if (tickTime == 0) {
-		lastTick = std::chrono::high_resolution_clock::now();
+	}
+	else if (tickTime == 0) {
+		lastTick = now;
 	}
 	return false;
 }
@@ -194,12 +199,25 @@ int Simulation::getDeadWorms() const {
 	return deadWorms;
 }
 
-void Simulation::setTickTime(int tps) {
+void Simulation::setTickTime(float tps) {
 	if (tps != 0) {
 		tickTime = 1000000000 / tps;
 	} else {
 		tickTime = tps;
 	}
+}
+
+void Simulation::updateTickTime() {
+	tickTime = 1000000000 / config.getTickTime();
+}
+
+void Simulation::addTickTime(float dTps) {
+	this->tps += dTps;
+	setTickTime(this->tps);
+}
+
+void Simulation::togglePause() {
+	this->paused = !paused;
 }
 
 int Simulation::getSimSpeed() const {

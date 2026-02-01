@@ -73,6 +73,16 @@ void SimulationConfig::setBoardHeight(int newHeight) {
 	this->height = newHeight;
 }
 
+void SimulationConfig::addTickTime(float dTps) {
+	if (tps + dTps < 0.1) tps = 0.1;
+	else if (tps + dTps > 30) tps = 30;
+	else tps += dTps;
+}
+
+float SimulationConfig::getTickTime() const {
+	return tps;
+}
+
 int SimulationConfig::getMaxHunger() const {
 	return maxHunger;
 }

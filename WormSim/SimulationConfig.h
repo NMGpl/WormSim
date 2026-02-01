@@ -6,6 +6,7 @@ class SimulationConfig{
 	const int maxHeight = 670;
 	const int startX = 10;
 	bool wormOnMouse, foodOnMouse;
+	float tps = 1;
 public:
 	SimulationConfig(int maxAge = 200, int maxHunger = 20, int maxSize = 4, int regenSpeed = 50, int maxProductivity = 175, int newWormsAmount = 2, int width = 67, int height = 67);
 	
@@ -23,7 +24,9 @@ public:
 	void toggleFoodOnMouse();
 	void setBoardWidth(int newWidth);
 	void setBoardHeight(int newHeight);
+	void addTickTime(float dTps);
 
+	float getTickTime() const;
 	int getMaxAge() const;
 	int getMaxHunger() const;
 	int getMaxSize() const;

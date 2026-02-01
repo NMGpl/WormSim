@@ -16,6 +16,8 @@ class Simulation{
 	int maxHunger = 20, maxAge = 100, maxSize = 2;
 	int boardWidth = 95, boardHeight = 67;
 	int deadWorms = 0;
+	float tps = 1;
+	bool paused = false;
 	std::vector <int> searchFood(int headX, int headY, int distance) const;
 	std::vector <int> searchClosestFood(std::vector <std::vector <int>> foodTiles, int distance, int headX, int headY) const;
 	std::vector <std::vector <int>> findMovement(std::vector <int> headPos, std::vector <int> foodTile);
@@ -61,7 +63,10 @@ public:
 
 	void resizeBoard();
 	
-	void setTickTime(int tps);
+	void togglePause();
+	void setTickTime(float tps);
+	void addTickTime(float dTps);
+	void updateTickTime();
 	
 	std::vector <std::vector <Tile>>& getTilesRef();
 	SimulationConfig& getConfigRef();
