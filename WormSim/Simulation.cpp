@@ -24,7 +24,8 @@ bool Simulation::timePassed() {
 		return false;
 	}
 	if (tickTime != 0 && now - lastTick >= std::chrono::nanoseconds(tickTime)) {
-		lastTick += std::chrono::nanoseconds(tickTime);
+		//lastTick += std::chrono::nanoseconds(tickTime);
+		lastTick = now;
 		return true;
 	}
 	else if (tickTime == 0) {
