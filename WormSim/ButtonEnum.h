@@ -21,5 +21,6 @@ enum class ButtonEnum {
 	CLEARFOOD,
 	SAVECHANGES,
 	DISCARDCHANGES,
-	PAUSE
+	PAUSE,
+	DISCARD
 };

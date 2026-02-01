@@ -82,7 +82,7 @@ void Graphics::prepareButtons(int startX, int startY, int width, int height) {
 	Button bPlaceFood(startX + 10, y - 150, 122, 30, "Postaw jedzenie", 15, true, config.getFoodOnMouse());
 	buttons.push_back(bPlaceFood);
 
-	Button bConfirm(startX + 10, 410, 254, 30, "Zastosuj", 16);
+	Button bConfirm(startX + 10, 410, 122, 30, "Zapisz zmiany", 16);
 	buttons.push_back(bConfirm);
 
 	Button bClearFood(startX + 143, y - 150, 122, 30, "Wyczysc jedzenie", 17);
@@ -96,6 +96,9 @@ void Graphics::prepareButtons(int startX, int startY, int width, int height) {
 
 	Button bPause(startX + 2 * height + 30, startY + 280, 3 * height + 5, height * 0.75, "Zatrzymaj", 20, true, false, 20);
 	buttons.push_back(bPause);
+
+	Button bSave(startX + 143, 410, 122, 30, "Odrzuc zmiany", 21);
+	buttons.push_back(bSave);
 }
 
 void Graphics::prepareInputs(int startX, int startY, int width, int height) {
@@ -293,6 +296,13 @@ void Graphics::drawButtons() {
 					case PAUSE:
 						simulation.togglePause();
 						buttons[14].toggle();
+						break;
+
+					case DISCARD:
+						inputs[6].setValue(config.getWidth());
+						inputs[7].setValue(config.getHeight());
+
+						break;
 				}
 
 			}
