@@ -22,6 +22,5 @@ enum class ButtonEnum {
 	SAVECHANGES,
 	DISCARDCHANGES,
 	PAUSE,
-	DISCARD,
-	DATABASE
+	DISCARD
 };

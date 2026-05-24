@@ -1,6 +1,5 @@
 #include "Graphics.h"
 #include "ButtonEnum.h"
-#include "DbButtonEnum.h"
 
 
 Graphics::Graphics(Simulation& simulation, int x, int y) : 
@@ -13,7 +12,6 @@ Graphics::Graphics(Simulation& simulation, int x, int y) :
 	this->x = x;
 	this->y = y;
 	prepareButtons(985, 50, 122, 30);
-	prepareDbButtons();
 	prepareInputs(1165, 50 + 10, 122, 20);
 	generateWormBoxRandom();
 	// Tell the window to use vsync and work on high DPI displays
@@ -33,62 +31,7 @@ void Graphics::draw() {
 	drawWorm();
 	drawWormOnMouse();
 	drawFoodOnMouse();
-	if (simulation.isDbPaused()) {
-		drawDbMenu();
-	}
 	EndDrawing();
-}
-
-void Graphics::drawDbMenu() {
-	const int startY = 39;
-	const int startX = 9;
-	//960
-	//670
-	DrawRectangle(startX, startY, 961, 671, BLACK);
-	DrawRectangleLines(startX, startY, 961, 671, WHITE);
-	drawDbButtons();
-	drawDbInfo();
-}
-
-void Graphics::drawDbInfo() {
-
-	simulation.database.fetchData();
-}
-
-void Graphics::drawDbButtons() {
-	using enum DbButtonEnum;
-	for (Button& button : dbButtons) {
-		int x = button.getX();
-		int y = button.getY();
-		int width = button.getWidth();
-		int height = button.getHeight();
-		if (manager.isMouseOver(x, y, width, height)) {
-			button.setColor(RED);
-			DbButtonEnum e = static_cast <DbButtonEnum> (button.getID());	//ID buttona na enum
-			if (manager.isLMouseClicked()) {
-				switch (e) {
-					case SAVE:
-						simulation.database.execute("INSERT INTO worm_stats(zywe, martwe) VALUES(" + std::to_string(simulation.getWorms().size()) + "," + std::to_string(simulation.getDeadWorms()) + ")");
-						simulation.database.execute("INSERT INTO food_stats(ilosc_jedzenia) VALUES(" + std::to_string(simulation.getFoodAmount()) + ")");
-						simulation.database.execute("INSERT INTO board_stats(puste_pola, pelne_pola, powierzchnia) VALUES(" + std::to_string(simulation.getFoodTiles()) + ", " + std::to_string(simulation.getEmptyTiles()) + ", " + std::to_string(config.getWidth() * config.getHeight()) + ")");
-						break;
-				}
-			}
-			if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-				button.setBgColor(WHITE);
-				button.setTxtColor(BLACK);
-			}
-			if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
-				button.setBgColor(BLACK);
-				button.setTxtColor(WHITE);
-			}
-		}
-		else {
-			button.setColor(WHITE);
-
-		}
-		button.draw();
-	}
 }
 
 void Graphics::drawMenu() {
@@ -98,11 +41,6 @@ void Graphics::drawMenu() {
 	drawButtons();
 	drawSizeFrame();
 	drawInfo();
-}
-
-void Graphics::prepareDbButtons() {
-	Button bDbSave(20, 50, 200, 50, "Zapisz dane", 0);
-	dbButtons.push_back(bDbSave);
 }
 
 void Graphics::prepareButtons(int startX, int startY, int width, int height) {
@@ -161,9 +99,6 @@ void Graphics::prepareButtons(int startX, int startY, int width, int height) {
 
 	Button bSave(startX + 143, 410, 122, 30, "Odrzuc zmiany", 21);
 	buttons.push_back(bSave);
-
-	Button bDatabase(startX, 5, 122, 30, "Database", 22, true);
-	buttons.push_back(bDatabase);
 }
 
 void Graphics::prepareInputs(int startX, int startY, int width, int height) {
@@ -366,17 +301,7 @@ void Graphics::drawButtons() {
 					case DISCARD:
 						inputs[6].setValue(config.getWidth());
 						inputs[7].setValue(config.getHeight());
-						break;
 
-					case DATABASE:
-						simulation.toggleDbPause();
-						if (!buttons[16].getToggle()) {
-							simulation.database.connect();
-						}
-						else {
-							simulation.database.disconnect();
-						}
-						buttons[16].toggle();
 						break;
 				}
 
