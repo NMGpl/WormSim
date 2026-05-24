@@ -1,5 +1,6 @@
 #pragma once
 #include "sqlite3.h"
+#include <vector>
 #include <string>
 
 class Database
@@ -13,6 +14,6 @@ public:
 	void connect();
 	void disconnect();
 	void execute(const std::string& query);
-	void fetchData();
+	std::vector <std::vector <std::string>> fetchData();
 };
 

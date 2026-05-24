@@ -12,6 +12,7 @@ Graphics::Graphics(Simulation& simulation, int x, int y) :
 {
 	this->x = x;
 	this->y = y;
+	this->dbData.resize(10);
 	prepareButtons(985, 50, 122, 30);
 	prepareDbButtons();
 	prepareInputs(1165, 50 + 10, 122, 20);
@@ -51,8 +52,40 @@ void Graphics::drawDbMenu() {
 }
 
 void Graphics::drawDbInfo() {
+	//simulation.database.fetchData();
+	int x = 240;
+	int y = 50;
+	this->dbData = simulation.database.fetchData();
+	std::vector <std::string> cols = { "ID", "Zywe robaki", "Martwe robaki", "Ilosc jedzenia", "Puste pola", "Pelne pola", "Powierzchnia planszy" };
+	drawInfoLine("|", "", x - 5, y);
+	for (std::string& col : cols) {
+		drawInfoLine(col, "", x, y);
+		x += MeasureText(col.c_str(), 15) + 10;
+		drawInfoLine("|", "", x - 5, y);
+	}
 
-	simulation.database.fetchData();
+	int i = 0;
+	for (std::vector <std::string>& row : dbData) {
+		int j = 1;
+		int x = 240;
+		y += 20;
+
+		drawInfoLine("|", "", x - 5, y);
+		drawInfoLine(std::to_string(i), "", x, y);
+		x += MeasureText(cols[0].c_str(), 15) + 10;
+		drawInfoLine("|", "", x - 5, y);
+		for (std::string& cell : row) {
+			drawInfoLine(cell, "", x, y);
+			x += MeasureText(cols[j].c_str(), 15) + 10;
+			drawInfoLine("|", "", x - 5, y);
+			j++;
+		}
+		i++;
+	}
+}
+
+void Graphics::updateData(std::vector <std::vector <std::string>> data) {
+	this->dbData = data;
 }
 
 void Graphics::drawDbButtons() {
@@ -71,6 +104,10 @@ void Graphics::drawDbButtons() {
 						simulation.database.execute("INSERT INTO worm_stats(zywe, martwe) VALUES(" + std::to_string(simulation.getWorms().size()) + "," + std::to_string(simulation.getDeadWorms()) + ")");
 						simulation.database.execute("INSERT INTO food_stats(ilosc_jedzenia) VALUES(" + std::to_string(simulation.getFoodAmount()) + ")");
 						simulation.database.execute("INSERT INTO board_stats(puste_pola, pelne_pola, powierzchnia) VALUES(" + std::to_string(simulation.getFoodTiles()) + ", " + std::to_string(simulation.getEmptyTiles()) + ", " + std::to_string(config.getWidth() * config.getHeight()) + ")");
+						break;
+
+					case LOAD:
+						updateData(simulation.database.fetchData());
 						break;
 				}
 			}
@@ -103,6 +140,9 @@ void Graphics::drawMenu() {
 void Graphics::prepareDbButtons() {
 	Button bDbSave(20, 50, 200, 50, "Zapisz dane", 0);
 	dbButtons.push_back(bDbSave);
+
+	Button bDbLoad(20, 110, 200, 50, "Wczytaj dane", 0);
+	dbButtons.push_back(bDbLoad);
 }
 
 void Graphics::prepareButtons(int startX, int startY, int width, int height) {

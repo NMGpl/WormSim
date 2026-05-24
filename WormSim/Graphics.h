@@ -19,6 +19,7 @@ class Graphics {
 	std::vector <Button> buttons;
 	std::vector <Input> inputs;
 	std::vector <Button> dbButtons;
+	std::vector <std::vector <std::string>> dbData;
 	//std::vector <std::vector <Tile>>& tiles;
 
 	void drawMenu();
@@ -26,6 +27,7 @@ class Graphics {
 	void drawDbMenu();
 	void drawDbButtons();
 	void drawDbInfo();
+	void updateData(std::vector <std::vector <std::string>> data);
 	void drawWorm();
 	void drawWormOnMouse();
 	void drawFoodOnMouse();
