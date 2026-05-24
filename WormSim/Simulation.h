@@ -4,6 +4,7 @@
 #include "Tile.h"
 #include "Egg.h"
 #include "AStar.h"
+#include "Database.h"
 #include <vector>
 #include <ctime>
 #include <chrono>
@@ -18,6 +19,7 @@ class Simulation{
 	int deadWorms = 0;
 	float tps = 1;
 	bool paused = false;
+	bool dbPaused = false;
 	std::vector <int> searchFood(int headX, int headY, int distance) const;
 	std::vector <int> searchClosestFood(std::vector <std::vector <int>> foodTiles, int distance, int headX, int headY) const;
 	std::vector <std::vector <int>> findMovement(std::vector <int> headPos, std::vector <int> foodTile);
@@ -48,6 +50,7 @@ class Simulation{
 	void foodRegenerate();
 public:
 	Simulation(int width, int height, int tps = 1);
+	Database database;
 	void simulate();
 	void addWorm(int wormsAmount);
 	void addWorm(int wormsAmount, int headX, int headY);
@@ -64,6 +67,7 @@ public:
 	void resizeBoard();
 	
 	void togglePause();
+	void toggleDbPause();
 	void setTickTime(float tps);
 	void addTickTime(float dTps);
 	void updateTickTime();
@@ -76,5 +80,9 @@ public:
 	int getDeadWorms() const;
 	int getBoardWidth() const;
 	int getBoardHeight() const;
+	bool isDbPaused() const;
+	int getFoodAmount() const;
+	int getFoodTiles() const;
+	int getEmptyTiles() const;
 };
 

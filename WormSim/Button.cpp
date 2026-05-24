@@ -70,3 +70,7 @@ void Button::setTxtColor(Color color) {
 int Button::getID() const {
 	return id;
 }
+
+bool Button::getToggle() const {
+	return toggled;
+}

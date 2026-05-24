@@ -1,6 +1,6 @@
 #include "Simulation.h"
 
-Simulation::Simulation(int width, int height, int tps) {
+Simulation::Simulation(int width, int height, int tps): database("worms.db") {
 	this->boardWidth = width;
 	this->boardHeight = height;
 	setTickTime(tps);
@@ -19,7 +19,7 @@ void Simulation::simulate() {
 bool Simulation::timePassed() {
 	tickTime = getSimSpeed();
 	auto now = std::chrono::high_resolution_clock::now();
-	if (paused) {
+	if (paused || dbPaused) {
 		lastTick = now;
 		return false;
 	}
@@ -219,6 +219,10 @@ void Simulation::addTickTime(float dTps) {
 
 void Simulation::togglePause() {
 	this->paused = !paused;
+}
+
+void Simulation::toggleDbPause() {
+	this->dbPaused = !dbPaused;
 }
 
 int Simulation::getSimSpeed() const {
@@ -508,4 +512,42 @@ void Simulation::clearBoard(int width, int height) {
 			tiles[i][j].setFoodAmount(0);
 		}
 	}
+}
+
+bool Simulation::isDbPaused() const {
+	return dbPaused;
+}
+
+int Simulation::getFoodAmount() const {
+	int foodAmount = 0;
+	for (int i = 0; i < config.getWidth(); i++) {
+		for (int j = 0; j < config.getHeight(); j++) {
+			foodAmount += tiles[i][j].getFoodAmount();
+		}
+	}
+	return foodAmount;
+}
+
+int Simulation::getFoodTiles() const {
+	int foodTiles = 0;
+	for (int i = 0; i < config.getWidth(); i++) {
+		for (int j = 0; j < config.getHeight(); j++) {
+			if (tiles[i][j].getFoodAmount() > 0) {
+				foodTiles++;
+			}
+		}
+	}
+	return foodTiles;
+}
+
+int Simulation::getEmptyTiles() const {
+	int emptyTiles = 0;
+	for (int i = 0; i < config.getWidth(); i++) {
+		for (int j = 0; j < config.getHeight(); j++) {
+			if (tiles[i][j].getFoodAmount() == 0) {
+				emptyTiles++;
+			}
+		}
+	}
+	return emptyTiles;
 }

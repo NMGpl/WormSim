@@ -24,5 +24,6 @@ public:
 	int getWidth() const;
 	int getHeight() const;
 	int getID() const;
+	bool getToggle() const;
 };
 
